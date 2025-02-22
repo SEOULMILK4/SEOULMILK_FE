@@ -33,12 +33,21 @@ const Picker = ({ correctCount, inCorrectCount }: PickerProps) => {
   const [currentPick, setCurrentPick] = useState(PickType.CORRECT);
 
   return (
-    <div className="rounded-lg w-fit h-fit bg-grayScale-100 p-[2px] flex">
+    <div className="relative flex h-fit rounded-lg w-[256px] p-[2px] bg-grayScale-100 overflow-hidden">
+      <div
+        className="absolute top-[2px] left-[2px] w-[126px] h-[28px] bg-white rounded-[7px] transition-transform duration-300 ease-in-out"
+        style={{
+          transform:
+            currentPick === PickType.INCORRECT
+              ? "translateX(100%)"
+              : "translateX(0%)",
+        }}
+      />
       {options.map(({ type, count, activeColor }) => (
         <div
           key={type}
-          className={`w-[126px] h-fit text-center py-[6px] text-b3 font-medium rounded-[7px]
-            ${currentPick === type ? `bg-white ${activeColor} font-semibold` : "text-grayScale-500"}`}
+          className={`flex items-center justify-center relative w-[126px] h-[28px] text-b3 font-medium rounded-[7px]
+            ${currentPick === type ? `${activeColor} font-semibold` : "text-grayScale-500"}`}
           onClick={() => setCurrentPick(type)}
         >
           {type} {count}건
