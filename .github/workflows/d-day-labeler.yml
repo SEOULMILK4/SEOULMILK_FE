@@ -1,7 +1,7 @@
 name: Update D-n Labels
 on:
   schedule:
-    - cron: '0 15 * * *' # 매일 밤 12시에 실행 (KST 기준)
+    - cron: "0 15 * * *" # 매일 밤 12시에 실행 (KST 기준)
 jobs:
   d-day-labeler:
     runs-on: [ubuntu-latest]
@@ -9,4 +9,4 @@ jobs:
       - name: Update D-n Labels
         uses: naver/d-day-labeler@latest
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTO_ACTIONS }}
