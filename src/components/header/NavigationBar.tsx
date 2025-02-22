@@ -42,7 +42,6 @@ const NavigationBar = () => {
     navigate(url);
   };
 
-  console.log(location.pathname);
   return (
     <header className="w-full h-[70px] flex gap-10 p-5 items-center border-b border-b-grayScale-200">
       <img
