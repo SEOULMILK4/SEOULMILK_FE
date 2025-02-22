@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 
 interface EmployeeNumberInputProps {
@@ -12,6 +12,8 @@ const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
 }) => {
   const [employeeNumber, setEmployeeNumber] = useState("");
   const [placeholder, setPlaceholder] = useState("사원번호");
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { ref, onBlur, onChange, ...rest } = register("employeeNumber", {
     required: "Employee number is required",
@@ -21,38 +23,55 @@ const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
     },
   });
 
-  // 입력 필드를 비우는 함수
   const clearInput = () => {
-    setEmployeeNumber(""); // 상태 업데이트로 입력 필드 비우기
+    setEmployeeNumber("");
+    inputRef.current?.focus();
+    setIsFocused(true);
   };
 
   return (
-    <div className="relative flex items-center w-[442px]">
+    <div className="relative flex items-center w-[442px] border-[1px] border-grayScale-100 border-solid h-[60px] rounded-[16px]">
       <input
-        className="bg-gray-200 placeholder-gray-400 text-gray-800 rounded-[16px] w-full h-[60px] text-lg pl-4 pr-10 font-semibold focus:ring-2 focus:ring-secondary-500 focus:outline-none"
+        className="bg-grayScale-50 placeholder-gray-400 rounded-[15px] text-gray-800 w-full h-full text-lg pl-4 pr-10 font-semibold focus:ring-2 focus:ring-secondary-500 focus:outline-none focus:caret-secondary-500"
         id="employeeNumber"
         type="text"
         placeholder={placeholder}
         value={employeeNumber}
         onChange={(e) => {
-          onChange(e); // react-hook-form의 onChange 처리
-          setEmployeeNumber(e.target.value); // 상태 업데이트
+          onChange(e);
+          setEmployeeNumber(e.target.value);
         }}
         onBlur={(e) => {
-          onBlur(e); // react-hook-form의 onBlur 처리
-          setPlaceholder("사원번호"); // 플레이스홀더 재설정
+          onBlur(e);
+          setTimeout(() => {
+            if (!employeeNumber) {
+              setPlaceholder("사원번호");
+              setIsFocused(false);
+            }
+          }, 0);
         }}
-        onFocus={() => setPlaceholder("사원번호를 입력해 주세요")}
-        ref={ref}
+        onFocus={() => {
+          setPlaceholder("사원번호를 입력해 주세요");
+          setIsFocused(true);
+        }}
+        ref={(e) => {
+          ref(e);
+          inputRef.current = e;
+        }}
         {...rest}
       />
-      <button
-        onClick={clearInput}
-        type="button"
-        className="absolute inset-y-0 px-2 center right-2"
-      >
-        <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
-      </button>
+      {isFocused && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            clearInput();
+          }}
+          type="button"
+          className="absolute inset-y-0 z-10 px-2 center right-2"
+        >
+          <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
+        </button>
+      )}
     </div>
   );
 };
