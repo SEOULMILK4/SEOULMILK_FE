@@ -12,19 +12,19 @@ interface NotiMessageProps {
 const NotiMessage = ({ type, month }: NotiMessageProps) => {
   const notiType = {
     noti: {
-      icon: "/icons/warning.svg",
+      icon: "/assets/warning.svg",
       text: `${month}월 지급결의서 발행 요청이 도착했습니다.`,
       textColor: "text-warning-500",
       backgroundColor: "bg-warning-50",
     },
     success: {
-      icon: "/icons/success.svg",
+      icon: "/assets/success.svg",
       text: "홈택스 검증결과, 발급된 사실이 있습니다.",
       textColor: "text-secondary-500",
       backgroundColor: "bg-secondary-25",
     },
     error: {
-      icon: "/icons/error.svg",
+      icon: "/assets/error.svg",
       text: "홈택스 검증결과, 발급된 사실이 없습니다.",
       errorMessage:
         "데이터가 제대로 입력 되어있는지 확인 or 대리점에 문의하세요.",
