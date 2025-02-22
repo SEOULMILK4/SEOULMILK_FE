@@ -1,10 +1,9 @@
 ---
 name: 기능 요청
 about: 이 프로젝트에 대한 아이디어를 제안해주세요
-title: "[feature] "
-labels: 
-assignees: ''
-
+title: "[feat] "
+labels:
+assignees: ""
 ---
 
 **이 기능 요청이 문제와 관련이 있나요? 설명해주세요.**
