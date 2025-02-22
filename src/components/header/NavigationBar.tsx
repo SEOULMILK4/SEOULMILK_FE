@@ -5,7 +5,7 @@ import Mail from "@/assets/icons/mail.svg?react";
 import Clipboard from "@/assets/icons/clipboard.svg?react";
 import FileSearch from "@/assets/icons/fileSearch.svg?react";
 
-const NavigationItem = [
+const navigationItem = [
   {
     text: "세금 계산서 업로드",
     url: "/upload",
@@ -54,7 +54,7 @@ const NavigationBar = () => {
         }}
       />
 
-      {NavigationItem.map(({ text, url, icon: Icon }) => (
+      {navigationItem.map(({ text, url, icon: Icon }) => (
         <div
           key={text}
           className={`group flex items-center justify-center gap-2 px-5 py-3 hover:bg-grayScale-25 hover:rounded-xl text-grayScale-600 hover:text-grayScale-900
