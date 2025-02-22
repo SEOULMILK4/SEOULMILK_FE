@@ -46,8 +46,8 @@ const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
           setTimeout(() => {
             if (!employeeNumber) {
               setPlaceholder("사원번호");
-              setIsFocused(false);
             }
+            setIsFocused(false);
           }, 0);
         }}
         onFocus={() => {

@@ -53,10 +53,8 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ register, errors }) => {
         onBlur={(e) => {
           onBlur(e);
           setTimeout(() => {
-            if (password) {
-              setPlaceholder("비밀번호");
-              setIsFocused(false);
-            }
+            setPlaceholder("비밀번호");
+            setIsFocused(false);
           }, 0);
         }}
         onFocus={() => {
