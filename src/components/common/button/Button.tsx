@@ -27,7 +27,7 @@ const Button = ({ size, color, disable, children }: ButtonProps) => {
   const getColorClass = () => {
     if (disable) {
       return color === "green"
-        ? "bg-secondary-25 text-white"
+        ? "bg-secondary-50 text-white"
         : "bg-grayScale-50 text-grayScale-300";
     }
     return color === "green"
