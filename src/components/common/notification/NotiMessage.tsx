@@ -37,7 +37,7 @@ const NotiMessage = ({ type, month }: NotiMessageProps) => {
     <div
       className={`w-[420px] px-2 py-[9px] flex gap-2 items-center rounded-lg ${notiType[type].backgroundColor}`}
     >
-      <img src={notiType[type].icon} />
+      <img src={notiType[type].icon} alt={type} />
       <div className="flex flex-col gap-1">
         <p className={`font-medium text-b4 ${notiType[type].textColor}`}>
           {notiType[type].text}
