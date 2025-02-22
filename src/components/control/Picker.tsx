@@ -46,7 +46,7 @@ const Picker = ({ correctCount, inCorrectCount }: PickerProps) => {
       {options.map(({ type, count, activeColor }) => (
         <div
           key={type}
-          className={`flex items-center justify-center relative w-[126px] h-[28px] text-b3 font-medium rounded-[7px]
+          className={`center relative w-[126px] h-[28px] text-b3 font-medium rounded-[7px]
             ${currentPick === type ? `${activeColor} font-semibold` : "text-grayScale-500"}`}
           onClick={() => setCurrentPick(type)}
         >
