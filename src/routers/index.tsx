@@ -6,8 +6,10 @@ import RequestPage from "@/pages/RequestPage";
 import ApprovePage from "@/pages/ApprovePage";
 import HistoryPage from "@/pages/HistoryPage";
 import MyPage from "@/pages/MyPage";
+import LoginPage from "@/pages/LoginPage";
 
 export const router = createBrowserRouter([
+  { path: "/", element: <LoginPage /> },
   {
     path: "/",
     element: <Layout />,
