@@ -3,7 +3,7 @@ import React from "react";
 interface ButtonProps {
   size: "medium" | "large";
   color: "green" | "gray";
-  disable: boolean;
+  disabled: boolean;
   children: React.ReactNode;
 }
 
@@ -11,11 +11,11 @@ interface ButtonProps {
  *
  * @param size - "medium" | "large"
  * @param color - "green" | "gray"
- * @param disable - true or false
+ * @param disabled - true or false
  *
  * @returns
  */
-const Button = ({ size, color, disable, children }: ButtonProps) => {
+const Button = ({ size, color, disabled, children }: ButtonProps) => {
   // 버튼 사이즈에 따른 스타일을 설정하는 함수
   const getSizeClass = () => {
     return size === "large"
@@ -25,7 +25,7 @@ const Button = ({ size, color, disable, children }: ButtonProps) => {
 
   // 버튼 색상 및 상태에 따른 스타일을 설정하는 함수
   const getColorClass = () => {
-    if (disable) {
+    if (disabled) {
       return color === "green"
         ? "bg-secondary-50 text-white"
         : "bg-grayScale-50 text-grayScale-300";
@@ -37,6 +37,7 @@ const Button = ({ size, color, disable, children }: ButtonProps) => {
 
   return (
     <button
+      disabled={disabled}
       className={`${getSizeClass()} ${getColorClass()} text-center rounded-lg center`}
     >
       {children}
