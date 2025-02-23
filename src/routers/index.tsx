@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import UploadPage from "../pages/UploadPage";
-import ValidationPage from "../pages/ValidationPage";
-import RequestPage from "../pages/RequestPage";
-import ApprovePage from "../pages/ApprovePage";
-import HistoryPage from "../pages/HistoryPage";
 import Layout from "../layout/Layout";
+import UploadPage from "@/pages/UploadPage";
+import ValidationPage from "@/pages/ValidationPage";
+import RequestPage from "@/pages/RequestPage";
+import ApprovePage from "@/pages/ApprovePage";
+import HistoryPage from "@/pages/HistoryPage";
+import MyPage from "@/pages/MyPage";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
         path: "history",
         element: <HistoryPage />,
       },
+      { path: "my", element: <MyPage /> },
     ],
   },
 ]);
