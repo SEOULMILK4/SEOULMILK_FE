@@ -24,9 +24,9 @@ const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
   });
 
   const clearInput = () => {
+    setPlaceholder("사원번호");
+    setIsFocused(false);
     setEmployeeNumber("");
-    inputRef.current?.focus();
-    setIsFocused(true);
   };
 
   return (
@@ -44,11 +44,11 @@ const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
         onBlur={(e) => {
           onBlur(e);
           setTimeout(() => {
-            if (!employeeNumber) {
+            {
               setPlaceholder("사원번호");
+              setIsFocused(false);
             }
-            setIsFocused(false);
-          }, 0);
+          }, 50);
         }}
         onFocus={() => {
           setPlaceholder("사원번호를 입력해 주세요");

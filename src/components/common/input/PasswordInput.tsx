@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 
 interface PasswordInputProps {
@@ -9,9 +9,8 @@ interface PasswordInputProps {
 const PasswordInput: React.FC<PasswordInputProps> = ({ register, errors }) => {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false); // 입력 필드 포커스 상태 관리
   const [placeholder, setPlaceholder] = useState("비밀번호");
-  const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { ref, onBlur, onChange, ...rest } = register("password", {
     required: "Password is required",
@@ -21,25 +20,17 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ register, errors }) => {
     },
   });
 
-  // 비밀번호 입력 필드를 비우는 함수
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev); // 상태를 토글
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus(); // 포커스를 입력 필드에 맞춤
-        const length = inputRef.current.value.length; // 입력 필드의 현재 값의 길이를 구함
-        inputRef.current.setSelectionRange(length, length); // 커서를 필드 값의 끝으로 이동
-      }
-    }, 0);
+  const clearInput = () => {
+    setPlaceholder("비밀번호");
+    setPassword("");
   };
 
-  const clearInput = () => {
-    setPassword("");
-    setTimeout(() => inputRef.current?.focus(), 0); // 포커스 지연
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
-    <div className="relative flex items-center w-[442px] border-[1px] border-grayScale-100 border-solid rounded-[16px] h-[60px]">
+    <div className="relative flex items-center w-[442px] border-[1px] border-grayScale-100 border-solid h-[60px] rounded-[16px]">
       <input
         className="bg-grayScale-50 placeholder-gray-400 rounded-[15px] text-gray-800 w-full h-full text-lg pl-4 pr-10 font-semibold focus:ring-2 focus:ring-secondary-500 focus:outline-none focus:caret-secondary-500"
         id="password"
@@ -51,29 +42,23 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ register, errors }) => {
           setPassword(e.target.value);
         }}
         onBlur={(e) => {
-          onBlur(e);
           setTimeout(() => {
-            setPlaceholder("비밀번호");
             setIsFocused(false);
-          }, 0);
+            setPlaceholder("비밀번호");
+          }, 50);
+          onBlur(e);
         }}
         onFocus={() => {
+          setIsFocused(true); // 포커스 상태 업데이트
           setPlaceholder("비밀번호를 입력해 주세요");
-          setIsFocused(true);
         }}
-        ref={(e) => {
-          ref(e);
-          inputRef.current = e;
-        }}
+        ref={ref}
         {...rest}
       />
-      {isFocused && (
-        <div className="z-10">
+      {isFocused && ( // 포커스 상태에 따라 버튼 표시
+        <>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              togglePasswordVisibility();
-            }} // 비밀번호 가시성 토글
+            onClick={togglePasswordVisibility}
             type="button"
             className="absolute inset-y-0 px-2 right-8 center"
           >
@@ -84,16 +69,13 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ register, errors }) => {
             />
           </button>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              clearInput();
-            }}
+            onClick={clearInput}
             type="button"
             className="absolute inset-y-0 px-2 right-2 center"
           >
             <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
           </button>
-        </div>
+        </>
       )}
     </div>
   );
