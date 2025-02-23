@@ -1,32 +1,36 @@
-import React, { useState, useRef } from "react";
-import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
-interface EmployeeNumberInputProps {
-  register: UseFormRegister<any>;
-  errors: FieldErrors;
-}
-
-const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
-  register,
-  errors,
-}) => {
-  const [employeeNumber, setEmployeeNumber] = useState("");
-  const [placeholder, setPlaceholder] = useState("사원번호");
-  const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const { ref, onBlur, onChange, ...rest } = register("employeeNumber", {
-    required: "Employee number is required",
-    pattern: {
-      value: /^[A-Za-z0-9]+$/,
-      message: "Employee number must be alphanumeric",
-    },
-  });
+const EmployeeNumberInput = () => {
+  const {
+    register,
+    formState: { errors },
+    watch,
+  } = useFormContext();
+  const employeeNumber = watch("employeeNumber");
+  const [placeholder, setPlaceholder] = useState("사원번호"); // 플레이스홀더 상태
+  const [isFocused, setIsFocused] = useState(false); // 포커스 상태를 useState로 관리
 
   const clearInput = () => {
+    const inputElement = document.getElementById(
+      "employeeNumber"
+    ) as HTMLInputElement;
+    if (inputElement) {
+      inputElement.value = "";
+    }
+  };
+
+  const onFocus = () => {
+    setIsFocused(true);
+    setPlaceholder("사원번호를 입력해 주세요");
+  };
+
+  const onBlur = () => {
+    setTimeout(() => {
+      setIsFocused(false);
+    }, 10);
+
     setPlaceholder("사원번호");
-    setIsFocused(false);
-    setEmployeeNumber("");
   };
 
   return (
@@ -36,31 +40,17 @@ const EmployeeNumberInput: React.FC<EmployeeNumberInputProps> = ({
         id="employeeNumber"
         type="text"
         placeholder={placeholder}
-        value={employeeNumber}
-        onChange={(e) => {
-          onChange(e);
-          setEmployeeNumber(e.target.value);
-        }}
-        onBlur={(e) => {
-          onBlur(e);
-          setTimeout(() => {
-            {
-              setPlaceholder("사원번호");
-              setIsFocused(false);
-            }
-          }, 50);
-        }}
-        onFocus={() => {
-          setPlaceholder("사원번호를 입력해 주세요");
-          setIsFocused(true);
-        }}
-        ref={(e) => {
-          ref(e);
-          inputRef.current = e;
-        }}
-        {...rest}
+        {...register("employeeNumber", {
+          required: "Employee number is required",
+          pattern: {
+            value: /^[A-Za-z0-9]+$/,
+            message: "Employee number must be alphanumeric",
+          },
+        })}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
-      {isFocused && (
+      {isFocused && employeeNumber && (
         <button
           onClick={(e) => {
             e.stopPropagation();
