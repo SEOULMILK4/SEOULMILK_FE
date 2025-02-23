@@ -6,6 +6,7 @@ const PasswordInput = () => {
     register,
     formState: { errors },
     watch,
+    setValue,
   } = useFormContext();
 
   const password = watch("password");
@@ -14,12 +15,7 @@ const PasswordInput = () => {
   const [placeholder, setPlaceholder] = useState("비밀번호");
 
   const clearInput = () => {
-    const inputElement = document.getElementById(
-      "password"
-    ) as HTMLInputElement;
-    if (inputElement) {
-      inputElement.value = "";
-    }
+    setValue("password", "");
   };
 
   const togglePasswordVisibility = () => {
@@ -34,7 +30,7 @@ const PasswordInput = () => {
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
-    }, 10);
+    }, 100);
 
     setPlaceholder("비밀번호");
   };
@@ -48,10 +44,10 @@ const PasswordInput = () => {
         placeholder={placeholder}
         value={password}
         {...register("password", {
-          required: "Employee number is required",
+          required: "Password is required",
           pattern: {
             value: /^[A-Za-z0-9]+$/,
-            message: "Employee number must be alphanumeric",
+            message: "Password must be alphanumeric",
           },
         })}
         onFocus={onFocus}
