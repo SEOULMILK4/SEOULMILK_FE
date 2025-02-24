@@ -3,8 +3,11 @@ import { useState } from "react";
 interface PickerProps {
   totalCount: number;
   pendingCount?: number;
-  correctCount: number;
-  inCorrectCount: number;
+  correctCount?: number;
+  inCorrectCount?: number;
+  approvedCount?: number;
+  rejectedCount?: number;
+  type: "matching" | "process";
 }
 
 enum PickType {
@@ -12,14 +15,19 @@ enum PickType {
   PENDING = "대기",
   CORRECT = "일치",
   INCORRECT = "불일치",
+  APPROVED = "승인",
+  REJECTED = "반려",
 }
 
 /**
  *
  * @param totalCount - 전체 건수
- * @param pendingCount - (optional) 결재자 지급결의서 결재함에서 대기 건수
- * @param correctCount - 일치 건수
- * @param inCorrectCount - 불일치 건수
+ * @param pendingCount - (optional) 대기 건수
+ * @param correctCount - (optional) 일치 건수
+ * @param inCorrectCount -(optional) 불일치 건수
+ * @param approvedCount - (optional) 승인 건수
+ * @param rejectedCount - (optional) 반려 건수
+ * @param type - "matching" | "process"
  * @returns
  */
 const Picker = ({
@@ -27,37 +35,55 @@ const Picker = ({
   pendingCount,
   correctCount,
   inCorrectCount,
+  approvedCount,
+  rejectedCount,
+  type,
 }: PickerProps) => {
-  const options = [
+  const allOptions = [
     {
       type: PickType.TOTAL,
       count: totalCount,
       activeColor: "text-grayScale-600",
     },
-    ...(pendingCount
-      ? [
-          {
-            type: PickType.PENDING,
-            count: pendingCount,
-            activeColor: "text-warning-400",
-          },
-        ]
-      : []),
-    {
-      type: PickType.CORRECT,
-      count: correctCount,
-      activeColor: "text-secondary-300",
-    },
-    {
-      type: PickType.INCORRECT,
-      count: inCorrectCount,
-      activeColor: "text-primary-300",
-    },
-  ];
+    type === "process" && pendingCount !== undefined
+      ? {
+          type: PickType.PENDING,
+          count: pendingCount,
+          activeColor: "text-warning-400",
+        }
+      : null,
+    type === "matching" && correctCount !== undefined
+      ? {
+          type: PickType.CORRECT,
+          count: correctCount,
+          activeColor: "text-secondary-300",
+        }
+      : null,
+    type === "matching" && inCorrectCount !== undefined
+      ? {
+          type: PickType.INCORRECT,
+          count: inCorrectCount,
+          activeColor: "text-primary-300",
+        }
+      : null,
+    type === "process" && approvedCount !== undefined
+      ? {
+          type: PickType.APPROVED,
+          count: approvedCount,
+          activeColor: "text-secondary-300",
+        }
+      : null,
+    type === "process" && rejectedCount !== undefined
+      ? {
+          type: PickType.REJECTED,
+          count: rejectedCount,
+          activeColor: "text-primary-300",
+        }
+      : null,
+  ].filter(Boolean) as { type: PickType; count: number; activeColor: string }[];
+  const [currentPick, setCurrentPick] = useState(PickType.TOTAL);
 
-  const [currentPick, setCurrentPick] = useState(PickType.CORRECT);
-
-  const currentIndex = options.findIndex(
+  const currentIndex = allOptions.findIndex(
     (option) => option.type === currentPick
   );
   const translateXValue = `${currentIndex * 100}%`;
@@ -70,7 +96,7 @@ const Picker = ({
           transform: `translateX(${translateXValue})`,
         }}
       />
-      {options.map(({ type, count, activeColor }) => (
+      {allOptions.map(({ type, count, activeColor }) => (
         <div
           key={type}
           className={`center relative w-[100px] h-[28px] text-b3 font-medium rounded-[7px]
