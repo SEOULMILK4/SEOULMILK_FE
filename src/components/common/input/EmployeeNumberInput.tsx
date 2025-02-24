@@ -6,18 +6,14 @@ const EmployeeNumberInput = () => {
     register,
     formState: { errors },
     watch,
+    setValue,
   } = useFormContext();
   const employeeNumber = watch("employeeNumber");
-  const [placeholder, setPlaceholder] = useState("사원번호"); // 플레이스홀더 상태
-  const [isFocused, setIsFocused] = useState(false); // 포커스 상태를 useState로 관리
+  const [placeholder, setPlaceholder] = useState("사원번호");
+  const [isFocused, setIsFocused] = useState(false); 
 
   const clearInput = () => {
-    const inputElement = document.getElementById(
-      "employeeNumber"
-    ) as HTMLInputElement;
-    if (inputElement) {
-      inputElement.value = "";
-    }
+    setValue("employeeNumber", "");
   };
 
   const onFocus = () => {
@@ -28,8 +24,7 @@ const EmployeeNumberInput = () => {
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
-    }, 10);
-
+    }, 100);
     setPlaceholder("사원번호");
   };
 
