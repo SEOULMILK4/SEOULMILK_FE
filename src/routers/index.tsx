@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
-import UploadPage from "@/pages/UploadPage";
-import ValidationPage from "@/pages/ValidationPage";
-import RequestPage from "@/pages/RequestPage";
-import ApprovePage from "@/pages/ApprovePage";
-import HistoryPage from "@/pages/HistoryPage";
 import MyPage from "@/pages/MyPage";
 import LoginPage from "@/pages/LoginPage";
+import InvoicesPage from "@/pages/InvoicesPage";
+import HometaxPage from "@/pages/HometaxPage";
+import RequestsPage from "@/pages/RequestsPage";
+import ApprovalsPage from "@/pages/ApprovalsPage";
+import EmployeesPage from "@/pages/EmployeesPage";
+import ListsPage from "@/pages/ListsPage";
+import CertificatesPage from "@/pages/CertificatesPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -15,24 +17,32 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "upload",
-        element: <UploadPage />,
+        path: "invoices",
+        element: <InvoicesPage />,
       },
       {
-        path: "validation",
-        element: <ValidationPage />,
+        path: "hometax",
+        element: <HometaxPage />,
       },
       {
-        path: "request",
-        element: <RequestPage />,
+        path: "requests",
+        element: <RequestsPage />,
       },
       {
-        path: "approve",
-        element: <ApprovePage />,
+        path: "approvals",
+        element: <ApprovalsPage />,
       },
       {
-        path: "history",
-        element: <HistoryPage />,
+        path: "employees",
+        element: <EmployeesPage />,
+      },
+      {
+        path: "lists",
+        element: <ListsPage />,
+      },
+      {
+        path: "certificates",
+        element: <CertificatesPage />,
       },
       { path: "my", element: <MyPage /> },
     ],

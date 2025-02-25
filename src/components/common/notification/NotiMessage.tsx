@@ -1,15 +1,17 @@
 interface NotiMessageProps {
   type: "noti" | "success" | "error";
   month?: number;
+  text?: string;
 }
 
 /**
  *
  * @param type - "noti" | "success" | "error"
  * @param month - (optional) noti인 경우 지급 결의서의 month
+ * @param text - (optional) success인 경우 text
  * @returns
  */
-const NotiMessage = ({ type, month }: NotiMessageProps) => {
+const NotiMessage = ({ type, month, text }: NotiMessageProps) => {
   const notiType = {
     noti: {
       icon: "/assets/warning.svg",
@@ -19,7 +21,7 @@ const NotiMessage = ({ type, month }: NotiMessageProps) => {
     },
     success: {
       icon: "/assets/success.svg",
-      text: "홈택스 검증결과, 발급된 사실이 있습니다.",
+      text: text,
       textColor: "text-secondary-500",
       backgroundColor: "bg-secondary-25",
     },

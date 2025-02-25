@@ -1,41 +1,15 @@
+import { navigationItems } from "@/constants/navigation";
+import { roleNames, useRoleStore } from "@/stores/useRoleStore";
 import { useLocation, useNavigate } from "react-router-dom";
-import Upload from "@/assets/icons/upload.svg?react";
-import File from "@/assets/icons/file.svg?react";
-import Mail from "@/assets/icons/mail.svg?react";
-import Clipboard from "@/assets/icons/clipboard.svg?react";
-import FileSearch from "@/assets/icons/fileSearch.svg?react";
-
-const navigationItem = [
-  {
-    text: "세금 계산서 업로드",
-    url: "/upload",
-    icon: Upload,
-  },
-  {
-    text: "홈택스 검증결과",
-    url: "/validation",
-    icon: File,
-  },
-  {
-    text: "지급결의서 요청",
-    url: "/request",
-    icon: Mail,
-  },
-  {
-    text: "지급결의서 결재",
-    url: "/approve",
-    icon: Clipboard,
-  },
-  {
-    text: "내역 통합 조회",
-    url: "/history",
-    icon: FileSearch,
-  },
-];
 
 const NavigationBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { role } = useRoleStore();
+
+  const filteredNavItems = navigationItems.filter((item) =>
+    item.roles.includes(role)
+  );
 
   const handleClick = (url: string) => {
     if (location.pathname === url) return;
@@ -45,7 +19,7 @@ const NavigationBar = () => {
   return (
     <>
       <nav className="w-full h-[70px] flex gap-[10px] px-5 py-[15px] items-center bg-secondary-500">
-        {navigationItem.map(({ text, url, icon: Icon }) => (
+        {filteredNavItems.map(({ text, url, icon: Icon }) => (
           <div
             key={text}
             className={`group flex items-center justify-center gap-2 px-5 py-3 hover:bg-secondary-300 hover:rounded-xl text-secondary-50 hover:text-white 
@@ -69,16 +43,21 @@ const NavigationBar = () => {
           alt="서울우유협동조합"
           onClick={() => handleClick("/")}
         />
-        <div
-          className={`flex gap-2 px-3 py-2 rounded-xl hover:bg-grayScale-50 ${location.pathname === "/my" && "bg-grayScale-50"}`}
-          onClick={() => {
-            handleClick("/my");
-          }}
-        >
-          <img src="/assets/profile.svg" alt="마이페이지" />
-          <span className="font-semibold text-b2 text-grayScale-500">
-            마이페이지
-          </span>
+        <div className="flex items-center gap-[10px]">
+          <div className="px-3 py-[2px] border-secondary-500 border rounded-xl text-b5 font-medium text-secondary-500">
+            {roleNames[role]}
+          </div>
+          <div
+            className={`flex gap-2 px-3 py-2 rounded-xl hover:bg-grayScale-50 ${location.pathname === "/my" && "bg-grayScale-50"}`}
+            onClick={() => {
+              handleClick("/my");
+            }}
+          >
+            <img src="/assets/profile.svg" alt="마이페이지" />
+            <span className="font-semibold text-b2 text-grayScale-500">
+              마이페이지
+            </span>
+          </div>
         </div>
       </header>
     </>
