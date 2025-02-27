@@ -5,6 +5,11 @@ interface DropdownProps {
   onClose: () => void;
 }
 
+/**
+ *
+ * @param onClose - dropdown 닫는 함수
+ * @returns
+ */
 const Dropdown = ({ onClose }: DropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();

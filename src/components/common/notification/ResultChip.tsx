@@ -2,6 +2,11 @@ interface ResultChipProps {
   type: "일치" | "불일치";
 }
 
+/**
+ *
+ * @param type - "일치" | "불일치"
+ * @returns
+ */
 const ResultChip = ({ type }: ResultChipProps) => {
   const isCorrect = type === "일치";
 
