@@ -10,12 +10,12 @@ const EmployeeNumberInput = () => {
   } = useFormContext();
   const employeeNumber = watch("employeeNumber");
   const [placeholder, setPlaceholder] = useState("사원번호");
-  const [isFocused, setIsFocused] = useState(false); 
+  const [isFocused, setIsFocused] = useState(false);
 
   const clearInput = () => {
     setValue("employeeNumber", "");
   };
-
+  console.log(errors);
   const onFocus = () => {
     setIsFocused(true);
     setPlaceholder("사원번호를 입력해 주세요");
@@ -24,7 +24,7 @@ const EmployeeNumberInput = () => {
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
-    }, 100);
+    }, 10);
     setPlaceholder("사원번호");
   };
 
