@@ -2,9 +2,11 @@ import { create } from "zustand";
 
 type Role = "requester" | "approver" | "admin";
 
-interface RoleState {
+interface UserState {
   role: Role;
-  setRole: (role: Role) => void;
+  name: string;
+  profileImage: string;
+  setUser: (user: Partial<UserState>) => void;
 }
 
 export const roleNames: Record<Role, string> = {
@@ -14,7 +16,9 @@ export const roleNames: Record<Role, string> = {
 };
 
 //@TODO 나중에 로그인 연결하면서 수정해야함!
-export const useRoleStore = create<RoleState>((set) => ({
+export const useUserStore = create<UserState>((set) => ({
   role: "admin",
-  setRole: (role) => set({ role }),
+  name: "안연아",
+  profileImage: "https://github.com/shadcn.png",
+  setUser: (user) => set((state) => ({ ...state, ...user })),
 }));
