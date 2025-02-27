@@ -34,7 +34,7 @@ const Modal = ({ children, onClose }: ModalProps) => {
 
   return (
     <Portal>
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20">
         <div
           ref={modalRef}
           className="p-6 bg-white shadow-[0px_4px_50px_0px_rgba(0,0,0,0.05)] rounded-[20px]"
