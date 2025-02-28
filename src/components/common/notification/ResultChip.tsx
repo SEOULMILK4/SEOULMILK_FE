@@ -12,7 +12,7 @@ const ResultChip = ({ type }: ResultChipProps) => {
 
   return (
     <div
-      className={`w-[45px] h-6 center text-b5 font-medium rounded-[4px] ${isCorrect ? "text-secondary-500 bg-secondary-25" : "text-primary-500 bg-primary-50"}`}
+      className={`w-[47px] h-6 center text-b5 font-medium rounded-[4px] ${isCorrect ? "text-secondary-500 bg-secondary-25" : "text-primary-500 bg-primary-50"}`}
     >
       {type}
     </div>

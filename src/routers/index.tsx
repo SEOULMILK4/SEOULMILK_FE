@@ -2,13 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 import MyPage from "@/pages/MyPage";
 import LoginPage from "@/pages/LoginPage";
-import InvoicesPage from "@/pages/InvoicesPage";
-import HometaxPage from "@/pages/HometaxPage";
-import RequestsPage from "@/pages/RequestsPage";
-import ApprovalsPage from "@/pages/ApprovalsPage";
-import EmployeesPage from "@/pages/EmployeesPage";
-import ListsPage from "@/pages/ListsPage";
-import CertificatesPage from "@/pages/CertificatesPage";
+import VerifyPage from "@/pages/VerifyPage";
+import SubmitPage from "@/pages/SubmitPage";
+import RegisterPage from "@/pages/RegisterPage";
+import UsersPage from "@/pages/UsersPage";
+import LookupPage from "@/pages/LookupPage";
+import CertPage from "@/pages/CertPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -16,34 +15,12 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      {
-        path: "invoices",
-        element: <InvoicesPage />,
-      },
-      {
-        path: "hometax",
-        element: <HometaxPage />,
-      },
-      {
-        path: "requests",
-        element: <RequestsPage />,
-      },
-      {
-        path: "approvals",
-        element: <ApprovalsPage />,
-      },
-      {
-        path: "employees",
-        element: <EmployeesPage />,
-      },
-      {
-        path: "lists",
-        element: <ListsPage />,
-      },
-      {
-        path: "certificates",
-        element: <CertificatesPage />,
-      },
+      { path: "verify", element: <VerifyPage /> },
+      { path: "submit", element: <SubmitPage /> },
+      { path: "register", element: <RegisterPage /> },
+      { path: "users", element: <UsersPage /> },
+      { path: "lookup", element: <LookupPage /> },
+      { path: "cert", element: <CertPage /> },
       { path: "my", element: <MyPage /> },
     ],
   },
