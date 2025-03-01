@@ -16,7 +16,11 @@ const WarningModal = ({ onClose }: WarningModalProps) => {
   return (
     <Modal onClose={onClose}>
       <div className="flex-col center gap-[10px] w-[354px]">
-        <img src="/assets/warningFace.svg" alt="success" className="mb-[6px]" />
+        <img
+          src="/assets/icons/warningFace.svg"
+          alt="success"
+          className="mb-[6px]"
+        />
         <span className="font-bold text-h2 text-grayScale-900">
           공동인증서 만료
         </span>

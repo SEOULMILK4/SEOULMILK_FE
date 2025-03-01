@@ -42,7 +42,7 @@ const NavigationBar = () => {
       </nav>
       <header className="flex justify-between w-full px-[30px] py-2 border-b border-b-grayScale-200">
         <img
-          src="/assets/logo.svg"
+          src="/assets/icons/logo.svg"
           alt="서울우유협동조합"
           onClick={() => handleClick("/")}
         />
@@ -59,13 +59,13 @@ const NavigationBar = () => {
           >
             <img
               className="w-6 h-6 rounded-full"
-              src={profileImage ? profileImage : "/assets/profile.svg"}
+              src={profileImage ? profileImage : "/assets/icons/profile.svg"}
               alt="마이페이지"
             />
             <span className="font-semibold text-b2 text-grayScale-500">
               {name}
             </span>
-            <img src="/assets/toggle.svg" alt="toggle" />
+            <img src="/assets/icons/toggle.svg" alt="toggle" />
             {openDropdown && (
               <Dropdown onClose={() => setOpenDropdown(false)} />
             )}

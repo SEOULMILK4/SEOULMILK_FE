@@ -19,7 +19,7 @@ const SuccessModal = ({ onClose, name, count }: SuccessModalProps) => {
     <Modal onClose={onClose}>
       <div className="flex-col center gap-[10px] w-[316px]">
         <img
-          src="/assets/requestSuccess.svg"
+          src="/assets/icons/requestSuccess.svg"
           alt="success"
           className="mb-[6px]"
         />
