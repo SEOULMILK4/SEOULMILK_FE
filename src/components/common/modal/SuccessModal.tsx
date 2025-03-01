@@ -23,7 +23,7 @@ const SuccessModal = ({ onClose, name, count }: SuccessModalProps) => {
           alt="success"
           className="mb-[6px]"
         />
-        <span className="text-h2 text-grayScale-900">요청 완료</span>
+        <span className="h2 text-grayScale-900">요청 완료</span>
         <div className="flex-col center b2 text-grayScale-500">
           <div className="flex gap-[2px] items-center">
             <NameTag name={name} />

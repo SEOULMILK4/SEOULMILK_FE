@@ -21,7 +21,7 @@ const WarningModal = ({ onClose }: WarningModalProps) => {
           alt="success"
           className="mb-[6px]"
         />
-        <span className="text-h2 text-grayScale-900">
+        <span className="h2 text-grayScale-900">
           공동인증서 만료
         </span>
         <p className="text-center b2 text-grayScale-500">
