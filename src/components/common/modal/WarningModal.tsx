@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import Button from "../button/Button";
 
 interface WarningModalProps {
   onClose: () => void;
@@ -28,12 +29,12 @@ const WarningModal = ({ onClose }: WarningModalProps) => {
           공동인증서가 만료되어 로그인이 해제 되었습니다. <br />
           관리자(02-0000-0000)에게 문의하세요.
         </p>
-        <button
-          className="w-full px-[22px] py-3 bg-secondary-500 rounded-lg b1 text-white hover:bg-secondary-700 mt-[22px]"
+        <Button size="large" color="green"
+          
           onClick={() => navigate("/home")}
         >
           메인 화면으로
-        </button>
+        </Button>
       </div>
     </Modal>
   );
