@@ -19,7 +19,7 @@ const ProgressBar = ({ currentNumber }: ProgressBarProps) => {
   return (
     <div className="center">
       {numbers.map(({ id, value }) => (
-        <div key={id}>
+        <div key={id} className="center">
           <div
             className={`w-5 h-5 center ${currentNumber === value ? "bg-secondary-300 text-white" : "bg-grayScale-100 text-grayScale-500"} rounded-xl b5`}
           >
