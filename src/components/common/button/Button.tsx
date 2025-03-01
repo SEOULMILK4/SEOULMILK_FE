@@ -12,7 +12,8 @@ interface ButtonProps {
  *
  * @param size - "medium" | "large"
  * @param color - "green" | "gray" | "black"
- * @param disabled - true or false
+ * @param disabled - (optinal) true or false
+ * @param onClick - (optinal) function
  *
  * @returns
  */
