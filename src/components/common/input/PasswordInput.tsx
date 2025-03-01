@@ -30,7 +30,7 @@ const PasswordInput = () => {
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
-    }, 10);
+    }, 100);
     setPlaceholder("비밀번호");
   };
 
