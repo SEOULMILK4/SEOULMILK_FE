@@ -99,7 +99,7 @@ const Picker = ({
       {allOptions.map(({ type, count, activeColor }) => (
         <div
           key={type}
-          className={`center relative w-[100px] h-[28px] text-b3 font-semibold rounded-[7px]
+          className={`center relative w-[100px] h-[28px] b3 font-semibold rounded-[7px]
             ${currentPick === type ? `${activeColor}` : "text-grayScale-500"}`}
           onClick={() => setCurrentPick(type)}
         >

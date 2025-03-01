@@ -19,8 +19,8 @@ const Button = ({ size, color, disabled, children }: ButtonProps) => {
   // 버튼 사이즈에 따른 스타일을 설정하는 함수
   const getSizeClass = () => {
     return size === "large"
-      ? "w-[118px] h-15 text-t1 font-bold"
-      : "w-[97px] h-12 text-b1 font-bold";
+      ? "w-[118px] h-15 t1 font-bold"
+      : "w-[97px] h-12 b1 font-bold";
   };
 
 
