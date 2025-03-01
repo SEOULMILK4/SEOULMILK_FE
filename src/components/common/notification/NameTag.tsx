@@ -9,7 +9,7 @@ interface NameTagProps {
  */
 const NameTag = ({ name }: NameTagProps) => {
   return (
-    <div className="w-fit center px-1 py-[2px] rounded-[4px] bg-secondary-25 text-secondary-500 font-semibold text-b2">
+    <div className="w-fit center px-1 py-[2px] rounded-[4px] bg-secondary-25 text-secondary-500 b2">
       {name}
     </div>
   );

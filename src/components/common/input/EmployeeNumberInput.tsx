@@ -15,7 +15,9 @@ const EmployeeNumberInput = () => {
   const clearInput = () => {
     setValue("employeeNumber", "");
   };
-
+  
+  console.log(errors);
+  
   const onFocus = () => {
     setIsFocused(true);
     setPlaceholder("사원번호를 입력해 주세요");
@@ -31,15 +33,14 @@ const EmployeeNumberInput = () => {
   return (
     <div className="relative flex items-center w-[442px] border-[1px] border-grayScale-100 border-solid h-[60px] rounded-[16px]">
       <input
-        className="bg-grayScale-50 placeholder-gray-400 rounded-[15px] text-gray-800 w-full h-full text-lg pl-4 pr-10 font-semibold focus:ring-2 focus:ring-secondary-500 focus:outline-none focus:caret-secondary-500"
+        className="bg-grayScale-50 placeholder-gray-400 rounded-[15px] text-gray-800 w-full h-full b2 pl-4 pr-10 focus:ring-2 focus:ring-secondary-500 focus:outline-none focus:caret-secondary-500"
         id="employeeNumber"
         type="text"
         placeholder={placeholder}
         {...register("employeeNumber", {
-          required: "Employee number is required",
           pattern: {
-            value: /^[A-Za-z0-9]+$/,
-            message: "Employee number must be alphanumeric",
+            value: /^[0-9]+$/,
+            message: "사원번호 또는 비밀번호가 잘못 되었습니다.",
           },
         })}
         onFocus={onFocus}

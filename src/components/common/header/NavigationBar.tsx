@@ -33,7 +33,7 @@ const NavigationBar = () => {
           >
             <Icon />
             <span
-              className={`${location.pathname === url ? "font-bold text-b1" : "text-b2 font-semibold group-hover:font-bold"}`}
+              className={`${location.pathname === url ? "b1" : "b2 group-hover:font-bold"}`}
             >
               {text}
             </span>
@@ -47,7 +47,7 @@ const NavigationBar = () => {
           onClick={() => handleClick("/")}
         />
         <div className="flex items-center gap-[10px]">
-          <div className="px-3 py-[2px] border-secondary-500 border rounded-xl text-b5 font-medium text-secondary-500">
+          <div className="px-3 py-[2px] border-secondary-500 border rounded-xl b5 text-secondary-500">
             {roleNames[role]}
           </div>
           <div></div>
@@ -57,9 +57,7 @@ const NavigationBar = () => {
               setOpenDropdown((prev) => !prev);
             }}
           >
-            <span className="font-semibold text-b2 text-grayScale-500">
-              {name}
-            </span>
+            <span className="b2 text-grayScale-500">{name}</span>
             <img src="/assets/icons/toggle.svg" alt="toggle" />
             {openDropdown && (
               <Dropdown onClose={() => setOpenDropdown(false)} />
