@@ -36,7 +36,7 @@ const Pagination = ({ totalPage }: PaginationProps) => {
 
   return (
     <div className="flex gap-2">
-      {totalPage >= 5 && (
+      {totalPage > 5 && (
         <button onClick={jumpBackward} disabled={currentPage === 1}>
           <img src="/assets/icons/doubleLeftArrow.svg" alt="doubleLeftArrow" />
         </button>
@@ -66,7 +66,7 @@ const Pagination = ({ totalPage }: PaginationProps) => {
       >
         <img src="/assets/icons/rightArrow.svg" alt="rightArrow" />
       </button>
-      {totalPage >= 5 && (
+      {totalPage > 5 && (
         <button onClick={jumpForward} disabled={currentPage === totalPage}>
           <img
             src="/assets/icons/doubleRightArrow.svg"
