@@ -8,22 +8,25 @@ interface ProgressBarProps {
  * @returns
  */
 const ProgressBar = ({ currentNumber }: ProgressBarProps) => {
-  const numbers = [1, 2, 3, 4, 5];
+  const numbers = [
+    { id: "step-1", value: 1 },
+    { id: "step-2", value: 2 },
+    { id: "step-3", value: 3 },
+    { id: "step-4", value: 4 },
+    { id: "step-5", value: 5 },
+  ];
 
   return (
     <div className="center">
-      {numbers.map((number) => (
-        <>
+      {numbers.map(({ id, value }) => (
+        <div key={id}>
           <div
-            key={number}
-            className={`w-5 h-5 center ${currentNumber === number ? "bg-secondary-300 text-white" : "bg-grayScale-100 text-grayScale-500"} rounded-xl b5`}
+            className={`w-5 h-5 center ${currentNumber === value ? "bg-secondary-300 text-white" : "bg-grayScale-100 text-grayScale-500"} rounded-xl b5`}
           >
-            {number}
+            {value}
           </div>
-          {number !== 5 && (
-            <div className="w-[66px] h-[2px] bg-grayScale-100" />
-          )}
-        </>
+          {value !== 5 && <div className="w-[66px] h-[2px] bg-grayScale-100" />}
+        </div>
       ))}
     </div>
   );
