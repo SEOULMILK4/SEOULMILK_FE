@@ -55,7 +55,7 @@ const Dropdown = ({ onClose }: DropdownProps) => {
         <p
           key={label}
           onClick={action}
-          className="flex items-center px-2 w-[106px] h-9 rounded-[9px] hover:bg-grayScale-50 text-b3 font-semibold text-grayScale-600 cursor-pointe"
+          className="flex items-center px-2 w-[106px] h-9 rounded-[9px] hover:bg-grayScale-50 b3 font-semibold text-grayScale-600 cursor-pointe"
         >
           {label}
         </p>

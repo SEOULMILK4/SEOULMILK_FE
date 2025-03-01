@@ -41,13 +41,11 @@ const NotiMessage = ({ type, month, text }: NotiMessageProps) => {
     >
       <img src={notiType[type].icon} alt={type} />
       <div className="flex flex-col gap-1">
-        <p className={`font-semibold text-b4 ${notiType[type].textColor}`}>
+        <p className={`b4 ${notiType[type].textColor}`}>
           {notiType[type].text}
         </p>
         {type === "error" && (
-          <p className="font-medium text-c1 text-primary-300">
-            {notiType[type].errorMessage}
-          </p>
+          <p className=" c1 text-primary-300">{notiType[type].errorMessage}</p>
         )}
       </div>
     </div>
