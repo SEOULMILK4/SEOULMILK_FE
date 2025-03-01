@@ -17,7 +17,7 @@ const PasswordInput = () => {
   const clearInput = () => {
     setValue("password", "");
   };
-
+  console.log(errors);
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -31,7 +31,6 @@ const PasswordInput = () => {
     setTimeout(() => {
       setIsFocused(false);
     }, 100);
-
     setPlaceholder("비밀번호");
   };
 

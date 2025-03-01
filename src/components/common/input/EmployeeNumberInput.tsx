@@ -15,7 +15,9 @@ const EmployeeNumberInput = () => {
   const clearInput = () => {
     setValue("employeeNumber", "");
   };
-
+  
+  console.log(errors);
+  
   const onFocus = () => {
     setIsFocused(true);
     setPlaceholder("사원번호를 입력해 주세요");
@@ -24,7 +26,7 @@ const EmployeeNumberInput = () => {
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
-    }, 100);
+    }, 50);
     setPlaceholder("사원번호");
   };
 
