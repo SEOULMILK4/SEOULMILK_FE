@@ -6,20 +6,18 @@ const EmployeeNumberInput = () => {
     register,
     formState: { errors },
     watch,
+    setValue,
   } = useFormContext();
   const employeeNumber = watch("employeeNumber");
-  const [placeholder, setPlaceholder] = useState("사원번호"); // 플레이스홀더 상태
-  const [isFocused, setIsFocused] = useState(false); // 포커스 상태를 useState로 관리
+  const [placeholder, setPlaceholder] = useState("사원번호");
+  const [isFocused, setIsFocused] = useState(false);
 
   const clearInput = () => {
-    const inputElement = document.getElementById(
-      "employeeNumber"
-    ) as HTMLInputElement;
-    if (inputElement) {
-      inputElement.value = "";
-    }
+    setValue("employeeNumber", "");
   };
-
+  
+  console.log(errors);
+  
   const onFocus = () => {
     setIsFocused(true);
     setPlaceholder("사원번호를 입력해 주세요");
@@ -28,8 +26,7 @@ const EmployeeNumberInput = () => {
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
-    }, 10);
-
+    }, 50);
     setPlaceholder("사원번호");
   };
 
@@ -59,7 +56,11 @@ const EmployeeNumberInput = () => {
           type="button"
           className="absolute inset-y-0 z-10 px-2 center right-2"
         >
-          <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
+          <img
+            src="/assets/icons/delete.svg"
+            alt="Delete"
+            className="w-4 h-4"
+          />
         </button>
       )}
     </div>
