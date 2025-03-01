@@ -2,7 +2,7 @@ import { navigationItems } from "@/constants/navigation";
 import { roleNames, useUserStore } from "@/stores/useUserStore";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Dropdown from "../common/control/Dropdown";
+import Dropdown from "../control/Dropdown";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
