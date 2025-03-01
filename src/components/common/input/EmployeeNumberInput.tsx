@@ -54,7 +54,11 @@ const EmployeeNumberInput = () => {
           type="button"
           className="absolute inset-y-0 z-10 px-2 center right-2"
         >
-          <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
+          <img
+            src="/assets/icons/delete.svg"
+            alt="Delete"
+            className="w-4 h-4"
+          />
         </button>
       )}
     </div>

@@ -60,7 +60,11 @@ const PasswordInput = () => {
             className="absolute inset-y-0 px-2 right-8 center"
           >
             <img
-              src={isPasswordVisible ? "/icons/eye.svg" : "/icons/eyeOff.svg"}
+              src={
+                isPasswordVisible
+                  ? "/assets/icons/eye.svg"
+                  : "/assets/icons/eyeOff.svg"
+              }
               alt="Toggle visibility"
               className="w-4 h-4"
             />
@@ -70,7 +74,11 @@ const PasswordInput = () => {
             type="button"
             className="absolute inset-y-0 px-2 right-2 center"
           >
-            <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
+            <img
+              src="/assets/icons/delete.svg"
+              alt="Delete"
+              className="w-4 h-4"
+            />
           </button>
         </>
       )}
