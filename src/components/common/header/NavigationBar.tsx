@@ -1,11 +1,14 @@
 import { navigationItems } from "@/constants/navigation";
-import { roleNames, useRoleStore } from "@/stores/useRoleStore";
+import { roleNames, useUserStore } from "@/stores/useUserStore";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Dropdown from "../control/Dropdown";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { role } = useRoleStore();
+  const { role, name, profileImage } = useUserStore();
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   const filteredNavItems = navigationItems.filter((item) =>
     item.roles.includes(role)
@@ -22,7 +25,7 @@ const NavigationBar = () => {
         {filteredNavItems.map(({ text, url, icon: Icon }) => (
           <div
             key={text}
-            className={`group flex items-center justify-center gap-2 px-5 py-3 hover:bg-secondary-300 hover:rounded-xl text-secondary-50 hover:text-white 
+            className={`group flex items-center justify-center gap-2 px-5 py-3 hover:bg-secondary-600 hover:rounded-xl text-secondary-50 hover:text-white 
           ${location.pathname === url && "bg-secondary-300 rounded-xl text-white"}`}
             onClick={() => {
               handleClick(url);
@@ -39,7 +42,7 @@ const NavigationBar = () => {
       </nav>
       <header className="flex justify-between w-full px-[30px] py-2 border-b border-b-grayScale-200">
         <img
-          src="/assets/logo.svg"
+          src="/assets/icons/logo.svg"
           alt="서울우유협동조합"
           onClick={() => handleClick("/")}
         />
@@ -47,16 +50,25 @@ const NavigationBar = () => {
           <div className="px-3 py-[2px] border-secondary-500 border rounded-xl text-b5 font-medium text-secondary-500">
             {roleNames[role]}
           </div>
+          <div></div>
           <div
-            className={`flex gap-2 px-3 py-2 rounded-xl hover:bg-grayScale-50 ${location.pathname === "/my" && "bg-grayScale-50"}`}
+            className={`relative flex gap-2 px-3 py-2 rounded-xl hover:bg-grayScale-50 ${location.pathname === "/my" && "bg-grayScale-50"}`}
             onClick={() => {
-              handleClick("/my");
+              setOpenDropdown((prev) => !prev);
             }}
           >
-            <img src="/assets/profile.svg" alt="마이페이지" />
+            <img
+              className="w-6 h-6 rounded-full"
+              src={profileImage ? profileImage : "/assets/icons/profile.svg"}
+              alt="마이페이지"
+            />
             <span className="font-semibold text-b2 text-grayScale-500">
-              마이페이지
+              {name}
             </span>
+            <img src="/assets/icons/toggle.svg" alt="toggle" />
+            {openDropdown && (
+              <Dropdown onClose={() => setOpenDropdown(false)} />
+            )}
           </div>
         </div>
       </header>

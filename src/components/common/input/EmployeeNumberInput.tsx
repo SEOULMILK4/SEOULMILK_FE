@@ -10,7 +10,7 @@ const EmployeeNumberInput = () => {
   } = useFormContext();
   const employeeNumber = watch("employeeNumber");
   const [placeholder, setPlaceholder] = useState("사원번호");
-  const [isFocused, setIsFocused] = useState(false); 
+  const [isFocused, setIsFocused] = useState(false);
 
   const clearInput = () => {
     setValue("employeeNumber", "");
@@ -54,7 +54,11 @@ const EmployeeNumberInput = () => {
           type="button"
           className="absolute inset-y-0 z-10 px-2 center right-2"
         >
-          <img src="/icons/delete.svg" alt="Delete" className="w-4 h-4" />
+          <img
+            src="/assets/icons/delete.svg"
+            alt="Delete"
+            className="w-4 h-4"
+          />
         </button>
       )}
     </div>
