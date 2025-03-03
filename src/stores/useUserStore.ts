@@ -5,7 +5,6 @@ type Role = "headquarters" | "dealership" | "admin";
 interface UserState {
   role: Role;
   name: string;
-  profileImage: string;
   setUser: (user: Partial<UserState>) => void;
 }
 
@@ -19,6 +18,5 @@ export const roleNames: Record<Role, string> = {
 export const useUserStore = create<UserState>((set) => ({
   role: "admin",
   name: "안연아",
-  profileImage: "https://github.com/shadcn.png",
   setUser: (user) => set((state) => ({ ...state, ...user })),
 }));

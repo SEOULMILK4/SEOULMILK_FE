@@ -7,7 +7,7 @@ import Dropdown from "../control/Dropdown";
 const NavigationBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { role, name, profileImage } = useUserStore();
+  const { role, name } = useUserStore();
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const filteredNavItems = navigationItems.filter((item) =>
@@ -52,17 +52,12 @@ const NavigationBar = () => {
           </div>
           <div></div>
           <div
-            className={`relative flex gap-2 px-3 py-2 rounded-xl hover:bg-grayScale-50 ${location.pathname === "/my" && "bg-grayScale-50"}`}
+            className={`relative flex gap-5 pl-6 pr-[18px] py-2 rounded-xl hover:bg-grayScale-50 ${location.pathname === "/my" && "bg-grayScale-50"}`}
             onClick={() => {
               setOpenDropdown((prev) => !prev);
             }}
           >
-            <img
-              className="w-6 h-6 rounded-full"
-              src={profileImage ? profileImage : "/assets/icons/profile.svg"}
-              alt="마이페이지"
-            />
-            <span className="font-semibold b2 text-grayScale-500">{name}</span>
+            <span className="b2 text-grayScale-500">{name}</span>
             <img src="/assets/icons/toggle.svg" alt="toggle" />
             {openDropdown && (
               <Dropdown onClose={() => setOpenDropdown(false)} />
