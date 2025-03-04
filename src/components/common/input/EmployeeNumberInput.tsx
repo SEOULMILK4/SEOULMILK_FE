@@ -53,12 +53,12 @@ const EmployeeNumberInput = () => {
             clearInput();
           }}
           type="button"
-          className="absolute inset-y-0 z-10 px-2 center right-2"
+          className="absolute inset-y-0 z-10 px-2 center right-2 "
         >
           <img
             src="/assets/icons/delete.svg"
             alt="Delete"
-            className="w-4 h-4"
+            className="w-[22px] h-[22px] hover:bg-gray-200 rounded-full"
           />
         </button>
       )}

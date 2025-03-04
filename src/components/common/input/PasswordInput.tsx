@@ -85,7 +85,7 @@ const PasswordInput = () => {
             <img
               src="/assets/icons/delete.svg"
               alt="Delete"
-              className="w-4 h-4"
+              className="w-[22px] h-[22px] hover:bg-gray-200 rounded-full"
             />
           </button>
         </>
