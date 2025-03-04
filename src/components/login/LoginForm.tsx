@@ -2,6 +2,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import EmployeeNumberInput from "../common/input/EmployeeNumberInput";
 import PasswordInput from "../common/input/PasswordInput";
 import ErrorMessages from "./ErrorMessage";
+import UserPicker from "../common/control/UserPicker";
 
 interface FormValues {
   employeeNumber: string;
@@ -21,10 +22,11 @@ const LoginForm = () => {
     console.log(data);
   };
 
-  // 사원번호 또는 비밀번호가 잘못 되었습니다.
-
   return (
     <div className="w-[443px]">
+      <div className="mb-4">
+        <UserPicker />
+      </div>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-4 mb-[17px]">

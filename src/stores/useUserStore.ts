@@ -1,11 +1,13 @@
 import { create } from "zustand";
 
-type Role = "headquarters" | "dealership" | "admin";
+export type Role = "headquarters" | "dealership" | "admin";
 
 interface UserState {
   role: Role;
   name: string;
+  selectedRole: Role;
   setUser: (user: Partial<UserState>) => void;
+  setSelectedRole: (role: Role) => void;
 }
 
 export const roleNames: Record<Role, string> = {
@@ -18,5 +20,7 @@ export const roleNames: Record<Role, string> = {
 export const useUserStore = create<UserState>((set) => ({
   role: "admin",
   name: "안연아",
+  selectedRole: "admin",
   setUser: (user) => set((state) => ({ ...state, ...user })),
+  setSelectedRole: (role) => set({ selectedRole: role }),
 }));
