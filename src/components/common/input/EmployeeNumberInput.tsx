@@ -14,14 +14,13 @@ const EmployeeNumberInput = () => {
   const { role } = useUserStore();
 
   const getPlaceholder = useCallback(() => {
-    if (role === "headquarters") {
-      return "사원번호";
-    } else if (role === "dealership") {
-      return "아이디";
-    } else if (role === "admin") {
-      return "마스터키";
-    }
-    return "사원번호";
+    const placeholders: Record<string, string> = {
+      headquarters: "사원번호",
+      dealership: "아이디",
+      admin: "마스터키",
+    };
+
+    return placeholders[role] || "사원번호";
   }, [role]);
 
   const [placeholder, setPlaceholder] = useState(getPlaceholder());
