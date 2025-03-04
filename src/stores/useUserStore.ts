@@ -1,22 +1,35 @@
 import { create } from "zustand";
 
-type Role = "headquarters" | "dealership" | "admin";
+export type Role = "headquarters" | "dealership" | "admin";
 
 interface UserState {
   role: Role;
   name: string;
   setUser: (user: Partial<UserState>) => void;
+  setRole: (role: Role) => void; // Renamed to setRole for clarity
+  getDisplayName: () => string;
 }
 
 export const roleNames: Record<Role, string> = {
-  headquarters: "본사",
+  headquarters: "사원",
   dealership: "대리점",
   admin: "관리자",
 };
 
-//@TODO 나중에 로그인 연결하면서 수정해야함! 대리점이 앞에 OO 대리점 이런식으로 수정해야함!
-export const useUserStore = create<UserState>((set) => ({
-  role: "admin",
+const getRoleDisplayName = (role: Role, name: string): string => {
+  if (role === "dealership") {
+    return `${name} 대리점`;
+  }
+  return roleNames[role];
+};
+
+export const useUserStore = create<UserState>((set, get) => ({
+  role: "headquarters",
   name: "안연아",
   setUser: (user) => set((state) => ({ ...state, ...user })),
+  setRole: (role) => set({ role }),
+  getDisplayName: () => {
+    const { role, name } = get();
+    return getRoleDisplayName(role, name);
+  },
 }));

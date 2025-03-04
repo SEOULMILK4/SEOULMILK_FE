@@ -1,19 +1,34 @@
-import { useFormContext, FieldError } from "react-hook-form";
+import {
+  useFormContext,
+  FieldError,
+  FieldValues,
+  FieldErrorsImpl,
+  Merge,
+} from "react-hook-form";
 
-const isFieldError = (error: any): error is FieldError => {
-  return error && typeof error.message === "string";
+const isFieldError = (
+  error:
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<FieldValues>>
+    | undefined
+): error is FieldError => {
+  return error !== undefined && typeof error.message === "string";
 };
 
 const ErrorMessages = () => {
   const {
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<FieldValues>();
 
-  const getErrorMessage = (error: any): string | undefined => {
+  const getErrorMessage = (
+    error:
+      | FieldError
+      | Merge<FieldError, FieldErrorsImpl<FieldValues>>
+      | undefined
+  ): string | undefined => {
     if (isFieldError(error)) {
       return error.message;
     }
-
     return undefined;
   };
 
