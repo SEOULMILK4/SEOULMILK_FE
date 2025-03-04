@@ -21,11 +21,12 @@ const UserPicker = () => {
     },
   ];
 
-  const selectedRole = useUserStore((state) => state.selectedRole);
-  const setSelectedRole = useUserStore((state) => state.setSelectedRole);
+  const role = useUserStore((state) => state.role)
+  const setRole = useUserStore((state) => state.setRole);
+
 
   const currentIndex = allOptions.findIndex(
-    (option) => option.type === selectedRole
+    (option) => option.type === role
   );
   const translateXValue = `${currentIndex * 100}%`;
 
@@ -39,8 +40,8 @@ const UserPicker = () => {
         <div
           key={type}
           className={`center relative w-[146px] h-[40px] b3 rounded-[7px] cursor-pointer
-            ${selectedRole === type ? `${activeColor}` : "text-grayScale-500"}`}
-          onClick={() => setSelectedRole(type)}
+            ${role === type ? `${activeColor}` : "text-grayScale-500"}`}
+          onClick={() => setRole(type)}
         >
           {roleNames[type]}
         </div>

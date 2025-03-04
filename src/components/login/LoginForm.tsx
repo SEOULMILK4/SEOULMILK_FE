@@ -47,7 +47,7 @@ const LoginForm = () => {
               로그인
             </button>
             <button className="w-full text-grayScale-400 b2">
-              비밀번호 찾기
+              비밀번호 재설정
             </button>
           </div>
         </form>
