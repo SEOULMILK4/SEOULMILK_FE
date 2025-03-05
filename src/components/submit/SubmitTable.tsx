@@ -39,6 +39,78 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
+  }, {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
 ];
 
@@ -62,39 +134,41 @@ const SubmitTable = () => {
   };
 
   return (
-    <div className="w-[1240px] mt-4 ml-4">
-      <div className="flex flex-wrap h-10 border-b border-solid border-grayScale-200">
+    <div className="w-[1240px] h-[644px] mt-4 ml-4 border border-solid border-grayScale-200 rounded">
+      <div className="flex flex-wrap h-10 border-b border-solid border-grayScale-200 text-left b5 text-grayScale-500">
         {/* 헤더 */}
-        <div className="w-[34px] pl-[15px]">
+        <div className="w-[34px] ml-[15px] flex items-center">
           <CheckBox
             checked={selectAll}
             onChange={(e) => handleSelectAll(e.target.checked)}
           />
         </div>
-        <div className="w-[39px]  ">순번</div>
-        <div className="min-w-[81px]  "></div>
-        <div className="w-[336px]  ">공급자</div>
-        <div className="w-[336px]  ">공급 받는자</div>
-        <div className="w-[174px]  ">작성일자</div>
-        <div className="w-[164px]  ">공급가액</div>
-        <div className="w-[61px]   text-center">검증결과</div>
+        <div className="w-[39px]  flex items-center">순번</div>
+        <div className="min-w-[79px] flex items-center "></div>
+        <div className="w-[336px]  flex items-center">공급자</div>
+        <div className="w-[336px]  flex items-center">공급 받는자</div>
+        <div className="w-[174px]  flex items-center">작성일자</div>
+        <div className="w-[164px]  flex items-center">공급가액</div>
+        <div className="w-[61px]   flex items-center text-center">검증결과</div>
       </div>
       <div>
         {/* 테이블 항목 반복 */}
-        {tableData.map((item, index) => (
-          <SubmitTableItem
-            key={index}
-            check={checkedItems[index]}
-            newly={item.newly}
-            number={item.number}
-            supplier={item.supplier}
-            retailer={item.retailer}
-            date={item.date}
-            amount={item.amount}
-            validationResult={item.validationResult}
-            onCheckChange={(checked) => handleItemCheck(index, checked)} // 항목 체크 변경 처리
-          />
-        ))}
+        <div className="w-[1238px]">
+          {tableData.map((item, index) => (
+            <SubmitTableItem
+              key={index}
+              check={checkedItems[index]}
+              newly={item.newly}
+              number={item.number}
+              supplier={item.supplier}
+              retailer={item.retailer}
+              date={item.date}
+              amount={item.amount}
+              validationResult={item.validationResult}
+              onCheckChange={(checked) => handleItemCheck(index, checked)} // 항목 체크 변경 처리
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
