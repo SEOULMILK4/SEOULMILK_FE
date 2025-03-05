@@ -22,7 +22,7 @@ const RequestPicker = () => {
         <div
           key={type}
           className={`center relative w-[100px] h-[28px] b3 rounded-[7px]
-            ${currentPick === type ? "text-grayScale-600" : "text-grayScale-500"}`}
+            ${currentPick === type ? "text-grayScale-600" : "text-grayScale-500"} cursor-pointer`}
           onClick={() => setCurrentPick(type)}
         >
           {type}
