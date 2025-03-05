@@ -12,6 +12,20 @@ interface SubmitTableItemProps {
   onCheckChange: (checked: boolean) => void;
 }
 
+/**
+ * 
+ * SubmitTableItem 컴포넌트는 테이블의 각 항목을 표시하는 컴포넌트입니다.
+ * @param {boolean} check - 체크박스의 선택 상태
+ * @param {boolean} newly - 신규 항목 여부
+ * @param {number} number - 항목 번호
+ * @param {string} supplier - 공급자
+ * @param {string} retailer - 공급 받는자
+ * @param {string} date - 작성일자
+ * @param {number} amount - 공급가액 (금액)
+ * @param {boolean} validationResult - 검증 결과 (일치/불일치)
+ * @param {(checked: boolean) => void} onCheckChange - 체크박스 상태 변경 시 호출되는 함수
+ * @return
+ */
 const SubmitTableItem = ({
   check,
   newly,

@@ -39,7 +39,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -47,7 +48,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -55,7 +57,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -63,7 +66,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -71,7 +75,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -79,7 +84,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -87,7 +93,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -95,7 +102,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -103,7 +111,8 @@ const tableData = [
     amount: 8900000,
     validationResult: false,
     newly: false,
-  }, {
+  },
+  {
     number: 4,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
@@ -134,7 +143,7 @@ const SubmitTable = () => {
   };
 
   return (
-    <div className="w-[1240px] h-[644px] mt-4 ml-4 border border-solid border-grayScale-200 rounded">
+    <div className="w-[1240px] h-[644px]  border border-solid border-grayScale-200 rounded">
       <div className="flex flex-wrap h-10 border-b border-solid border-grayScale-200 text-left b5 text-grayScale-500">
         {/* 헤더 */}
         <div className="w-[34px] ml-[15px] flex items-center">
