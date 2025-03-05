@@ -1,4 +1,4 @@
-interface NameTagProps {
+interface TagProps {
   text: string;
 }
 
@@ -7,7 +7,7 @@ interface NameTagProps {
  * @param text - 이름
  * @returns
  */
-const Tag = ({ text }: NameTagProps) => {
+const Tag = ({ text }: TagProps) => {
   return (
     <div className="w-fit center px-1 py-[2px] rounded-[4px] bg-secondary-25 text-secondary-500 b2 h-[22px]">
       {text}
