@@ -25,12 +25,15 @@ const SubmitTableItem = ({
 }: SubmitTableItemProps) => {
   const formattedNumber = number.toString().padStart(3, "0");
 
+  // 금액에 컴마 추가
+  const formattedAmount = amount.toLocaleString();
+
   // 배경색을 선택 상태에 따라 다르게 설정
   const rowClass = check ? "bg-grayScale-100" : "";
 
   return (
     <div
-      className={`flex items-center h-10 mt-[6px] mx-[7px] text-grayScale-700 b4 rounded-lg ${rowClass} `}
+      className={`flex items-center h-10 mt-[6px] mx-[7px] text-grayScale-700 b4 rounded-lg ${rowClass}`}
     >
       <div className="w-[33px] center mr-2">
         <CheckBox
@@ -49,7 +52,7 @@ const SubmitTableItem = ({
       <div className="w-[336px]">{supplier}</div>
       <div className="w-[336px]">{retailer}</div>
       <div className="w-[174px]">{date}</div>
-      <div className="w-[164px]">{amount}</div>
+      <div className="w-[164px]">{formattedAmount}</div> {/* 수정된 부분 */}
       <div className="w-[53px] flex items-center">
         {validationResult ? (
           <div className="w-[47px] text-center text-secondary-500 bg-secondary-25 border-secondary-200 border border-solid h-6 rounded">
