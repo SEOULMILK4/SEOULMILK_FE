@@ -26,6 +26,7 @@ const UploadModal = () => {
         <ProgressBar currentNumber={1} />
         <span className="mt-2 h2 text-grayScale-900">계산서 업로드 하기</span>
         <div className="flex w-full gap-5">
+          {/* 파일 업로드 영역 */}
           <div>
             <div
               className={`w-[350px] h-[216px] center flex-col gap-4 rounded-lg border border-grayScale-100 bg-grayScale-25 cursor-pointer ${files.length > 0 && "bg-secondary-25 border-secondary-300"}`}
@@ -39,7 +40,6 @@ const UploadModal = () => {
                 <p className="b2 text-grayScale-500">OOMB 이하</p>
               </div>
             </div>
-
             <input
               type="file"
               ref={fileInputRef}
@@ -49,6 +49,8 @@ const UploadModal = () => {
               onChange={handleFileChange}
             />
           </div>
+
+          {/* 파일 목록 */}
           <div className="flex flex-col w-full gap-1">
             <p className="flex justify-end w-full st3 text-grayScale-700">
               {files.length}건
