@@ -1,5 +1,11 @@
+import SubmitTable from "@/components/submit/SubmitTable";
+
 const SubmitPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <SubmitTable />
+    </div>
+  );
 };
 
 export default SubmitPage;
