@@ -4,8 +4,8 @@ import SubmitTable from "@/components/submit/SubmitTable";
 
 const SubmitPage = () => {
   return (
-    <div className="w-screen center flex-col h-[calc(100vh-130px)]">
-      <div className="w-[1240px] center flex-col">
+    <div className="w-screen center flex-col h-full">
+      <div className="w-[1240px] center flex-col mt-[35px]">
         <SubmitHeader />
         <div className="mt-4">
           <SubmitTable />
