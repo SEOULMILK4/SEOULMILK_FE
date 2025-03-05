@@ -2,12 +2,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 const PasswordInput = () => {
-  const {
-    register,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useFormContext();
+  const { register, watch, setValue } = useFormContext();
 
   const password = watch("password");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -17,7 +12,7 @@ const PasswordInput = () => {
   const clearInput = () => {
     setValue("password", "");
   };
-  console.log(errors);
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -43,6 +38,7 @@ const PasswordInput = () => {
         placeholder={placeholder}
         value={password}
         {...register("password", {
+          required: true,
           minLength: {
             value: 8,
             message: "사원번호 또는 비밀번호가 잘못 되었습니다.",

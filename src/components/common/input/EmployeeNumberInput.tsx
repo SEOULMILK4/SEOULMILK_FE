@@ -1,33 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
+import { useUserStore } from "@/stores/useUserStore";
 
 const EmployeeNumberInput = () => {
-  const {
-    register,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useFormContext();
+  const { register, watch, setValue } = useFormContext();
   const employeeNumber = watch("employeeNumber");
-  const [placeholder, setPlaceholder] = useState("사원번호");
   const [isFocused, setIsFocused] = useState(false);
 
   const clearInput = () => {
     setValue("employeeNumber", "");
   };
-  
-  console.log(errors);
-  
+
+  const { role } = useUserStore();
+
+  const getPlaceholder = useCallback(() => {
+    const placeholders: Record<string, string> = {
+      headquarters: "사원번호",
+      dealership: "아이디",
+      admin: "마스터키",
+    };
+
+    return placeholders[role] || "사원번호";
+  }, [role]);
+
+  const [placeholder, setPlaceholder] = useState(getPlaceholder());
+
+  useEffect(() => {
+    setPlaceholder(getPlaceholder());
+  }, [role, getPlaceholder]);
+
   const onFocus = () => {
     setIsFocused(true);
-    setPlaceholder("사원번호를 입력해 주세요");
+    setPlaceholder(`${getPlaceholder()}를 입력해 주세요`);
   };
 
   const onBlur = () => {
     setTimeout(() => {
       setIsFocused(false);
     }, 100);
-    setPlaceholder("사원번호");
+    setPlaceholder(getPlaceholder());
   };
 
   return (
@@ -38,6 +49,7 @@ const EmployeeNumberInput = () => {
         type="text"
         placeholder={placeholder}
         {...register("employeeNumber", {
+          required: true,
           pattern: {
             value: /^[0-9]+$/,
             message: "사원번호 또는 비밀번호가 잘못 되었습니다.",
