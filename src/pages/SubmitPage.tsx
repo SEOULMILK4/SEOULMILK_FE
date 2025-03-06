@@ -5,10 +5,11 @@ import ConvertModal from "@/components/submit/modal/ConvertModal";
 import SuccessOCRModal from "@/components/submit/modal/SuccessOCRModal";
 import FailOCRModal from "@/components/submit/modal/FailOCRModal";
 import EditModal from "@/components/submit/modal/EditModal";
-import SaveCheckModal from "@/components/submit/modal/SaveCheckModal";
+import CheckModal from "@/components/submit/modal/CheckModal";
 import SubmitHeader from "@/components/submit/SubmitHeader";
 import SubmitTable from "@/components/submit/SubmitTable";
 import Pagination from "@/components/common/control/Pagination";
+import SuccessModal from "@/components/common/modal/SuccessModal";
 
 const MockSuccess = [
   "oo대리점_202520227.pdf",
@@ -53,6 +54,7 @@ const SubmitPage = () => {
     isFailOpen,
     isEditOpen,
     isSaveCheckOpen,
+    isSuccessSubmit,
   } = useModalStore();
 
   return (
@@ -72,7 +74,8 @@ const SubmitPage = () => {
       {isSuccessOpen && <SuccessOCRModal successFile={MockSuccess} />}
       {isFailOpen && <FailOCRModal failFile={MockSuccess} />}
       {isEditOpen && <EditModal totalFailFile={7} failFile={failFile} />}
-      {isSaveCheckOpen && <SaveCheckModal count={13} />}
+      {isSaveCheckOpen && <CheckModal count={13} />}
+      {isSuccessSubmit && <SuccessModal count={13} />}
     </div>
   );
 };

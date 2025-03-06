@@ -18,7 +18,10 @@ const SubmitHeader = ({ total }: SubmitHeaderProps) => {
       <div className="flex items-center justify-between w-full">
         <div className="flex gap-[10px]">
           <span className="b3 text-grayScale-700">전체 {total}건</span>
-          <span className="b3 text-grayScale-400 rounded-2xl hover:bg-grayScale-100 px-3 py-[2px] hover:text-grayScale-600">
+          <span
+            className="b3 text-grayScale-400 rounded-2xl hover:bg-grayScale-100 px-3 py-[2px] hover:text-grayScale-600"
+            onClick={() => openSaveCheck("삭제")}
+          >
             삭제
           </span>
         </div>
@@ -30,7 +33,11 @@ const SubmitHeader = ({ total }: SubmitHeaderProps) => {
             </div>
           </Button>
           {/* disabled 해야함! */}
-          <Button size="medium" color="green" onClick={openSaveCheck}>
+          <Button
+            size="medium"
+            color="green"
+            onClick={() => openSaveCheck("제출")}
+          >
             <div className="flex items-center gap-1">
               <Submit />
               세금계산서 제출

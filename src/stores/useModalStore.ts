@@ -8,6 +8,8 @@ interface ModalState {
   isFailOpen: boolean;
   isEditOpen: boolean;
   isSaveCheckOpen: boolean;
+  saveCheckType: "삭제" | "제출" | null;
+  isSuccessSubmit: boolean;
 
   openUpload: () => void;
   closeUpload: () => void;
@@ -27,8 +29,11 @@ interface ModalState {
   openEdit: () => void;
   closeEdit: () => void;
 
-  openSaveCheck: () => void;
+  openSaveCheck: (type: "삭제" | "제출") => void;
   closeSaveCheck: () => void;
+
+  openSuccessSubmit: () => void;
+  closeSuccessSubmit: () => void;
 }
 
 const useModalStore = create<ModalState>((set) => ({
@@ -39,6 +44,8 @@ const useModalStore = create<ModalState>((set) => ({
   isFailOpen: false,
   isEditOpen: false,
   isSaveCheckOpen: false,
+  saveCheckType: null,
+  isSuccessSubmit: false,
 
   openUpload: () => set((state) => ({ ...state, isUploadOpen: true })),
   closeUpload: () => set((state) => ({ ...state, isUploadOpen: false })),
@@ -59,8 +66,14 @@ const useModalStore = create<ModalState>((set) => ({
   openEdit: () => set((state) => ({ ...state, isEditOpen: true })),
   closeEdit: () => set((state) => ({ ...state, isEditOpen: false })),
 
-  openSaveCheck: () => set((state) => ({ ...state, isSaveCheckOpen: true })),
+  openSaveCheck: (type) =>
+    set((state) => ({ ...state, isSaveCheckOpen: true, saveCheckType: type })),
   closeSaveCheck: () => set((state) => ({ ...state, isSaveCheckOpen: false })),
+
+  openSuccessSubmit: () =>
+    set((state) => ({ ...state, isSuccessSubmit: true })),
+  closeSuccessSubmit: () =>
+    set((state) => ({ ...state, isSuccessSubmit: false })),
 }));
 
 export default useModalStore;

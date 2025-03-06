@@ -1,8 +1,8 @@
+import useModalStore from "@/stores/useModalStore";
 import Tag from "../notification/Tag";
 import Modal from "./Modal";
 
 interface SuccessModalProps {
-  onClose: () => void;
   count: number;
 }
 
@@ -12,9 +12,10 @@ interface SuccessModalProps {
  * @param count - 요청 완료 건수
  * @returns
  */
-const SuccessModal = ({ onClose, count }: SuccessModalProps) => {
+const SuccessModal = ({ count }: SuccessModalProps) => {
+  const { closeSuccessSubmit } = useModalStore();
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={closeSuccessSubmit}>
       <div className="flex-col center gap-[10px] w-[314px]">
         <img
           src="/assets/icons/requestSuccess.svg"
