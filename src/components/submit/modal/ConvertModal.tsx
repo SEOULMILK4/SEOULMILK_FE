@@ -26,16 +26,27 @@ const ConvertModal = () => {
         <p className="flex justify-start w-full b4 text-grayScale-500 mt-2 mb-[30px]">
           남은 예상시간: 0초
         </p>
-        <Button
-          size="medium"
-          color="green"
-          onClick={() => {
-            closeConvert();
-            openFail();
-          }}
-        >
-          다음
-        </Button>
+        <div className="flex w-full gap-5">
+          <Button
+            size="medium"
+            color="gray"
+            onClick={() => {
+              closeConvert();
+            }}
+          >
+            취소
+          </Button>
+          <Button
+            size="medium"
+            color="green"
+            onClick={() => {
+              closeConvert();
+              openFail();
+            }}
+          >
+            다음
+          </Button>
+        </div>
       </div>
     </Modal>
   );
