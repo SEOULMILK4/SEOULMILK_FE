@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 enum PickType {
-  IMAGE = "이미지",
-  DATA = "데이터 변환",
+  THIS_MONTH = "이번달",
+  LAST_HISTORY = "지난내역 확인",
 }
 
-const RequestPicker = () => {
-  const [currentPick, setCurrentPick] = useState(PickType.IMAGE);
+const HistoryPicker = () => {
+  const [currentPick, setCurrentPick] = useState(PickType.THIS_MONTH);
   const allOptions = Object.values(PickType);
   const translateXValue = `${allOptions.indexOf(currentPick) * 100}%`;
 
@@ -32,4 +32,4 @@ const RequestPicker = () => {
   );
 };
 
-export default RequestPicker;
+export default HistoryPicker;
