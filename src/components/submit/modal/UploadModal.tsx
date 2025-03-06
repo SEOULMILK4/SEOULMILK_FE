@@ -1,4 +1,5 @@
 import Button from "@/components/common/button/Button";
+import DeleteButton from "@/components/common/button/DeleteButton";
 import ProgressBar from "@/components/common/control/ProgressBar";
 import Modal from "@/components/common/modal/Modal";
 import useModalStore from "@/stores/useModalStore";
@@ -29,7 +30,7 @@ const UploadModal = () => {
           {/* 파일 업로드 영역 */}
           <div>
             <div
-              className={`w-[350px] h-[216px] center flex-col gap-4 rounded-lg border border-grayScale-100 bg-grayScale-25 cursor-pointer ${files.length > 0 && "bg-secondary-25 border-secondary-300"}`}
+              className="w-[350px] h-[216px] center flex-col gap-4 rounded-lg border border-grayScale-100 bg-grayScale-25 cursor-pointer hover:bg-secondary-25 hover:border-secondary-300"
               onClick={handleClickUploadArea}
             >
               <img src="/assets/icons/file.svg" alt="file" />
@@ -60,12 +61,17 @@ const UploadModal = () => {
               {files.length > 0 && (
                 <div className="flex flex-col w-full gap-1">
                   {files.map((file, index) => (
-                    <p
+                    <div
+                      className="flex px-2 py-[6px] w-full justify-between"
                       key={index}
-                      className="px-2 py-[6px] w-full b5 text-grayScale-700"
                     >
-                      {file.name}
-                    </p>
+                      <p className="b5 text-grayScale-700">{file.name}</p>
+                      <DeleteButton
+                        onClick={() => {
+                          console.log(index);
+                        }}
+                      />
+                    </div>
                   ))}
                 </div>
               )}
