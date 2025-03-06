@@ -12,7 +12,7 @@ interface EditModalProps {
 }
 
 const EditModal = ({ totalFailFile, failFile }: EditModalProps) => {
-  const { closeEdit } = useModalStore();
+  const { closeEdit, openSuccess } = useModalStore();
   const [selectedFile, setSelectedFile] = useState<string | null>(null); // 현재 선택된 파일 상태 추가
 
   const {
@@ -26,6 +26,8 @@ const EditModal = ({ totalFailFile, failFile }: EditModalProps) => {
 
   const onSubmit = (data: Record<string, Record<string, string>>) => {
     console.log("제출 데이터:", data);
+    closeEdit();
+    openSuccess();
   };
 
   return (
@@ -52,8 +54,10 @@ const EditModal = ({ totalFailFile, failFile }: EditModalProps) => {
               {Object.keys(failFile).map((fileName) => (
                 <div
                   key={fileName}
-                  className={`flex items-center justify-between py-[6px] px-2 rounded-[5px] hover:bg-grayScale-50 ${
-                    selectedFile === fileName && "bg-grayScale-50"
+                  className={`flex items-center justify-between py-[6px] px-2 rounded-[5px] ${
+                    selectedFile === fileName
+                      ? "bg-secondary-25"
+                      : "hover:bg-grayScale-50"
                   } cursor-pointer`}
                   onClick={() => setSelectedFile(fileName)}
                 >

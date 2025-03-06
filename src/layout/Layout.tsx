@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="flex flex-col w-screen h-screen overflow-hidden">
       <NavigationBar />
       <Outlet />
     </div>
