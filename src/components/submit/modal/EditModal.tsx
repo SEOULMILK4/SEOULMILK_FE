@@ -122,7 +122,7 @@ const EditModal = ({ totalFailFile, failFile }: EditModalProps) => {
           </div>
         </div>
         {/* 버튼 */}
-        <div className="flex w-full gap-5 mt-4">
+        <div className="flex w-full gap-5">
           <Button size="medium" color="gray" onClick={closeEdit}>
             취소
           </Button>
