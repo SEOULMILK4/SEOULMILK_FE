@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CheckBox from "../common/control/CheckBox";
-import SubmitTableItem from "./SubmitTableItem";
+import VerifyTableItem from "./VerifyTableItem";
 
 // 테스트 데이터 배열
 const tableData = [
@@ -123,7 +123,7 @@ const tableData = [
   },
 ];
 
-const SubmitTable = () => {
+const VerifyTable = () => {
   const [selectAll, setSelectAll] = useState<boolean>(false); // 전체 체크박스 상태
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     new Array(tableData.length).fill(false)
@@ -144,7 +144,7 @@ const SubmitTable = () => {
 
   return (
     <div className="w-[1240px] h-[644px]  border border-solid border-grayScale-200 rounded">
-      <div className="flex flex-wrap h-10 border-b border-solid border-grayScale-200 text-left b5 text-grayScale-500">
+      <div className="flex flex-wrap h-10 text-left border-b border-solid border-grayScale-200 b5 text-grayScale-500">
         {/* 헤더 */}
         <div className="w-[34px] ml-[15px] flex items-center">
           <CheckBox
@@ -164,7 +164,7 @@ const SubmitTable = () => {
         {/* 테이블 항목 반복 */}
         <div className="w-[1238px]">
           {tableData.map((item, index) => (
-            <SubmitTableItem
+            <VerifyTableItem
               key={index}
               check={checkedItems[index]}
               newly={item.newly}
@@ -183,4 +183,4 @@ const SubmitTable = () => {
   );
 };
 
-export default SubmitTable;
+export default VerifyTable;

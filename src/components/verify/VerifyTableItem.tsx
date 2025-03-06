@@ -1,6 +1,6 @@
 import CheckBox from "../common/control/CheckBox";
 
-interface SubmitTableItemProps {
+interface VerifyTableItemProps {
   check: boolean;
   newly: boolean;
   number: number;
@@ -13,8 +13,8 @@ interface SubmitTableItemProps {
 }
 
 /**
- * 
- * SubmitTableItem 컴포넌트는 테이블의 각 항목을 표시하는 컴포넌트입니다.
+ *
+ * VerifyTableItem 컴포넌트는 테이블의 각 항목을 표시하는 컴포넌트입니다.
  * @param {boolean} check - 체크박스의 선택 상태
  * @param {boolean} newly - 신규 항목 여부
  * @param {number} number - 항목 번호
@@ -26,7 +26,7 @@ interface SubmitTableItemProps {
  * @param {(checked: boolean) => void} onCheckChange - 체크박스 상태 변경 시 호출되는 함수
  * @return
  */
-const SubmitTableItem = ({
+const VerifyTableItem = ({
   check,
   newly,
   number,
@@ -36,7 +36,7 @@ const SubmitTableItem = ({
   amount,
   validationResult,
   onCheckChange,
-}: SubmitTableItemProps) => {
+}: VerifyTableItemProps) => {
   const formattedNumber = number.toString().padStart(3, "0");
 
   // 금액에 컴마 추가
@@ -82,4 +82,4 @@ const SubmitTableItem = ({
   );
 };
 
-export default SubmitTableItem;
+export default VerifyTableItem;

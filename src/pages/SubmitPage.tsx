@@ -1,10 +1,10 @@
 import Pagination from "@/components/common/control/Pagination";
-import SubmitHeader from "@/components/submit/SubmitHeader";
-import SubmitTable from "@/components/submit/SubmitTable";
+import SubmitHeader from "@/components/verify/VerifyHeader";
+import SubmitTable from "@/components/verify/VerifyTable";
 
 const SubmitPage = () => {
   return (
-    <div className="w-screen center flex-col h-full">
+    <div className="flex-col w-screen h-full center">
       <div className="w-[1240px] center flex-col mt-[35px]">
         <SubmitHeader />
         <div className="mt-4">
