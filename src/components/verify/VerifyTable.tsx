@@ -152,7 +152,7 @@ const VerifyTable = () => {
             onChange={(e) => handleSelectAll(e.target.checked)}
           />
         </div>
-        <div className="w-[39px] 3xl:w-[50px] flex items-center">순번</div>
+        <div className="w-[39px] 3xl:w-[50px] flex items-center">번호</div>
         <div className="min-w-[79px] flex items-center "></div>
         <div className="w-[336px] 3xl:w-[400px] flex items-center">공급자</div>
         <div className="w-[300px] 3xl:w-[400px] flex items-center">

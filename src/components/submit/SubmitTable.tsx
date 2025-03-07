@@ -126,7 +126,7 @@ const SubmitTable = () => {
             onChange={(e) => handleSelectAll(e.target.checked)}
           />
         </div>
-        <div className="w-[118px] 3xl:w-[200px] flex items-center">순번</div>
+        <div className="w-[118px] 3xl:w-[200px] flex items-center">번호</div>
         <div className="w-[358px] 3xl:w-[400px] flex items-center">공급자</div>
         <div className="w-[356px] 3xl:w-[400px] first-letter: flex items-center">
           공급 받는자
