@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CheckBox from "../common/control/CheckBox";
-import SubmitTableItem from "./SubmitTableItem";
+import VerifyTableItem from "./VerifyTableItem";
 
 // 테스트 데이터 배열
 const tableData = [
@@ -10,6 +10,8 @@ const tableData = [
     retailer: "부산 중구 갈매기 마트 서면점",
     date: "2025.02.25",
     amount: 9965000,
+    validationResult: true,
+    newly: true,
   },
   {
     number: 2,
@@ -17,6 +19,8 @@ const tableData = [
     retailer: "인천 미추홀구 청라 마트",
     date: "2025.02.26",
     amount: 12875000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 3,
@@ -24,6 +28,8 @@ const tableData = [
     retailer: "대구 북구 하이마트",
     date: "2025.02.27",
     amount: 7450000,
+    validationResult: true,
+    newly: true,
   },
   {
     number: 4,
@@ -31,13 +37,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-  },
-  {
-    number: 5,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -45,6 +46,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -52,6 +55,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -59,6 +64,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -66,6 +73,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -73,6 +82,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -80,6 +91,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -87,6 +100,8 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
   {
     number: 4,
@@ -94,10 +109,21 @@ const tableData = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
+    validationResult: false,
+    newly: false,
+  },
+  {
+    number: 4,
+    supplier: "CU 동대문점",
+    retailer: "광주 서구 푸드마트",
+    date: "2025.02.28",
+    amount: 8900000,
+    validationResult: false,
+    newly: false,
   },
 ];
 
-const SubmitTable = () => {
+const VerifyTable = () => {
   const [selectAll, setSelectAll] = useState<boolean>(false); // 전체 체크박스 상태
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     new Array(tableData.length).fill(false)
@@ -126,24 +152,28 @@ const SubmitTable = () => {
             onChange={(e) => handleSelectAll(e.target.checked)}
           />
         </div>
-        <div className="w-[118px] flex items-center">순번</div>
-        <div className="w-[358px] flex items-center">공급자</div>
-        <div className="w-[356px] flex items-center">공급 받는자</div>
-        <div className="w-[193px] flex items-center">작성일자</div>
-        <div className="w-[144px] flex items-center">공급가액</div>
+        <div className="w-[39px]  flex items-center">순번</div>
+        <div className="min-w-[79px] flex items-center "></div>
+        <div className="w-[336px]  flex items-center">공급자</div>
+        <div className="w-[336px]  flex items-center">공급 받는자</div>
+        <div className="w-[174px]  flex items-center">작성일자</div>
+        <div className="w-[164px]  flex items-center">공급가액</div>
+        <div className="w-[61px]   flex items-center text-center">검증결과</div>
       </div>
       <div>
         {/* 테이블 항목 반복 */}
         <div className="w-[1238px]">
           {tableData.map((item, index) => (
-            <SubmitTableItem
+            <VerifyTableItem
               key={index}
               check={checkedItems[index]}
+              newly={item.newly}
               number={item.number}
               supplier={item.supplier}
               retailer={item.retailer}
               date={item.date}
               amount={item.amount}
+              validationResult={item.validationResult}
               onCheckChange={(checked) => handleItemCheck(index, checked)} // 항목 체크 변경 처리
             />
           ))}
@@ -153,4 +183,4 @@ const SubmitTable = () => {
   );
 };
 
-export default SubmitTable;
+export default VerifyTable;
