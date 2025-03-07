@@ -8,7 +8,7 @@ const LookupPage = () => {
   const { isSuccessSubmit } = useModalStore();
 
   return (
-    <div className="flex-col w-screen h-full center">
+    <div className="flex-col w-full h-full center">
       <div className="w-[1240px] center flex-col mt-[35px]">
         <LookupHeader total={5} />
         <div className="mt-4">

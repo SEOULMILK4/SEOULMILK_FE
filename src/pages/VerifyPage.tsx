@@ -4,7 +4,7 @@ import VerifyTable from "@/components/verify/VerifyTable";
 
 const VerifyPage = () => {
   return (
-    <div className="flex-col w-screen h-full center">
+    <div className="flex-col w-full h-full center">
       <div className="w-[1240px] center flex-col mt-[35px]">
         <VerifyHeader />
         <div className="mt-4">

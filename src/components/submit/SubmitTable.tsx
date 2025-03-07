@@ -117,7 +117,7 @@ const SubmitTable = () => {
   };
 
   return (
-    <div className="w-[1240px] h-[644px]  border border-solid border-grayScale-200 rounded">
+    <div className="w-[1240px] 3xl:w-[1560px] border border-solid border-grayScale-200 rounded bg-white">
       <div className="flex flex-wrap h-10 text-left border-b border-solid border-grayScale-200 b5 text-grayScale-500">
         {/* 헤더 */}
         <div className="w-[34px] ml-[15px] flex items-center">
@@ -126,15 +126,21 @@ const SubmitTable = () => {
             onChange={(e) => handleSelectAll(e.target.checked)}
           />
         </div>
-        <div className="w-[118px] flex items-center">순번</div>
-        <div className="w-[358px] flex items-center">공급자</div>
-        <div className="w-[356px] flex items-center">공급 받는자</div>
-        <div className="w-[193px] flex items-center">작성일자</div>
-        <div className="w-[144px] flex items-center">공급가액</div>
+        <div className="w-[118px] 3xl:w-[200px] flex items-center">순번</div>
+        <div className="w-[358px] 3xl:w-[400px] flex items-center">공급자</div>
+        <div className="w-[356px] 3xl:w-[400px] first-letter: flex items-center">
+          공급 받는자
+        </div>
+        <div className="w-[193px] 3xl:w-[250px] flex items-center">
+          작성일자
+        </div>
+        <div className="w-[144px] 3xl:w-[250px] flex items-center">
+          공급가액
+        </div>
       </div>
       <div>
         {/* 테이블 항목 반복 */}
-        <div className="w-[1238px]">
+        <div className="w-[1240px] 3xl:w-[1560px]">
           {tableData.map((item, index) => (
             <SubmitTableItem
               key={index}
