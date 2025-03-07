@@ -36,7 +36,7 @@ const CheckModal = ({ count }: CheckModalProps) => {
             color="green"
             onClick={() => {
               closeSaveCheck();
-              openSuccessSubmit();
+              openSuccessSubmit("제출");
             }}
           >
             확인
