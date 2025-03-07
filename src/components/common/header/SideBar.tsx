@@ -2,7 +2,7 @@ import { navigationItems } from "@/constants/navigation";
 import { roleNames, useUserStore } from "@/stores/useUserStore";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const NavigationBar = () => {
+const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { role, name } = useUserStore();
@@ -21,11 +21,11 @@ const NavigationBar = () => {
       <div className="fixed left-0 top-0 flex flex-col w-[240px] h-screen px-6 py-[50px] border-r border-r-grayScale-200 justify-between overflow-hidden bg-white">
         <div className="flex flex-col gap-9">
           <img src="/assets/icons/logo.svg" alt="logo" />
-          <div>
+          <div className="flex flex-col gap-2">
             {filteredNavItems.map(({ text, url, icon: Icon }) => (
               <div
                 key={text}
-                className={`group flex items-center justify-center gap-2 px-4 py-3 text-grayScale-600 rounded-xl
+                className={`group flex items-center gap-2 px-4 py-3 w-[192px] text-grayScale-600 rounded-xl
           ${location.pathname === url ? "bg-secondary-25 text-secondary-500" : "hover:bg-grayScale-50"}`}
                 onClick={() => {
                   handleClick(url);
@@ -56,4 +56,4 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+export default SideBar;
