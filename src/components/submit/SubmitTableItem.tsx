@@ -53,7 +53,7 @@ const SubmitTableItem = ({
       <div className="w-[358px] 3xl:w-[400px]">{supplier}</div>
       <div className="w-[356px] 3xl:w-[400px]">{retailer}</div>
       <div className="w-[193px] 3xl:w-[250px]">{date}</div>
-      <div className="w-[144px] 3xl:w-[250px]">{formattedAmount}</div>
+      <div className="w-[144px] 3xl:w-[200px]">{formattedAmount}</div>
     </div>
   );
 };

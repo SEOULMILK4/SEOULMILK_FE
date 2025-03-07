@@ -40,56 +40,56 @@ const tableData = [
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 6,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 7,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 8,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 9,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 10,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 11,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 12,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
   },
   {
-    number: 4,
+    number: 13,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
@@ -117,9 +117,9 @@ const SubmitTable = () => {
   };
 
   return (
-    <div className="w-[1240px] 3xl:w-[1560px] border border-solid border-grayScale-200 rounded bg-white">
-      <div className="flex flex-wrap h-10 text-left border-b border-solid border-grayScale-200 b5 text-grayScale-500">
-        {/* 헤더 */}
+    <div className="relative w-[1240px] 3xl:w-[1560px] h-[597px] 3xl:h-[644px] border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
+      {/* 헤더 */}
+      <div className="sticky top-0 flex flex-wrap h-10 text-left bg-white border-b border-solid border-grayScale-200 b5 text-grayScale-500">
         <div className="w-[34px] ml-[15px] flex items-center">
           <CheckBox
             checked={selectAll}
@@ -134,7 +134,7 @@ const SubmitTable = () => {
         <div className="w-[193px] 3xl:w-[250px] flex items-center">
           작성일자
         </div>
-        <div className="w-[144px] 3xl:w-[250px] flex items-center">
+        <div className="w-[144px] 3xl:w-[200px] flex items-center">
           공급가액
         </div>
       </div>
