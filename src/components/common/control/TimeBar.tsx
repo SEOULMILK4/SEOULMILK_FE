@@ -4,6 +4,11 @@ interface TimeBarProps {
   totalTime: number;
 }
 
+/**
+ *
+ * @param totalTime - totalTime
+ * @returns
+ */
 const TimeBar = ({ totalTime }: TimeBarProps) => {
   const [elapsedTime, setElapsedTime] = useState(0);
 

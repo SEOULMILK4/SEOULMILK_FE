@@ -2,6 +2,11 @@ interface DeleteButtonProps {
   onClick: () => void;
 }
 
+/**
+ *
+ * @param onClick - 버튼 클릭 시 수행할 함수
+ * @returns
+ */
 const DeleteButton = ({ onClick }: DeleteButtonProps) => {
   return (
     <img
