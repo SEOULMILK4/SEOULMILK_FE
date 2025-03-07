@@ -1,5 +1,12 @@
 import { api } from "./index";
 
+/**
+ * 사원 로그인
+ *
+ * @param employeeNum - 사원번호
+ * @param password - 비밀번호
+ * @returns
+ */
 export const postEmployeeLogin = async (
   employeeNum: string,
   password: string
