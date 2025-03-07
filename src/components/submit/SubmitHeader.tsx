@@ -1,32 +1,48 @@
 import Button from "../common/button/Button";
-import HistoryPicker from "../common/control/HistoryPicker";
-import Picker from "../common/control/Picker";
+import Clipboard from "@/assets/icons/clipboard.svg?react";
+import Submit from "@/assets/icons/submit.svg?react";
+import useModalStore from "@/stores/useModalStore";
 
-const SubmitHeader = () => {
+interface SubmitHeaderProps {
+  total: number;
+}
+
+const SubmitHeader = ({ total }: SubmitHeaderProps) => {
+  const { openUpload, openSaveCheck } = useModalStore();
+
   return (
-    <div className="w-full">
-      <h1 className="h1 text-grayScale-900">세금 계산서</h1>
-      <div className="mt-[6px] flex justify-between">
-        <div className="flex gap-2 items-end">
-          <HistoryPicker />
-          <Picker totalCount={314} correctCount={300} inCorrectCount={14} />
-          <div className="w-[104px] h-8 center gap-1 text-grayScale-600 b3 cursor-pointer">
-            <img src="/assets/icons/sliders.svg" alt="슬라이더"  width={24} height={24}/>
-            조회 조건
-          </div>
+    <div className="w-[1240px] 3xl:w-[1560px] mt-[37px]">
+      <h1 className="flex justify-start h1 text-grayScale-900">
+        세금 계산서 제출
+      </h1>
+      <div className="flex items-end justify-between w-full mt-[6px]">
+        <div className="flex gap-[10px] items-center">
+          <span className="b3 text-grayScale-700">전체 {total}건</span>
+          <span
+            className="b3 text-grayScale-400 rounded-2xl hover:bg-grayScale-100 px-3 py-[2px] hover:text-grayScale-600"
+            onClick={() => openSaveCheck("삭제")}
+          >
+            삭제
+          </span>
         </div>
-        <div className="flex gap-4">
-          <div className="b5 flex items-end text-grayScale-500">
-            마지막 업데이트: 오늘 13:27
-          </div>
-          <div className="w-[137px] h-[50px] ">
-            <Button size="medium" color="green" disabled={true}>
-              <div className="exist-icon">
-                <img src="/assets/icons/csvExport.svg" alt="csv추출" />
-                <div>CSV 추출</div>
-              </div>
-            </Button>
-          </div>
+        <div className="flex gap-4 w-[359px]">
+          <Button size="medium" color="gray">
+            <div className="flex items-center gap-1" onClick={openUpload}>
+              <Clipboard />
+              계산서 업로드
+            </div>
+          </Button>
+          {/* disabled 해야함! */}
+          <Button
+            size="medium"
+            color="green"
+            onClick={() => openSaveCheck("제출")}
+          >
+            <div className="flex items-center gap-1">
+              <Submit />
+              세금계산서 제출
+            </div>
+          </Button>
         </div>
       </div>
     </div>

@@ -3,13 +3,13 @@ import Portal from "../portal/Portal";
 
 interface ModalProps {
   children: React.ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 /**
  *
  * @param children - 모달 안의 내용
- * @param onClose - 모달 닫는 함수
+ * @param onClose - (optional) 모달 닫는 함수
  * @returns
  */
 const Modal = ({ children, onClose }: ModalProps) => {
@@ -21,7 +21,7 @@ const Modal = ({ children, onClose }: ModalProps) => {
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        onClose();
+        onClose?.();
       }
     };
 
