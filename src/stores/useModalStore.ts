@@ -13,7 +13,6 @@ interface ModalState {
   successType: "저장" | "제출" | null;
   isSuccessText: boolean;
   successTextType: "사원 등록" | "대리점 등록" | "저장" | "삭제" | null;
-  isAddUser: boolean;
 
   openUpload: () => void;
   closeUpload: () => void;
@@ -43,9 +42,6 @@ interface ModalState {
     type: "사원 등록" | "대리점 등록" | "저장" | "삭제"
   ) => void;
   closeSuccessText: () => void;
-
-  openAddUser: () => void;
-  closeAddUser: () => void;
 }
 
 const useModalStore = create<ModalState>((set) => ({
@@ -61,7 +57,6 @@ const useModalStore = create<ModalState>((set) => ({
   isSuccessSubmit: false,
   isSuccessText: false,
   successTextType: null,
-  isAddUser: false,
 
   openUpload: () => set((state) => ({ ...state, isUploadOpen: true })),
   closeUpload: () => set((state) => ({ ...state, isUploadOpen: false })),
@@ -94,9 +89,6 @@ const useModalStore = create<ModalState>((set) => ({
   openSuccessText: (type) =>
     set((state) => ({ ...state, isSuccessText: true, successTextType: type })),
   closeSuccessText: () => set((state) => ({ ...state, isSuccessText: false })),
-
-  openAddUser: () => set((state) => ({ ...state, isAddUser: true })),
-  closeAddUser: () => set((state) => ({ ...state, isAddUser: false })),
 }));
 
 export default useModalStore;
