@@ -1,4 +1,3 @@
-import { OCRFile } from "@/stores/useModalStore";
 import { api } from ".";
 
 const accessToken = localStorage.getItem("accessToken");
@@ -48,19 +47,19 @@ export const postNtsTaxUpload = async (files: FormData) => {
   }
 };
 
-export const putNtsTaxEdit = async (data: OCRFile[]) => {
+export const putNtsTaxEdit = async (data: unknown) => {
   try {
+    const accessToken = localStorage.getItem("accessToken");
+
     const response = await api.put("/nts-tax/edit", data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    if (response.data) {
-      return response.data.data;
-    }
+    return response.data;
   } catch (error) {
-    console.error("파일 업로드 실패", error);
+    console.error("🚨 파일 업로드 실패:", error);
     throw error;
   }
 };

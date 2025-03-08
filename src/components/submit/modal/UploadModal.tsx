@@ -1,7 +1,6 @@
 import { postNtsTaxUpload } from "@/api/ntsTax";
 import Button from "@/components/common/button/Button";
 import DeleteButton from "@/components/common/button/DeleteButton";
-import ProgressBar from "@/components/common/control/ProgressBar";
 import Modal from "@/components/common/modal/Modal";
 import useModalStore from "@/stores/useModalStore";
 import React, { useRef, useState } from "react";
@@ -54,15 +53,13 @@ const UploadModal = () => {
     <Modal onClose={closeUpload}>
       {isUploading ? (
         <div className="center flex-col w-[590px]">
-          <ProgressBar currentNumber={2} />
-          <div className="my-10 text-center h2 text-grayScale-900">
+          <div className="text-center h2 text-grayScale-900">
             세금 계산서를 텍스트로
             <br /> 변환하고 있어요
           </div>
         </div>
       ) : (
         <div className="flex-col gap-6 center w-[720px]">
-          <ProgressBar currentNumber={1} />
           <span className="mt-2 h2 text-grayScale-900">계산서 업로드 하기</span>
           <div className="flex w-full gap-5">
             {/* 파일 업로드 영역 */}
