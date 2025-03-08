@@ -19,6 +19,12 @@ const UploadModal = () => {
     }
   };
 
+  const handleDeleteFile = (indexToRemove: number) => {
+    setFiles((prevFiles) =>
+      prevFiles.filter((_, index) => index !== indexToRemove)
+    );
+  };
+
   const handleClickUploadArea = () => {
     fileInputRef.current?.click();
   };
@@ -70,7 +76,7 @@ const UploadModal = () => {
                   <span className="st3 text-grayScale-700">
                     파일을 선택하거나 올려주세요
                   </span>
-                  <p className="b2 text-grayScale-500">OOMB 이하</p>
+                  <p className="b2 text-grayScale-500">100MB 이하</p>
                 </div>
               </div>
               <input
@@ -100,7 +106,7 @@ const UploadModal = () => {
                         <p className="b5 text-grayScale-700">{file.name}</p>
                         <DeleteButton
                           onClick={() => {
-                            console.log(index);
+                            handleDeleteFile(index);
                           }}
                         />
                       </div>
