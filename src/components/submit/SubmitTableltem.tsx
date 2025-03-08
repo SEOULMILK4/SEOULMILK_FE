@@ -1,12 +1,12 @@
 import CheckBox from "../common/control/CheckBox";
 
-interface VerifyTableItemProps {
+interface SubmitTableItemProps {
   check: boolean;
   number: number;
   supplier: string;
   retailer: string;
   date: string;
-  amount: number;
+  amount: string;
   validationResult: boolean;
   onCheckChange: (checked: boolean) => void;
   onClick: () => void;
@@ -35,7 +35,7 @@ const SubmitTableItem = ({
   validationResult,
   onCheckChange,
   onClick,
-}: VerifyTableItemProps) => {
+}: SubmitTableItemProps) => {
   const formattedNumber = number.toString().padStart(3, "0");
 
   // 금액에 컴마 추가
@@ -54,26 +54,42 @@ const SubmitTableItem = ({
   };
   return (
     <div
-      className={`flex items-center h-10 mt-[6px] mx-[7px] text-grayScale-700 b4 rounded-lg ${rowClass} group hover:bg-grayScale-100 `}
+      className={`flex items-center h-10 mt-[6px] mx-[7px] text-grayScale-700 b4 rounded-lg ${rowClass} group hover:bg-grayScale-50 `}
       onClick={onClick}
     >
       <div className="w-[33px] center mr-2" onClick={handleCheckboxClick}>
         <CheckBox checked={check} onChange={handleCheckboxChange} />
       </div>
       <div className="w-[118px] 3xl:w-[200px]">{formattedNumber}</div>
-      <div className="w-[336px] 3xl:w-[400px]">{supplier}</div>
-      <div className="w-[300px] 3xl:w-[400px]">{retailer}</div>
-      <div className="w-[174px] 3xl:w-[250px]">{date}</div>
-      <div className="w-[164px] 3xl:w-[180px]">{formattedAmount}</div>
+      <div
+        className={`w-[336px] 3xl:w-[400px] ${supplier === " " && "text-grayScale-300"}`}
+      >
+        {supplier === " " ? "OCR 누락" : supplier}
+      </div>
+      <div
+        className={`w-[336px] 3xl:w-[400px] ${retailer === " " && "text-grayScale-300"}`}
+      >
+        {retailer === " " ? "OCR 누락" : retailer}
+      </div>
+      <div
+        className={`w-[174px] 3xl:w-[250px] ${date === " " && "text-grayScale-300"}`}
+      >
+        {date === " " ? "OCR 누락" : date}
+      </div>
+      <div
+        className={`w-[164px] 3xl:w-[180px] ${formattedAmount === " " && "text-grayScale-300"}`}
+      >
+        {formattedAmount === " " ? "OCR 누락" : formattedAmount}
+      </div>
       {/* 수정된 부분 */}
       <div className="w-[53px] flex items-center">
         {validationResult ? (
           <div className="w-[47px] text-center text-secondary-500 bg-secondary-25 border-secondary-200 border border-solid h-6 rounded">
-            일치
+            성공
           </div>
         ) : (
           <div className="w-[47px] text-center text-primary-500 bg-primary-50 border-primary-200 border border-solid h-6 rounded">
-            불일치
+            실패
           </div>
         )}
       </div>

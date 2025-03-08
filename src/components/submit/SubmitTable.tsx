@@ -1,140 +1,30 @@
 import { useState } from "react";
 import CheckBox from "../common/control/CheckBox";
 import SubmitTableItem from "./SubmitTableltem";
-import SubmitDrawer from "./SubmitDrawer";
+//import SubmitDrawer from "./SubmitDrawer";
+import { NtsTax } from "@/types/ntsTax";
 
-interface ItemData {
-  number: number;
-  supplier: string;
-  retailer: string;
-  date: string;
-  amount: number;
-  validationResult: boolean;
+interface SubmitTabelProps {
+  data: NtsTax[];
 }
 
-const tableData: ItemData[] = [
-  {
-    number: 1,
-    supplier: "서울우유 대전 대리점",
-    retailer: "부산 중구 갈매기 마트 서면점",
-    date: "2025.02.25",
-    amount: 9965000,
-    validationResult: true,
-  },
-  {
-    number: 2,
-    supplier: "롯데마트 서울역점",
-    retailer: "인천 미추홀구 청라 마트",
-    date: "2025.02.26",
-    amount: 12875000,
-    validationResult: false,
-  },
-  {
-    number: 3,
-    supplier: "GS25 서울 강남역점",
-    retailer: "대구 북구 하이마트",
-    date: "2025.02.27",
-    amount: 7450000,
-    validationResult: true,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-  {
-    number: 4,
-    supplier: "CU 동대문점",
-    retailer: "광주 서구 푸드마트",
-    date: "2025.02.28",
-    amount: 8900000,
-    validationResult: false,
-  },
-];
-
-const SubmitTable = () => {
+const SubmitTable = ({ data }: SubmitTabelProps) => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
-    new Array(tableData.length).fill(false)
+    new Array(data.length).fill(false)
   );
-  const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [selectedItem, setSelectedItem] = useState<NtsTax | null>(null);
+  // const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleItemClick = (item: ItemData) => {
-    setSelectedItem(item);
-    setDrawerOpen(true);
+  const handleItemClick = (item: NtsTax) => {
+    console.log(item);
+    // setSelectedItem(item);
+    // setDrawerOpen(true);
   };
 
   const handleSelectAll = (checked: boolean) => {
     setSelectAll(checked);
-    setCheckedItems(new Array(tableData.length).fill(checked));
+    setCheckedItems(new Array(data.length).fill(checked));
   };
 
   const handleItemCheck = (index: number, checked: boolean) => {
@@ -144,7 +34,7 @@ const SubmitTable = () => {
   };
 
   return (
-    <div className="w-[1240px] 3xl:w-[1560px] h-[597px] 3xl:h-[644px] border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
+    <div className="w-[1240px] 3xl:w-[1560px] max-h-[597px] h-fit 3xl:max-h-[664px] 3xl:h-fit border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
       <div className="sticky top-0 flex flex-wrap h-10 text-left bg-white border-b border-solid border-grayScale-200 b5 text-grayScale-500">
         {/* 헤더 */}
         <div className="w-[34px] ml-[15px] flex items-center">
@@ -164,40 +54,40 @@ const SubmitTable = () => {
         <div className="w-[164px] 3xl:w-[180px] flex items-center">
           공급가액
         </div>
-        <div className="w-[61px] flex items-center text-center">검증결과</div>
+        <div className="w-[61px] flex items-center text-center">변환 결과</div>
       </div>
       <div>
         {/* 테이블 항목 반복 */}
-        <div className="w-[1220x] 3xl:w-[1560px]">
-          {tableData.map((item, index) => (
+        <div className="w-[1220x] 3xl:w-[1560px] mb-[6px]">
+          {data.map((item, index) => (
             <SubmitTableItem
               key={index}
               check={checkedItems[index]}
-              number={item.number}
-              supplier={item.supplier}
-              retailer={item.retailer}
-              date={item.date}
-              amount={item.amount}
-              validationResult={item.validationResult}
+              number={item.ntsTaxId}
+              supplier={item.suName}
+              retailer={item.ipName}
+              date={item.issueDate}
+              amount={item.grandTotal}
+              validationResult={item.isSuccess === "SUCCESS"}
               onCheckChange={(checked) => handleItemCheck(index, checked)}
               onClick={() => handleItemClick(item)}
             />
           ))}
         </div>
       </div>
-      <SubmitDrawer
+      {/* <SubmitDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         data={selectedItem}
-      />
+      /> */}
       {selectAll && (
         <div className="absolute top-[43px] left-1/2 transform -translate-x-1/2 flex px-5 py-[9px] bg-white rounded-xl shadow-[0px_3px_15px_0px_rgba(0,0,0,0.10),_0px_10px_30px_8px_rgba(0,0,0,0.05)] items-center">
           <img src="/assets/icons/info.svg" alt="info" className="mr-[6px]" />
           <p className="mr-2 b4 text-grayScale-700">
-            이 페이지 있는 항목 {tableData.length}건이 모두 선택되었습니다.
+            이 페이지 있는 항목 {data.length}건이 모두 선택되었습니다.
           </p>
           <p className="b3 text-secondary-500">
-            전체 {tableData.length}건 모두 선택
+            전체 {data.length}건 모두 선택
           </p>
         </div>
       )}

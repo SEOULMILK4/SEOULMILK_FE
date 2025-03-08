@@ -6,30 +6,49 @@ import SubmitHeader from "@/components/submit/SubmitHeader";
 import SubmitTable from "@/components/submit/SubmitTable";
 import Pagination from "@/components/common/control/Pagination";
 import SuccessModal from "@/components/common/modal/SuccessModal";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getNtsTax } from "@/api/ntsTax";
+import { NtsTax } from "@/types/ntsTax";
+
+interface NtsTaxData {
+  listSize: number;
+  ntsTaxList: NtsTax[];
+  totalElements: number;
+  totalPage: number;
+}
 
 const SubmitPage = () => {
+  const [data, setData] = useState<NtsTaxData | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { isUploadOpen, isConvertOpen, isSaveCheckOpen, isSuccessSubmit } =
     useModalStore();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getNtsTax(0);
+      const response = await getNtsTax(currentPage - 1);
+      setData(response);
 
-      if (data) {
+      if (response) {
         console.log(data);
       }
     };
 
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className="relative flex flex-col items-center w-full h-full gap-4 bg-grayScale-25">
       <SubmitHeader />
-      <SubmitTable />
-      <Pagination totalPage={12} />
+      {data ? (
+        <SubmitTable data={data?.ntsTaxList ?? []} />
+      ) : (
+        <p>데이터 없음</p>
+      )}
+      <Pagination
+        totalPage={data?.totalPage || 1}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       {isUploadOpen && <UploadModal />}
       {isConvertOpen && <ConvertModal />}
       {isSaveCheckOpen && <CheckModal count={13} />}
