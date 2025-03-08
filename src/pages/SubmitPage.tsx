@@ -27,7 +27,7 @@ const SubmitPage = () => {
 
   return (
     <div className="relative flex flex-col items-center w-full h-full gap-4 bg-grayScale-25">
-      <SubmitHeader total={5} />
+      <SubmitHeader />
       <SubmitTable />
       <Pagination totalPage={12} />
       {isUploadOpen && <UploadModal />}

@@ -1,25 +1,15 @@
 import { useState } from "react";
 import CheckBox from "../common/control/CheckBox";
-import SubmitTableItem from "./SubmitTableltem";
-import SubmitDrawer from "./SubmitDrawer";
+import LookupTableItem from "./LookupTabelIItem";
 
-interface ItemData {
-  number: number;
-  supplier: string;
-  retailer: string;
-  date: string;
-  amount: number;
-  validationResult: boolean;
-}
-
-const tableData: ItemData[] = [
+// 테스트 데이터 배열
+const tableData = [
   {
     number: 1,
     supplier: "서울우유 대전 대리점",
     retailer: "부산 중구 갈매기 마트 서면점",
     date: "2025.02.25",
     amount: 9965000,
-    validationResult: true,
   },
   {
     number: 2,
@@ -27,7 +17,6 @@ const tableData: ItemData[] = [
     retailer: "인천 미추홀구 청라 마트",
     date: "2025.02.26",
     amount: 12875000,
-    validationResult: false,
   },
   {
     number: 3,
@@ -35,7 +24,6 @@ const tableData: ItemData[] = [
     retailer: "대구 북구 하이마트",
     date: "2025.02.27",
     amount: 7450000,
-    validationResult: true,
   },
   {
     number: 4,
@@ -43,100 +31,85 @@ const tableData: ItemData[] = [
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 5,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 6,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 7,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 8,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 9,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 10,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 11,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 12,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
   {
-    number: 4,
+    number: 13,
     supplier: "CU 동대문점",
     retailer: "광주 서구 푸드마트",
     date: "2025.02.28",
     amount: 8900000,
-    validationResult: false,
   },
 ];
 
-const SubmitTable = () => {
-  const [selectAll, setSelectAll] = useState<boolean>(false);
+const LoockupTabel = () => {
+  const [selectAll, setSelectAll] = useState<boolean>(false); // 전체 체크박스 상태
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     new Array(tableData.length).fill(false)
-  );
-  const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  ); // 개별 체크박스 상태 배열
 
-  const handleItemClick = (item: ItemData) => {
-    setSelectedItem(item);
-    setDrawerOpen(true);
-  };
-
+  // 전체 체크박스 클릭 시 처리 함수
   const handleSelectAll = (checked: boolean) => {
     setSelectAll(checked);
-    setCheckedItems(new Array(tableData.length).fill(checked));
+    setCheckedItems(new Array(tableData.length).fill(checked)); // 모든 항목 체크/해제
   };
 
+  // 개별 아이템 체크박스 상태 변경 함수
   const handleItemCheck = (index: number, checked: boolean) => {
     const updatedCheckedItems = [...checkedItems];
     updatedCheckedItems[index] = checked;
@@ -144,9 +117,9 @@ const SubmitTable = () => {
   };
 
   return (
-    <div className="relative w-[1240px] 3xl:w-[1560px] h-[597px] 3xl:h-[644px] border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
+    <div className="w-[1240px] 3xl:w-[1560px] h-[597px] 3xl:h-[644px] border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
+      {/* 헤더 */}
       <div className="sticky top-0 flex flex-wrap h-10 text-left bg-white border-b border-solid border-grayScale-200 b5 text-grayScale-500">
-        {/* 헤더 */}
         <div className="w-[34px] ml-[15px] flex items-center">
           <CheckBox
             checked={selectAll}
@@ -154,23 +127,22 @@ const SubmitTable = () => {
           />
         </div>
         <div className="w-[118px] 3xl:w-[200px] flex items-center">번호</div>
-        <div className="w-[336px] 3xl:w-[400px] flex items-center">공급자</div>
-        <div className="w-[300px] 3xl:w-[400px] flex items-center">
+        <div className="w-[358px] 3xl:w-[400px] flex items-center">공급자</div>
+        <div className="w-[356px] 3xl:w-[400px] first-letter: flex items-center">
           공급 받는자
         </div>
-        <div className="w-[174px] 3xl:w-[250px] flex items-center">
+        <div className="w-[193px] 3xl:w-[250px] flex items-center">
           작성일자
         </div>
-        <div className="w-[164px] 3xl:w-[250px] flex items-center">
+        <div className="w-[144px] 3xl:w-[200px] flex items-center">
           공급가액
         </div>
-        <div className="w-[61px] flex items-center text-center">검증결과</div>
       </div>
       <div>
         {/* 테이블 항목 반복 */}
-        <div className="w-[1220x] 3xl:w-[1560px]">
+        <div className="w-[1240px] 3xl:w-[1560px]">
           {tableData.map((item, index) => (
-            <SubmitTableItem
+            <LookupTableItem
               key={index}
               check={checkedItems[index]}
               number={item.number}
@@ -178,20 +150,24 @@ const SubmitTable = () => {
               retailer={item.retailer}
               date={item.date}
               amount={item.amount}
-              validationResult={item.validationResult}
-              onCheckChange={(checked) => handleItemCheck(index, checked)}
-              onClick={() => handleItemClick(item)}
+              onCheckChange={(checked) => handleItemCheck(index, checked)} // 항목 체크 변경 처리
             />
           ))}
         </div>
       </div>
-      <SubmitDrawer
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        data={selectedItem}
-      />
+      {selectAll && (
+        <div className="absolute top-[43px] left-1/2 transform -translate-x-1/2 flex px-5 py-[9px] bg-white rounded-xl shadow-[0px_3px_15px_0px_rgba(0,0,0,0.10),_0px_10px_30px_8px_rgba(0,0,0,0.05)] items-center">
+          <img src="/assets/icons/info.svg" alt="info" className="mr-[6px]" />
+          <p className="mr-2 b4 text-grayScale-700">
+            이 페이지 있는 항목 {tableData.length}건이 모두 선택되었습니다.
+          </p>
+          <p className="b3 text-secondary-500">
+            전체 {tableData.length}건 모두 선택
+          </p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default SubmitTable;
+export default LoockupTabel;

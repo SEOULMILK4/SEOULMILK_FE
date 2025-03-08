@@ -2,12 +2,9 @@ import Button from "../common/button/Button";
 import Clipboard from "@/assets/icons/clipboard.svg?react";
 import Submit from "@/assets/icons/submit.svg?react";
 import useModalStore from "@/stores/useModalStore";
+import Picker from "../common/control/Picker";
 
-interface SubmitHeaderProps {
-  total: number;
-}
-
-const SubmitHeader = ({ total }: SubmitHeaderProps) => {
+const SubmitHeader = () => {
   const { openUpload, openSaveCheck } = useModalStore();
 
   return (
@@ -17,7 +14,7 @@ const SubmitHeader = ({ total }: SubmitHeaderProps) => {
       </h1>
       <div className="flex items-end justify-between w-full mt-[6px]">
         <div className="flex gap-[10px] items-center">
-          <span className="b3 text-grayScale-700">전체 {total}건</span>
+          <Picker totalCount={314} correctCount={300} inCorrectCount={14} />
           <span
             className="b3 text-grayScale-400 rounded-2xl hover:bg-grayScale-100 px-3 py-[2px] hover:text-grayScale-600"
             onClick={() => openSaveCheck("삭제")}
