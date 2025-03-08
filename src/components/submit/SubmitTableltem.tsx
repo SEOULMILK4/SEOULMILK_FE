@@ -64,7 +64,7 @@ const SubmitTableItem = ({
       <div className="w-[336px] 3xl:w-[400px]">{supplier}</div>
       <div className="w-[300px] 3xl:w-[400px]">{retailer}</div>
       <div className="w-[174px] 3xl:w-[250px]">{date}</div>
-      <div className="w-[164px] 3xl:w-[250px]">{formattedAmount}</div>{" "}
+      <div className="w-[164px] 3xl:w-[180px]">{formattedAmount}</div>
       {/* 수정된 부분 */}
       <div className="w-[53px] flex items-center">
         {validationResult ? (
