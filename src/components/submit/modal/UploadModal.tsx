@@ -5,7 +5,11 @@ import Modal from "@/components/common/modal/Modal";
 import useModalStore from "@/stores/useModalStore";
 import React, { useRef, useState } from "react";
 
-const UploadModal = () => {
+interface UploadModalProps {
+  fetchData: () => void;
+}
+
+const UploadModal = ({ fetchData }: UploadModalProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -41,6 +45,7 @@ const UploadModal = () => {
       if (response) {
         setOCRData(response);
       }
+      fetchData();
     } catch (error) {
       console.error(error);
     } finally {

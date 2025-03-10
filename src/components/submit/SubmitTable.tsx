@@ -1,97 +1,154 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckBox from "../common/control/CheckBox";
 import SubmitTableItem from "./SubmitTableltem";
-//import SubmitDrawer from "./SubmitDrawer";
 import { NtsTax } from "@/types/ntsTax";
+import Tag from "../common/notification/Tag";
 
 interface SubmitTabelProps {
   data: NtsTax[];
+  checkedItem: number[];
+  setCheckedItem: React.Dispatch<React.SetStateAction<number[]>>;
+  correctCount: number;
+  inCorrectCount: number;
+  isSuccess: string;
+  isAllChecked: boolean;
+  setIsAllChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SubmitTable = ({ data }: SubmitTabelProps) => {
-  const [selectAll, setSelectAll] = useState<boolean>(false);
-  const [checkedItems, setCheckedItems] = useState<boolean[]>(
-    new Array(data.length).fill(false)
-  );
-  // const [selectedItem, setSelectedItem] = useState<NtsTax | null>(null);
-  // const [drawerOpen, setDrawerOpen] = useState(false);
+const SubmitTable = ({
+  data,
+  checkedItem,
+  setCheckedItem,
+  isSuccess,
+  correctCount,
+  inCorrectCount,
+  isAllChecked,
+  setIsAllChecked,
+}: SubmitTabelProps) => {
+  const [openInfo, setOpenInfo] = useState(false);
 
-  const handleItemClick = (item: NtsTax) => {
-    console.log(item);
-    // setSelectedItem(item);
-    // setDrawerOpen(true);
+  const handleCheckChange = (checked: boolean, ntsTaxId: number) => {
+    setCheckedItem((prev) =>
+      checked ? [...prev, ntsTaxId] : prev.filter((id) => id !== ntsTaxId)
+    );
   };
 
-  const handleSelectAll = (checked: boolean) => {
-    setSelectAll(checked);
-    setCheckedItems(new Array(data.length).fill(checked));
+  const handleAllCheckChange = (checked: boolean) => {
+    if (checked) {
+      setCheckedItem(data.map((item) => item.ntsTaxId));
+      setIsAllChecked(true);
+      setOpenInfo(true);
+    } else {
+      setCheckedItem([]);
+      setIsAllChecked(false);
+      setOpenInfo(false);
+    }
   };
 
-  const handleItemCheck = (index: number, checked: boolean) => {
-    const updatedCheckedItems = [...checkedItems];
-    updatedCheckedItems[index] = checked;
-    setCheckedItems(updatedCheckedItems);
-  };
+  useEffect(() => {
+    console.log(checkedItem);
+  }, [checkedItem, isAllChecked]);
+
+  useEffect(() => {
+    setCheckedItem([]);
+    setIsAllChecked(false);
+    setOpenInfo(false);
+  }, [isSuccess]);
 
   return (
-    <div className="w-[1240px] 3xl:w-[1560px] max-h-[597px] h-fit 3xl:max-h-[664px] 3xl:h-fit border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
-      <div className="sticky top-0 flex flex-wrap h-10 text-left bg-white border-b border-solid border-grayScale-200 b5 text-grayScale-500">
-        {/* 헤더 */}
-        <div className="w-[34px] ml-[15px] flex items-center">
-          <CheckBox
-            checked={selectAll}
-            onChange={(e) => handleSelectAll(e.target.checked)}
-          />
-        </div>
-        <div className="w-[118px] 3xl:w-[200px] flex items-center">번호</div>
-        <div className="w-[336px] 3xl:w-[400px] flex items-center">공급자</div>
-        <div className="w-[300px] 3xl:w-[400px] flex items-center">
-          공급 받는자
-        </div>
-        <div className="w-[174px] 3xl:w-[250px] flex items-center">
-          작성일자
-        </div>
-        <div className="w-[164px] 3xl:w-[180px] flex items-center">
-          공급가액
-        </div>
-        <div className="w-[61px] flex items-center text-center">변환 결과</div>
-      </div>
-      <div>
-        {/* 테이블 항목 반복 */}
-        <div className="w-[1220x] 3xl:w-[1560px] mb-[6px]">
-          {data.map((item, index) => (
-            <SubmitTableItem
-              key={index}
-              check={checkedItems[index]}
-              number={item.ntsTaxId}
-              supplier={item.suName}
-              retailer={item.ipName}
-              date={item.issueDate}
-              amount={item.grandTotal}
-              validationResult={item.isSuccess === "SUCCESS"}
-              onCheckChange={(checked) => handleItemCheck(index, checked)}
-              onClick={() => handleItemClick(item)}
+    <>
+      <div className="w-[1240px] 3xl:w-[1560px] max-h-[597px] h-fit 3xl:max-h-[664px] 3xl:h-fit border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
+        <div className="sticky top-0 flex flex-wrap h-10 text-left bg-white border-b border-solid border-grayScale-200 b5 text-grayScale-500">
+          {/* 헤더 */}
+          <div className="w-[34px] ml-[15px] flex items-center">
+            <CheckBox
+              checked={isAllChecked}
+              onChange={(e) => handleAllCheckChange(e.target.checked)}
             />
-          ))}
+          </div>
+          <div className="w-[118px] 3xl:w-[200px] flex items-center">번호</div>
+          <div className="w-[336px] 3xl:w-[400px] flex items-center">
+            공급자
+          </div>
+          <div className="w-[300px] 3xl:w-[400px] flex items-center">
+            공급 받는자
+          </div>
+          <div className="w-[174px] 3xl:w-[250px] flex items-center">
+            작성일자
+          </div>
+          <div className="w-[164px] 3xl:w-[180px] flex items-center">
+            공급가액
+          </div>
+          <div className="w-[61px] flex items-center text-center">
+            변환 결과
+          </div>
+        </div>
+        <div>
+          {/* 테이블 항목 반복 */}
+          <div className="w-[1220x] 3xl:w-[1560px] mb-[6px]">
+            {data.map((item, index) => (
+              <SubmitTableItem
+                key={index}
+                check={checkedItem.includes(item.ntsTaxId)}
+                number={item.ntsTaxId}
+                supplier={item.suName}
+                retailer={item.ipName}
+                date={item.issueDate}
+                amount={item.grandTotal}
+                validationResult={item.isSuccess === "SUCCESS"}
+                onCheckChange={(checked) =>
+                  handleCheckChange(checked, item.ntsTaxId)
+                }
+                onClick={() => console.log(`Clicked item ${item.ntsTaxId}`)}
+              />
+            ))}
+          </div>
         </div>
       </div>
-      {/* <SubmitDrawer
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        data={selectedItem}
-      /> */}
-      {selectAll && (
-        <div className="absolute top-[43px] left-1/2 transform -translate-x-1/2 flex px-5 py-[9px] bg-white rounded-xl shadow-[0px_3px_15px_0px_rgba(0,0,0,0.10),_0px_10px_30px_8px_rgba(0,0,0,0.05)] items-center">
-          <img src="/assets/icons/info.svg" alt="info" className="mr-[6px]" />
-          <p className="mr-2 b4 text-grayScale-700">
-            이 페이지 있는 항목 {data.length}건이 모두 선택되었습니다.
-          </p>
-          <p className="b3 text-secondary-500">
-            전체 {data.length}건 모두 선택
-          </p>
+      {openInfo && (
+        <div className="left-1/2 translate-x-[-50%] translate-y-[-50%] absolute top-[55px] px-5 py-2 border border-secondary-300 bg-white flex rounded-xl shadow-lg w-[573px] gap-[6px] items-center">
+          <img src="/assets/icons/info.svg" alt="info" />
+          {isAllChecked ? (
+            <div className="flex justify-between w-full b3 text-grayScale-700">
+              <div className="flex gap-[2px]">
+                전체 페이지에 있는 항목
+                <Tag
+                  text={
+                    isSuccess === "SUCCESS"
+                      ? `${correctCount}건`
+                      : `${inCorrectCount}건`
+                  }
+                />
+                이 모두 선택되었습니다.
+              </div>
+              <p
+                className="border-b text-secondary-500 b3 border-b-secondary-500"
+                onClick={() => setIsAllChecked(false)}
+              >
+                선택 취소
+              </p>
+            </div>
+          ) : (
+            <div className="flex justify-between w-full b3 text-grayScale-700">
+              <div className="flex gap-[2px]">
+                이 페이지에 있는 항목
+                <Tag text="13건" />만 선택되었습니다.
+              </div>
+              <p
+                className="border-b text-secondary-500 b3 border-b-secondary-500"
+                onClick={() => setIsAllChecked(true)}
+              >
+                전체
+                {isSuccess === "SUCCESS"
+                  ? `${correctCount}건`
+                  : `${inCorrectCount}건`}{" "}
+                모두 선택
+              </p>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

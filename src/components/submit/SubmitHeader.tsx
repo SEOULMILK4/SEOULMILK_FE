@@ -9,6 +9,7 @@ interface SubmitHeaderProps {
   setIsSuccess: (type: string) => void;
   correctCount: number;
   inCorrectCount: number;
+  checkedItem: number[];
 }
 
 const SubmitHeader = ({
@@ -16,6 +17,7 @@ const SubmitHeader = ({
   setIsSuccess,
   correctCount,
   inCorrectCount,
+  checkedItem,
 }: SubmitHeaderProps) => {
   const { openUpload, openSaveCheck } = useModalStore();
 
@@ -51,6 +53,7 @@ const SubmitHeader = ({
             size="medium"
             color="green"
             onClick={() => openSaveCheck("제출")}
+            disabled={checkedItem.length === 0 || isSuccess === "FAILED"}
           >
             <div className="flex items-center gap-1">
               <Submit />

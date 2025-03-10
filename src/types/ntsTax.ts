@@ -1,5 +1,5 @@
 export interface NtsTax {
-  isSuccess: string | null;
+  isSuccess?: string | null;
   ntsTaxId: number;
   issueId: string;
   issueDate: string;

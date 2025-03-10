@@ -7,8 +7,10 @@ interface PickerProps {
 
 /**
  *
- * @param correctCount - 일치 건수
- * @param inCorrectCount - 불일치 건수
+ * @param correctCount - 성공 건수
+ * @param inCorrectCount - 실패 건수
+ * @param isSuccess - 현재 Picker
+ * @param setIsSuccess - 현재 Picker의 값을 변경하는 함수
  * @returns
  */
 const CorrectPicker = ({
@@ -50,7 +52,7 @@ const CorrectPicker = ({
             ${isSuccess === type ? `${activeColor}` : "text-grayScale-500"}`}
           onClick={() => setIsSuccess(type)}
         >
-          {type === "SUCCESS" ? "일치" : "불일치"} {count}건
+          {type === "SUCCESS" ? "성공" : "실패"} {count}건
         </div>
       ))}
     </div>
