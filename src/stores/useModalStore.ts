@@ -25,7 +25,7 @@ interface OCRData {
 }
 
 interface ModalState {
-  isInvoiceViewOpen: boolean;
+  isSearchConditionOpen: boolean;
   isUploadOpen: boolean;
   isConvertOpen: boolean;
   isSuccessOpen: boolean;
@@ -38,6 +38,9 @@ interface ModalState {
   isSuccessText: boolean;
   successTextType: "사원 등록" | "대리점 등록" | "저장" | "삭제" | null;
   ocrData: OCRData | null;
+
+  openSearchCondition: () => void;
+  closeSearchCondition: () => void;
 
   openUpload: () => void;
   closeUpload: () => void;
@@ -69,7 +72,7 @@ interface ModalState {
 }
 
 const useModalStore = create<ModalState>((set) => ({
-  isInvoiceViewOpen: false,
+  isSearchConditionOpen: false,
   isUploadOpen: false,
   isConvertOpen: false,
   isSuccessOpen: false,
@@ -83,8 +86,10 @@ const useModalStore = create<ModalState>((set) => ({
   successTextType: null,
   ocrData: null,
 
-  openInvoiceView: () => set((state) => ({ ...state, isInvoiceViewOpen: true })),
-  closeInvoiceView: () => set((state) => ({ ...state, isInvoiceViewOpen: false })),
+  openSearchCondition: () =>
+    set((state) => ({ ...state, isSearchConditionOpen: true })),
+  closeSearchCondition: () =>
+    set((state) => ({ ...state, isSearchConditionOpen: false })),
 
   openUpload: () => set((state) => ({ ...state, isUploadOpen: true })),
   closeUpload: () => set((state) => ({ ...state, isUploadOpen: false })),

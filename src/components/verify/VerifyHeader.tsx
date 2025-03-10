@@ -1,16 +1,21 @@
+import useModalStore from "@/stores/useModalStore";
 import Button from "../common/button/Button";
 import HistoryPicker from "../common/control/HistoryPicker";
 import Picker from "../common/control/Picker";
 
 const VerifyHeader = () => {
+  const {openSearchCondition} = useModalStore();
   return (
     <div className="w-[1240px] 3xl:w-[1560px] mt-[37px]">
-      <h1 className="h1 text-grayScale-900">세금 계산서</h1>
+      <div className="flex">
+        <h1 className="h1 text-grayScale-900">이번 달 결과조회</h1>
+        <div className="flex h-full pt-[20px] b3 text-grayScale-700">전체nnn건</div>
+      </div>
       <div className="mt-[6px] flex justify-between">
         <div className="flex items-end gap-2">
           <HistoryPicker />
           <Picker totalCount={314} correctCount={300} inCorrectCount={14} />
-          <div className="w-[104px] h-8 center gap-1 text-grayScale-600 b3 cursor-pointer">
+          <div className="w-[104px] h-8 center gap-1 text-grayScale-600 b3 cursor-pointer" onClick={openSearchCondition}>
             <img
               src="/assets/icons/sliders.svg"
               alt="슬라이더"

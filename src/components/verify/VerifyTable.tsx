@@ -1,7 +1,8 @@
 import { useState } from "react";
 import CheckBox from "../common/control/CheckBox";
 import VerifyTableItem from "./VerifyTableItem";
-import VerifyDrawer from "./VerifyDrawer";
+import VrifyDrawer from "../drawer/VerifyDrawer";
+import { useDrawerStore } from "@/stores/useDrawerStore";
 
 interface ItemData {
   number: number;
@@ -11,6 +12,7 @@ interface ItemData {
   amount: number;
   validationResult: boolean;
   newly: boolean;
+  fileLink: string;
 }
 
 const tableData: ItemData[] = [
@@ -22,6 +24,8 @@ const tableData: ItemData[] = [
     amount: 9965000,
     validationResult: true,
     newly: true,
+    fileLink:
+      "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
   },
   {
     number: 2,
@@ -31,6 +35,8 @@ const tableData: ItemData[] = [
     amount: 12875000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://cdn013.negagea.net/dgsmidc/omr/seoul/web/univ_info2024/%ED%95%9C%EA%B5%AD%EA%B3%B5%ED%95%99%EB%8C%80%ED%95%99%EA%B5%90/%ED%95%9C%EA%B5%AD%EA%B3%B5%ED%95%99%EB%8C%80%ED%95%99%EA%B5%90_2025%ED%95%99%EB%85%84%EB%8F%84_%EC%88%98%EC%8B%9C%EB%AA%A8%EC%A7%91%EC%9A%94%EA%B0%95.pdf",
   },
   {
     number: 3,
@@ -40,6 +46,8 @@ const tableData: ItemData[] = [
     amount: 7450000,
     validationResult: true,
     newly: true,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -49,6 +57,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -58,6 +68,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -67,6 +79,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -76,6 +90,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -85,6 +101,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -94,6 +112,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -103,6 +123,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -112,6 +134,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -121,6 +145,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
   {
     number: 4,
@@ -130,6 +156,8 @@ const tableData: ItemData[] = [
     amount: 8900000,
     validationResult: false,
     newly: false,
+    fileLink:
+      "https://ko.wikipedia.org/wiki/%EA%B5%AC%EA%B8%80_%EB%A1%9C%EA%B3%A0#/media/%ED%8C%8C%EC%9D%BC:Google_2015_logo.svg",
   },
 ];
 
@@ -139,11 +167,11 @@ const VerifyTable = () => {
     new Array(tableData.length).fill(false)
   );
   const [selectedItem, setSelectedItem] = useState<ItemData | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { isVerifyDrawerOpen, openVerifyDrawer } = useDrawerStore();
 
   const handleItemClick = (item: ItemData) => {
     setSelectedItem(item);
-    setDrawerOpen(true);
+    openVerifyDrawer();
   };
 
   const handleSelectAll = (checked: boolean) => {
@@ -201,11 +229,7 @@ const VerifyTable = () => {
           ))}
         </div>
       </div>
-      <VerifyDrawer
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        data={selectedItem}
-      />
+      {isVerifyDrawerOpen && <VrifyDrawer data={selectedItem} />}
     </div>
   );
 };
