@@ -71,7 +71,7 @@ const SearchConditionModal = () => {
         <div>
           <div className="flex gap-[9px]">
             <div className="w-[218px] h-[50px]">
-              <Button size="medium" color="gray">
+              <Button size="medium" color="gray" onClick={closeSearchCondition}>
                 닫기
               </Button>
             </div>

@@ -6,22 +6,9 @@ import NotiMessage from "../common/notification/NotiMessage";
 import InvoiceDetails from "../verify/InvoiceDetails";
 import EditableInvoiceDetails from "../verify/EditableInvoiceDetails";
 
-interface VerifyDrawerProps {
-  data: {
-    number: number;
-    supplier: string;
-    retailer: string;
-    date: string;
-    amount: number;
-    validationResult: boolean;
-    newly: boolean;
-    fileLink: string; // Assuming this is where your link is stored
-  } | null;
-}
-
-const VerifyDrawer = ({ data }: VerifyDrawerProps) => {
+const VerifyDrawer = () => {
   const [isEdit, setIsEdit] = useState(false);
-  const [invoiceData] = useState({
+  const [invoiceData, setInvoiceData] = useState({
     labels: [
       "승인번호",
       "전자세금계산서 작성일자",
@@ -59,9 +46,20 @@ const VerifyDrawer = ({ data }: VerifyDrawerProps) => {
     const link = document.createElement("a"); // 다운로드 링크를 동적으로 생성
     link.href = fileURL; // 다운로드할 파일 URL 설정
     link.download = fileURL.split("/").pop() || "download"; // 다운로드할 파일 이름 설정
-    link.target = "_blank"
+    link.target = "_blank";
     link.click();
   };
+
+  const handleSave = (newData: {
+    labels: string[];
+    values: string[];
+    secondaryLabels: string[];
+    secondaryValues: string[];
+  }) => {
+    setInvoiceData(newData);
+    setIsEdit(false);
+  };
+
   return (
     <Drawer onClose={closeVerifyDrawer}>
       <div
@@ -110,7 +108,7 @@ const VerifyDrawer = ({ data }: VerifyDrawerProps) => {
           {!isEdit ? (
             <InvoiceDetails data={invoiceData} />
           ) : (
-            <EditableInvoiceDetails data={invoiceData} />
+            <EditableInvoiceDetails data={invoiceData} onSave={handleSave} />
           )}
 
           {!data.validationResult && (

@@ -39,6 +39,13 @@ const EditableInvoiceDetails = ({ data: initialData, onSave }: InvoiceDetailsPro
     return <div>No data available.</div>;
   }
 
+  const handleSave = () => {
+    if (data) {
+      // Call the onSave function with updated data
+      onSave(data);
+    }
+  };
+  
   return (
     <div>
       <div className="flex items-center justify-center mt-4">
@@ -83,15 +90,26 @@ const EditableInvoiceDetails = ({ data: initialData, onSave }: InvoiceDetailsPro
           </div>
           <div className="w-full border-l border-solid rounded-r-lg border-grayScale-200 bg-grayScale-25">
             <div className="ml-[7px] mr-[7px] my-[7px] b5 flex flex-col gap-2">
-              {data.secondaryValues.map((value, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  value={value}
-                  onChange={(e) => handleInputChange(index, e)}
-                  className="w-full border border-solid rounded px-[10px] h-7 bg-inherit border-grayScale-300 text-grayScale-900 focus:ring-1 focus:ring-secondary-500 focus:outline-none focus:caret-secondary-500"
-                />
-              ))}
+            {data.secondaryValues.map((value, index) => {
+                // 매출매입구분, 생성일, 생성시간은 div로 처리
+                if (index === 2 || index === 3 || index === 4) {
+                  return (
+                    <div key={index} className="w-full px-[10px] h-7 bg-inherit text-grayScale-900">
+                      {value}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <input
+                      key={index}
+                      type="text"
+                      value={value}
+                      onChange={(e) => handleInputChange(index, e)}
+                      className="w-full px-[10px] border border-solid rounded h-7 bg-inherit border-grayScale-300 text-grayScale-900 focus:ring-1 focus:ring-secondary-500 focus:outline-none focus:caret-secondary-500"
+                    />
+                  );
+                }
+              })}
             </div>
           </div>
         </div>
