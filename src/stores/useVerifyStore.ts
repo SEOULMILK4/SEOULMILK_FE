@@ -89,3 +89,13 @@ export const useVerifyStore = create<Store>((set) => ({
       currentMode: isValid ? "Validation Complete Mode" : "Normal Mode",
     }),
 }));
+
+interface TaxStore {
+  currentStatus: "APPROVAL" | "REJECTION";
+  setStatus: (status: "APPROVAL" | "REJECTION") => void;
+}
+
+export const useTaxStore = create<TaxStore>((set) => ({
+  currentStatus: "APPROVAL",
+  setStatus: (status) => set({ currentStatus: status }),
+}));
