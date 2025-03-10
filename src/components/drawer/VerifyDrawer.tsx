@@ -21,7 +21,7 @@ interface VerifyDrawerProps {
 
 const VerifyDrawer = ({ data }: VerifyDrawerProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [invoiceData, setInvoiceData] = useState({
+  const [invoiceData] = useState({
     labels: [
       "승인번호",
       "전자세금계산서 작성일자",
@@ -55,7 +55,13 @@ const VerifyDrawer = ({ data }: VerifyDrawerProps) => {
   const HandleEdit = () => {
     setIsEdit(true);
   };
-
+  const downloadFile = () => {
+    const link = document.createElement("a"); // 다운로드 링크를 동적으로 생성
+    link.href = fileURL; // 다운로드할 파일 URL 설정
+    link.download = fileURL.split("/").pop() || "download"; // 다운로드할 파일 이름 설정
+    link.target = "_blank"
+    link.click();
+  };
   return (
     <Drawer onClose={closeVerifyDrawer}>
       <div
@@ -77,7 +83,10 @@ const VerifyDrawer = ({ data }: VerifyDrawerProps) => {
               </p>
             </object>
           )}
-          <div className="center gap-1 rounded-[8px] bg-grayScale-25 w-full h-8">
+          <div
+            className="center gap-1 rounded-[8px] bg-grayScale-25 w-full h-8 cursor-pointer b5 text-grayScale-600"
+            onClick={downloadFile}
+          >
             <img src="/assets/icons/download.svg" alt="Download original" />
             원본 다운로드
           </div>
