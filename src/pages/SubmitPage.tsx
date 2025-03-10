@@ -13,32 +13,35 @@ import { NtsTax } from "@/types/ntsTax";
 interface NtsTaxData {
   listSize: number;
   ntsTaxList: NtsTax[];
-  totalElements: number;
+  successElements: number;
+  failedElements: number;
   totalPage: number;
 }
 
 const SubmitPage = () => {
   const [data, setData] = useState<NtsTaxData | null>(null);
+  const [isSuccess, setIsSuccess] = useState("SUCCESS");
   const [currentPage, setCurrentPage] = useState(1);
   const { isUploadOpen, isConvertOpen, isSaveCheckOpen, isSuccessSubmit } =
     useModalStore();
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getNtsTax(currentPage - 1);
+      const response = await getNtsTax(currentPage - 1, isSuccess);
       setData(response);
-
-      if (response) {
-        console.log(data);
-      }
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, isSuccess]);
 
   return (
     <div className="relative flex flex-col items-center w-full h-full gap-4 bg-grayScale-25">
-      <SubmitHeader />
+      <SubmitHeader
+        isSuccess={isSuccess}
+        setIsSuccess={setIsSuccess}
+        correctCount={data?.successElements || 0}
+        inCorrectCount={data?.failedElements || 0}
+      />
       {data ? (
         <SubmitTable data={data?.ntsTaxList ?? []} />
       ) : (

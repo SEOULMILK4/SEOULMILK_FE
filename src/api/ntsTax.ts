@@ -8,13 +8,16 @@ const accessToken = localStorage.getItem("accessToken");
  * @param page - 페이지
  * @returns
  */
-export const getNtsTax = async (page: number) => {
+export const getNtsTax = async (page: number, isSuccess: string) => {
   try {
-    const response = await api.get(`/nts-tax?page=${page}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await api.get(
+      `/nts-tax?page=${page}&isSuccess=${isSuccess}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
     if (response.data) {
       return response.data.data;
     }
