@@ -65,6 +65,7 @@ const VerifyDrawer = ({ validationResult, ntsTaxId }: VerifyDrawerProps) => {
   };
 
   const handleRevalidateSuccess = () => {
+    closeVerifyDrawer();
     openSuccessRevalidationModal();
   };
 
@@ -176,7 +177,12 @@ const VerifyDrawer = ({ validationResult, ntsTaxId }: VerifyDrawerProps) => {
             )}
           </div>
           <div className="mt-10">
-            {isRevalidating ? (
+            {isSuccess ? (
+              <NotiMessage
+                type="success"
+                text="홈택스 검증결과, 발급된 사실이 있습니다."
+              />
+            ) : isRevalidating ? (
               <NotiMessage type="validate" text="재검증 중입니다..." />
             ) : validationResult ? (
               <NotiMessage
