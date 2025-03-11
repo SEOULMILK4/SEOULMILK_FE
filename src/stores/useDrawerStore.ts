@@ -58,7 +58,7 @@ export const useTaxInvoiceStore = create<TaxInvoiceStore>((set, get) => ({
         createdTime: response.createdTime.trim(),
         imageUrl: response.imageUrl.trim(),
         suName: response.suName.trim(),
-        ipName: response.ipName.trim()
+        ipName: response.ipName.trim(),
       };
       set({ invoice: trimmedResponse });
     }
@@ -73,3 +73,17 @@ export const useTaxInvoiceStore = create<TaxInvoiceStore>((set, get) => ({
 }));
 
 export default useTaxInvoiceStore;
+
+interface RevalidateStore {
+  isRevalidating: boolean;
+  isSuccess: boolean;
+  setRevalidating: (isRevalidating: boolean) => void;
+  setValidationSuccess: (isSuccess: boolean) => void;
+}
+
+export const useRevalidateStore = create<RevalidateStore>((set) => ({
+  isRevalidating: false,
+  isSuccess: false, // 재검증 성공 상태
+  setRevalidating: (isRevalidating: boolean) => set({ isRevalidating }),
+  setValidationSuccess: (isSuccess: boolean) => set({ isSuccess }), // 재검증 성공 상태 설정
+}));

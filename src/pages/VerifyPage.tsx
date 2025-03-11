@@ -1,15 +1,12 @@
-import useModalStore from "@/stores/useModalStore";
-import UploadModal from "@/components/submit/modal/UploadModal";
-import ConvertModal from "@/components/submit/modal/ConvertModal";
-import CheckModal from "@/components/submit/modal/CheckModal";
 import VerifyHeader from "@/components/verify/VerifyHeader";
 import Pagination from "@/components/common/control/Pagination";
-import SuccessModal from "@/components/common/modal/SuccessModal";
 import { useEffect, useState } from "react";
 import { getEmployeeTax } from "@/api/employeeTax";
 import { employeeTax } from "@/types/employeeTax";
 import VerifyTable from "@/components/verify/VerifyTable";
 import { useTaxStore } from "@/stores/useVerifyStore";
+import SuccessRevalidationModal from "@/components/common/modal/SuccessRevalidationModal";
+import useModalStore from "@/stores/useModalStore";
 
 interface NtsTaxData {
   listSize: number;
@@ -24,8 +21,7 @@ const VerifyPage = () => {
   const [data, setData] = useState<NtsTaxData | null>(null);
   const currentStatus = useTaxStore((state) => state.currentStatus);
   const [currentPage, setCurrentPage] = useState(1);
-  const { isUploadOpen, isConvertOpen, isSaveCheckOpen, isSuccessSubmit } =
-    useModalStore();
+  const { isSuccessRevalidationModalOpen } = useModalStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,10 +53,7 @@ const VerifyPage = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-      {isUploadOpen && <UploadModal />}
-      {isConvertOpen && <ConvertModal />}
-      {isSaveCheckOpen && <CheckModal count={13} />}
-      {isSuccessSubmit && <SuccessModal count={13} />}
+      {isSuccessRevalidationModalOpen && <SuccessRevalidationModal />}
     </div>
   );
 };

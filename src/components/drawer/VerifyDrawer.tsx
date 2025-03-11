@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import useTaxInvoiceStore, { useDrawerStore } from "@/stores/useDrawerStore";
+import useTaxInvoiceStore, {
+  useDrawerStore,
+  useRevalidateStore,
+} from "@/stores/useDrawerStore";
 import Drawer from "./Drawer";
 import Button from "../common/button/Button";
 import NotiMessage from "../common/notification/NotiMessage";
@@ -11,6 +14,7 @@ import {
   revalidateEmployeeTax,
   TaxInvoiceUpdateRequest,
 } from "@/api/employeeTax";
+import useModalStore from "@/stores/useModalStore";
 
 interface VerifyDrawerProps {
   suName: string;
@@ -22,12 +26,30 @@ interface VerifyDrawerProps {
 const VerifyDrawer = ({ validationResult, ntsTaxId }: VerifyDrawerProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const { invoice, fetchInvoice, updateInvoice } = useTaxInvoiceStore();
-
+  const { isRevalidating, isSuccess } = useRevalidateStore();
+  const { closeVerifyDrawer, isVerifyDrawerOpen } = useDrawerStore();
+  const { openSuccessRevalidationModal } = useModalStore();
+  const store = useRevalidateStore();
   useEffect(() => {
     fetchInvoice(ntsTaxId);
   }, [ntsTaxId, fetchInvoice]);
 
-  const { closeVerifyDrawer, isVerifyDrawerOpen } = useDrawerStore();
+  const handleRevalidate = async () => {
+    try {
+      store.setRevalidating(true);
+      const response = await revalidateEmployeeTax(ntsTaxId);
+      if (response.success && response.data.resAuthenticity === "1") {
+        store.setValidationSuccess(true); // 재검증 성공 시
+      } else {
+        store.setValidationSuccess(false); // 재검증 실패 시
+      }
+    } catch (error) {
+      console.error("Revalidation Failed:", error);
+      store.setValidationSuccess(false); // 에러 발생 시 실패 처리
+    } finally {
+      store.setRevalidating(false);
+    }
+  };
 
   if (!invoice) return <div>No data available.</div>;
 
@@ -40,6 +62,10 @@ const VerifyDrawer = ({ validationResult, ntsTaxId }: VerifyDrawerProps) => {
 
   const handleInputChange = (field: "suName" | "ipName", value: string) => {
     updateInvoice(field, value);
+  };
+
+  const handleRevalidateSuccess = () => {
+    openSuccessRevalidationModal();
   };
 
   const formatDate = (dateString: string): string => {
@@ -150,35 +176,58 @@ const VerifyDrawer = ({ validationResult, ntsTaxId }: VerifyDrawerProps) => {
             )}
           </div>
           <div className="mt-10">
-            {validationResult ? (
+            {isRevalidating ? (
+              <NotiMessage type="validate" text="재검증 중입니다..." />
+            ) : validationResult ? (
               <NotiMessage
                 type="success"
-                text="홈택스 검증결과, 발급된 사실이 있습니다. "
+                text="홈택스 검증결과, 발급된 사실이 있습니다."
               />
             ) : (
-              <NotiMessage type="error" />
+              <NotiMessage
+                type="error"
+                text="홈택스 검증결과, 발급된 사실이 없습니다."
+              />
             )}
           </div>
           {!isEdit ? <InvoiceDetails /> : <EditableInvoiceDetails />}
 
           {!validationResult && (
             <div className="flex gap-2 mt-[14px]">
-              <Button
-                size="medium"
-                color="green"
-                onClick={isEdit ? handleSave : HandleEdit}
-              >
-                <div className="exist-icon">
-                  <img src="/assets/icons/edit.svg" alt="Edit" />
-                  {isEdit ? "저장" : "편집"}
-                </div>
-              </Button>
-              <Button size="medium" color="black" disabled={isEdit} onClick={()=>revalidateEmployeeTax(ntsTaxId)}>
-                <div className="exist-icon">
-                  <img src="/assets/icons/checkVerified.svg" alt="Verify" />
-                  홈택스 검증
-                </div>
-              </Button>
+              {isSuccess ? (
+                <Button
+                  size="medium"
+                  color="green"
+                  onClick={handleRevalidateSuccess}
+                >
+                  완료
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    size="medium"
+                    color="green"
+                    onClick={isEdit ? handleSave : HandleEdit}
+                    disabled={isRevalidating}
+                  >
+                    <div className="exist-icon">
+                      <img src="/assets/icons/edit.svg" alt="Edit" />
+                      {isEdit ? "저장" : "편집"}
+                    </div>
+                  </Button>
+                  <Button
+                    size="medium"
+                    color="black"
+                    disabled={isRevalidating || isEdit}
+                    onClick={handleRevalidate}
+                  >
+                    <div className="exist-icon">
+                      <img src="/assets/icons/checkVerified.svg" alt="Verify" />
+                      홈택스 검증
+                    </div>
+                  </Button>
+                </>
+              )}
             </div>
           )}
         </div>
