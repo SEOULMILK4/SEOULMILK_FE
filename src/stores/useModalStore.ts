@@ -25,7 +25,8 @@ interface OCRData {
 }
 
 interface ModalState {
-  isInvoiceViewOpen: boolean;
+  isSearchConditionOpen: boolean;
+  isSuccessRevalidationModalOpen: boolean;
   isUploadOpen: boolean;
   isConvertOpen: boolean;
   isSuccessOpen: boolean;
@@ -38,6 +39,13 @@ interface ModalState {
   isSuccessText: boolean;
   successTextType: "사원 등록" | "대리점 등록" | "저장" | "삭제" | null;
   ocrData: OCRData | null;
+
+
+  openSuccessRevalidationModal: () => void;
+  closeSuccessRevalidationModal: () => void;
+
+  openSearchCondition: () => void;
+  closeSearchCondition: () => void;
 
   openUpload: () => void;
   closeUpload: () => void;
@@ -69,7 +77,8 @@ interface ModalState {
 }
 
 const useModalStore = create<ModalState>((set) => ({
-  isInvoiceViewOpen: false,
+  isSearchConditionOpen: false,
+  isSuccessRevalidationModalOpen: false,
   isUploadOpen: false,
   isConvertOpen: false,
   isSuccessOpen: false,
@@ -83,9 +92,14 @@ const useModalStore = create<ModalState>((set) => ({
   successTextType: null,
   ocrData: null,
 
-  openInvoiceView: () => set((state) => ({ ...state, isInvoiceViewOpen: true })),
-  closeInvoiceView: () => set((state) => ({ ...state, isInvoiceViewOpen: false })),
-
+  openSuccessRevalidationModal: () =>
+    set((state) => ({ ...state, isSuccessRevalidationModalOpen: true })),
+  closeSuccessRevalidationModal: () =>
+    set((state) => ({ ...state, isSuccessRevalidationModalOpen: false })),
+  openSearchCondition: () =>
+    set((state) => ({ ...state, isSearchConditionOpen: true })),
+  closeSearchCondition: () =>
+    set((state) => ({ ...state, isSearchConditionOpen: false })),
   openUpload: () => set((state) => ({ ...state, isUploadOpen: true })),
   closeUpload: () => set((state) => ({ ...state, isUploadOpen: false })),
 
