@@ -62,24 +62,24 @@ const VerifyTableItem = ({
       </div>
       <div className="w-[118px] 3xl:w-[200px]">{formattedNumber}</div>
       <div
-        className={`w-[336px] 3xl:w-[400px] ${supplier === " " && "text-grayScale-300"}`}
+        className={`w-[336px] 3xl:w-[400px] ${supplier === "" && "text-grayScale-300"}`}
       >
-        {supplier === " " ? "OCR 누락" : supplier}
+        {supplier === "" ? "OCR 누락" : supplier}
       </div>
       <div
-        className={`w-[300px] 3xl:w-[400px] ${retailer === " " && "text-grayScale-300"}`}
+        className={`w-[300px] 3xl:w-[400px] ${retailer === "" && "text-grayScale-300"}`}
       >
-        {retailer === " " ? "OCR 누락" : retailer}
+        {retailer === "" ? "OCR 누락" : retailer}
       </div>
       <div
-        className={`w-[174px] 3xl:w-[250px] ${date === " " && "text-grayScale-300"}`}
+        className={`w-[174px] 3xl:w-[250px] ${date === "" && "text-grayScale-300"}`}
       >
-        {date === " " ? "OCR 누락" : date}
+        {date === "" ? "OCR 누락" : date}
       </div>
       <div
-        className={`w-[164px] 3xl:w-[180px] ${formattedAmount === " " && "text-grayScale-300"}`}
+        className={`w-[164px] 3xl:w-[180px] ${formattedAmount === "" && "text-grayScale-300"}`}
       >
-        {formattedAmount === " " ? "OCR 누락" : formattedAmount}
+        {formattedAmount === "" ? "OCR 누락" : formattedAmount}
       </div>
       {/* 수정된 부분 */}
       <div className="w-[53px] flex items-center">
