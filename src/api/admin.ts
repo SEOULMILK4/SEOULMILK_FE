@@ -13,10 +13,12 @@ export const postAdminLogin = async (masterKey: string) => {
     });
 
     if (response.data) {
-      const accessToken = response.data.data?.accessToken;
-      return accessToken;
+      localStorage.setItem("accessToken", response.data.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.data.refreshToken);
+      return true;
     }
   } catch (error) {
     console.log(error);
+    return false;
   }
 };
