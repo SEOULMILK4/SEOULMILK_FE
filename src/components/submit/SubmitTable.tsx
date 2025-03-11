@@ -85,26 +85,40 @@ const SubmitTable = ({
         </div>
         <div>
           {/* 테이블 항목 반복 */}
-          <div className="w-[1220x] 3xl:w-[1560px] mb-[6px]">
-            {data.map((item, index) => (
-              <SubmitTableItem
-                key={index}
-                check={checkedItem.includes(item.ntsTaxId)}
-                number={item.ntsTaxId}
-                supplier={item.suName}
-                retailer={item.ipName}
-                date={item.issueDate}
-                amount={item.grandTotal}
-                validationResult={item.isSuccess === "SUCCESS"}
-                onCheckChange={(checked) =>
-                  handleCheckChange(checked, item.ntsTaxId)
-                }
-                onClick={() => console.log(`Clicked item ${item.ntsTaxId}`)}
+
+          {data.length > 0 ? (
+            data.map((item, index) => (
+              <div className="w-[1220x] 3xl:w-[1560px] mb-[6px]">
+                <SubmitTableItem
+                  key={index}
+                  check={checkedItem.includes(item.ntsTaxId)}
+                  number={item.ntsTaxId}
+                  supplier={item.suName}
+                  retailer={item.ipName}
+                  date={item.issueDate}
+                  amount={item.grandTotal}
+                  validationResult={item.isSuccess === "SUCCESS"}
+                  onCheckChange={(checked) =>
+                    handleCheckChange(checked, item.ntsTaxId)
+                  }
+                  onClick={() => console.log(`Clicked item ${item.ntsTaxId}`)}
+                />
+              </div>
+            ))
+          ) : (
+            <div className="flex-col center bg-grayScale-50 h-[450px]">
+              <img
+                src="/assets/icons/milk.svg"
+                alt="milk"
+                className="mb-[32px]"
               />
-            ))}
-          </div>
+              <span className="mb-1 h1 text-grayScale-500">텅 비어있어요</span>
+              <p className="s2 text-grayScale-500">계산서를 업로드해주세요.</p>
+            </div>
+          )}
         </div>
       </div>
+
       {openInfo && (
         <div className="left-1/2 translate-x-[-50%] translate-y-[-50%] absolute top-[55px] px-5 py-2 border border-secondary-300 bg-white flex rounded-xl shadow-lg w-[573px] gap-[6px] items-center">
           <img src="/assets/icons/info.svg" alt="info" />
