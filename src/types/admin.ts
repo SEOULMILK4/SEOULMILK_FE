@@ -3,3 +3,8 @@ export interface Employee {
   name: string;
   email: string;
 }
+
+export interface Shop {
+  agencyName: string;
+  email: string;
+}

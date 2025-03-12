@@ -1,4 +1,4 @@
-import { Employee } from "@/types/admin";
+import { Employee, Shop } from "@/types/admin";
 import { useUserStore } from "@/stores/useUserStore";
 import { api } from "./index";
 
@@ -91,6 +91,24 @@ export const postAddEmployee = async (data: Employee[]) => {
         },
       }
     );
+
+    if (response.data.success) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+    console.error(error);
+  }
+};
+
+export const postAddShop = async (data: Shop[]) => {
+  const accessToken = localStorage.getItem("accessToken");
+  try {
+    const response = await api.post("/admin/employee/register-agencies", data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     if (response.data.success) {
       return true;
