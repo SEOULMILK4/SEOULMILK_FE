@@ -81,7 +81,10 @@ const LoginForm = () => {
               로그인
             </button>
             {role === "headquarters" && (
-              <button className="w-full text-grayScale-400 b2">
+              <button
+                className="w-full text-grayScale-400 b2"
+                onClick={() => navigate("/employeePW")}
+              >
                 비밀번호 재설정
               </button>
             )}
