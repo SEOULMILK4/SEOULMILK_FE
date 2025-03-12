@@ -29,7 +29,7 @@ export const navigationItems = [
     text: "계산서 통합 조회",
     url: "/lookup",
     icon: ListSearch,
-    roles: ["dealership", "admin"],
+    roles: ["dealership", "admin", "headquarters"],
   },
   {
     text: "공동인증서 등록",
