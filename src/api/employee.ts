@@ -32,6 +32,9 @@ export const postEmployeeLogin = async (
       });
 
       // 로컬 스토리지에 토큰 저장
+      localStorage.setItem("name", name);
+      localStorage.setItem("role", role);
+      localStorage.setItem("email", email);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
