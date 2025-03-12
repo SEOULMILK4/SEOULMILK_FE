@@ -9,9 +9,10 @@ import useConditionSearchStore from "@/stores/useConditionSearchStore";
 
 interface SearchConditionModalProps {
   page: number;
+  status: "APPROVAL" | "REJECTION";
 }
 
-const SearchConditionModal = ({ page }: SearchConditionModalProps) => {
+const SearchConditionModal = ({ page, status }: SearchConditionModalProps) => {
   const { closeSearchCondition } = useModalStore();
   const {
     startMonth,
@@ -47,7 +48,7 @@ const SearchConditionModal = ({ page }: SearchConditionModalProps) => {
   }, [startMonth, endMonth]);
 
   const handleSubmit = () => {
-    if (!isSearchMode) fetchSearchData(page);
+    if (!isSearchMode) fetchSearchData(page, status);
     setSearchMode(true);
     closeSearchCondition();
   };
