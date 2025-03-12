@@ -41,7 +41,7 @@ const VerifyPage = () => {
         setCurrentPage={setCurrentPage}
       />
       {isSuccessRevalidationModalOpen && <SuccessRevalidationModal />}
-      {isSearchConditionOpen && <SearchConditionModal page={currentPage}/>}
+      {isSearchConditionOpen && <SearchConditionModal page={currentPage} status={currentStatus}/>}
     </div>
   );
 };
