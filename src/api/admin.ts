@@ -1,3 +1,4 @@
+import { Employee } from "@/types/admin";
 import { useUserStore } from "@/stores/useUserStore";
 import { api } from "./index";
 
@@ -54,7 +55,7 @@ export const getAdminNtsTax = async (page: number, status?: string) => {
 };
 
 /**
- * 관리자자 - 세금 계산서 페이지 삭제
+ * 관리자 - 세금 계산서 페이지 삭제
  *
  * @param deleteNtsTaxIds
  * @returns
@@ -75,5 +76,27 @@ export const deleteNtsTaxIds = async (ntsTaxId: number[]) => {
     }
   } catch (error) {
     console.error("다중 삭제 API 호출 중 오류 발생:", error);
+  }
+};
+
+export const postAddEmployee = async (data: Employee[]) => {
+  const accessToken = localStorage.getItem("accessToken");
+  try {
+    const response = await api.post(
+      "/admin/employee/register-employees",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    if (response.data.success) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+    console.error(error);
   }
 };
