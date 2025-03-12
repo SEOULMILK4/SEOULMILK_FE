@@ -28,10 +28,13 @@ export const postEmployeeLogin = async (
         id: memberId, // 'memberId'를 스토어의 'id' 필드로 매핑
         name,
         email,
-        role
+        role,
       });
 
       // 로컬 스토리지에 토큰 저장
+      localStorage.setItem("name", name);
+      localStorage.setItem("role", role);
+      localStorage.setItem("email", email);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
