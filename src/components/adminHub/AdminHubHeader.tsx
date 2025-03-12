@@ -7,6 +7,7 @@ interface AdminHubHeaderProps {
   correctCount: number;
   inCorrectCount: number;
   checkedItem: number[];
+  onSubmit: () => void;
 }
 
 const AdminHubHeader = ({
@@ -14,6 +15,7 @@ const AdminHubHeader = ({
   correctCount,
   inCorrectCount,
   checkedItem,
+  onSubmit,
 }: AdminHubHeaderProps) => {
   const { openSearchCondition, openSaveCheck } = useModalStore();
 
@@ -53,6 +55,7 @@ const AdminHubHeader = ({
             size="medium"
             color="green"
             disabled={checkedItem.length === 0}
+            onClick={onSubmit}
           >
             <div className="flex gap-1">
               <img src="/assets/icons/csvExport.svg" alt="csv" />

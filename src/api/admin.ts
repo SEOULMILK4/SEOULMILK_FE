@@ -30,6 +30,13 @@ export const postAdminLogin = async (masterKey: string) => {
   }
 };
 
+/**
+ * 관리자 - 세금 계산서 통합 조회
+ *
+ * @param page - 조회할 page
+ * @param status - "APPROVAL" | "REJECTION" | undefined
+ * @returns
+ */
 export const getAdminNtsTax = async (page: number, status?: string) => {
   const accessToken = localStorage.getItem("accessToken");
 
@@ -57,7 +64,7 @@ export const getAdminNtsTax = async (page: number, status?: string) => {
 /**
  * 관리자 - 세금 계산서 페이지 삭제
  *
- * @param deleteNtsTaxIds
+ * @param deleteNtsTaxIds - 삭제할 세금 계산서
  * @returns
  */
 export const deleteNtsTaxIds = async (ntsTaxId: number[]) => {
@@ -79,6 +86,12 @@ export const deleteNtsTaxIds = async (ntsTaxId: number[]) => {
   }
 };
 
+/**
+ * 관리자 - 사원 일괄 등록
+ *
+ * @param data - 사원 데이터
+ * @returns
+ */
 export const postAddEmployee = async (data: Employee[]) => {
   const accessToken = localStorage.getItem("accessToken");
   try {
@@ -101,10 +114,16 @@ export const postAddEmployee = async (data: Employee[]) => {
   }
 };
 
+/**
+ * 관리자 - 대리점 일괄 등록
+ *
+ * @param data - 대리점 데이터
+ * @returns
+ */
 export const postAddShop = async (data: Shop[]) => {
   const accessToken = localStorage.getItem("accessToken");
   try {
-    const response = await api.post("/admin/employee/register-agencies", data, {
+    const response = await api.post("/admin/agency/register-agencies", data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -115,6 +134,34 @@ export const postAddShop = async (data: Shop[]) => {
     }
   } catch (error) {
     return false;
+    console.error(error);
+  }
+};
+
+/**
+ * 관리자 - 세금 계산서 csv 추출 - 선택된 id만
+ *
+ * @param ntsTaxId - CSV로 제출할 id 리스트
+ * @returns
+ */
+export const postCheckedCSV = async (ntsTaxId: number[]) => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  try {
+    const response = await api.post(
+      "/admin/nts-tax/csv",
+      { ntsTaxId: ntsTaxId },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    if (response.data) {
+      return response.data.data;
+    }
+  } catch (error) {
     console.error(error);
   }
 };
