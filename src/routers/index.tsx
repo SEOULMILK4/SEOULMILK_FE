@@ -6,8 +6,8 @@ import VerifyPage from "@/pages/VerifyPage";
 import SubmitPage from "@/pages/SubmitPage";
 import RegisterPage from "@/pages/AddUserPage";
 import UsersPage from "@/pages/UsersPage";
-import LookupPage from "@/pages/LookupPage";
 import CertPage from "@/pages/CertPage";
+import AdminHubPage from "@/pages/AdminHubPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -19,9 +19,9 @@ export const router = createBrowserRouter([
       { path: "submit", element: <SubmitPage /> },
       { path: "addUser", element: <RegisterPage /> },
       { path: "users", element: <UsersPage /> },
-      { path: "lookup", element: <LookupPage /> },
       { path: "cert", element: <CertPage /> },
       { path: "my", element: <MyPage /> },
+      { path: "adminHub", element: <AdminHubPage /> },
     ],
   },
 ]);
