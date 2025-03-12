@@ -1,7 +1,8 @@
-import { deleteNtsTaxIds, getAdminNtsTax } from "@/api/admin";
+import { deleteNtsTaxIds, getAdminNtsTax, postCheckedCSV } from "@/api/admin";
 import AdminHubHeader from "@/components/adminHub/AdminHubHeader";
 import AdminHubTable from "@/components/adminHub/AdminHubTable";
 import Pagination from "@/components/common/control/Pagination";
+import { downloadCSV } from "@/components/common/downloadCSV";
 import CheckModal from "@/components/submit/modal/CheckModal";
 import { useAdminPickerStore } from "@/stores/useAdminStore";
 import useModalStore from "@/stores/useModalStore";
@@ -51,6 +52,12 @@ const AdminHubPage = () => {
 
   const handleSubmit = async () => {
     try {
+      if (isAllChecked) {
+        console.log("여기 다시 구현해야해");
+      } else {
+        const response = await postCheckedCSV(checkedItem);
+        downloadCSV(response);
+      }
       setCheckedItem([]);
       setIsAllChecked(false);
       setOpenInfo(false);
@@ -73,6 +80,7 @@ const AdminHubPage = () => {
         correctCount={data?.approvedCnt || 0}
         inCorrectCount={data?.rejectedCnt || 0}
         checkedItem={checkedItem}
+        onSubmit={handleSubmit}
       />
       {data ? (
         <AdminHubTable
@@ -96,11 +104,7 @@ const AdminHubPage = () => {
         setCurrentPage={setCurrentPage}
       />
       {isSaveCheckOpen && (
-        <CheckModal
-          count={checkedItem.length}
-          onDelete={handleDelete}
-          onSubmit={handleSubmit}
-        />
+        <CheckModal count={checkedItem.length} onDelete={handleDelete} />
       )}
     </div>
   );
