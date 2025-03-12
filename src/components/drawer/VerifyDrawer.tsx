@@ -160,14 +160,14 @@ const VerifyDrawer = ({ validationResult, ntsTaxId }: VerifyDrawerProps) => {
             ) : (
               <>
                 <div
-                  className={`h2 ${!(invoice.suName === "") ? " " : "text-grayScale-300"}`}
+                  className={`h2 ${!(invoice.suName === "") ? "" : "text-grayScale-300"}`}
                 >
                   {!(invoice.suName === "")
                     ? invoice.suName
                     : "공급자명 OCR 실패"}
                 </div>
                 <div
-                  className={`h2 ${!(invoice.ipName === "") ? " " : "text-grayScale-300"}`}
+                  className={`h2 ${!(invoice.ipName === "") ? "" : "text-grayScale-300"}`}
                 >
                   {!(invoice.ipName === "")
                     ? invoice.ipName

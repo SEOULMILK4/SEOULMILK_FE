@@ -15,12 +15,13 @@ export interface OCRFile {
   chargeTotal: string;
   taxTotal: string;
   imageUrl: string;
+  fileName: string;
 }
 
 interface OCRData {
   failedCnt: number;
   successCnt: number;
-  totalCnt: 2;
+  totalCnt: number;
   ocrNtsTaxList: OCRFile[];
 }
 
@@ -29,9 +30,6 @@ interface ModalState {
   isSuccessRevalidationModalOpen: boolean;
   isUploadOpen: boolean;
   isConvertOpen: boolean;
-  isSuccessOpen: boolean;
-  isFailOpen: boolean;
-  isEditOpen: boolean;
   isSaveCheckOpen: boolean;
   saveCheckType: "삭제" | "제출" | null;
   isSuccessSubmit: boolean;
@@ -39,7 +37,6 @@ interface ModalState {
   isSuccessText: boolean;
   successTextType: "사원 등록" | "대리점 등록" | "저장" | "삭제" | null;
   ocrData: OCRData | null;
-
 
   openSuccessRevalidationModal: () => void;
   closeSuccessRevalidationModal: () => void;
@@ -52,15 +49,6 @@ interface ModalState {
 
   openConvert: () => void;
   closeConvert: () => void;
-
-  openSuccess: () => void;
-  closeSuccess: () => void;
-
-  openFail: () => void;
-  closeFail: () => void;
-
-  openEdit: () => void;
-  closeEdit: () => void;
 
   openSaveCheck: (type: "삭제" | "제출") => void;
   closeSaveCheck: () => void;
@@ -81,10 +69,7 @@ const useModalStore = create<ModalState>((set) => ({
   isSuccessRevalidationModalOpen: false,
   isUploadOpen: false,
   isConvertOpen: false,
-  isSuccessOpen: false,
   successType: null,
-  isFailOpen: false,
-  isEditOpen: false,
   isSaveCheckOpen: false,
   saveCheckType: null,
   isSuccessSubmit: false,
@@ -100,20 +85,16 @@ const useModalStore = create<ModalState>((set) => ({
     set((state) => ({ ...state, isSearchConditionOpen: true })),
   closeSearchCondition: () =>
     set((state) => ({ ...state, isSearchConditionOpen: false })),
+  openInvoiceView: () =>
+    set((state) => ({ ...state, isInvoiceViewOpen: true })),
+  closeInvoiceView: () =>
+    set((state) => ({ ...state, isInvoiceViewOpen: false })),
+
   openUpload: () => set((state) => ({ ...state, isUploadOpen: true })),
   closeUpload: () => set((state) => ({ ...state, isUploadOpen: false })),
 
   openConvert: () => set((state) => ({ ...state, isConvertOpen: true })),
   closeConvert: () => set((state) => ({ ...state, isConvertOpen: false })),
-
-  openSuccess: () => set((state) => ({ ...state, isSuccessOpen: true })),
-  closeSuccess: () => set((state) => ({ ...state, isSuccessOpen: false })),
-
-  openFail: () => set((state) => ({ ...state, isFailOpen: true })),
-  closeFail: () => set((state) => ({ ...state, isFailOpen: false })),
-
-  openEdit: () => set((state) => ({ ...state, isEditOpen: true })),
-  closeEdit: () => set((state) => ({ ...state, isEditOpen: false })),
 
   openSaveCheck: (type) =>
     set((state) => ({ ...state, isSaveCheckOpen: true, saveCheckType: type })),
