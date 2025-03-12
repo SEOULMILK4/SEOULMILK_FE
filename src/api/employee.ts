@@ -38,7 +38,7 @@ export const postEmployeeLogin = async (
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      return accessToken;
+      return true;
     } else {
       // 로그인 실패 처리
       console.error("Login failed:", response.data.message);
