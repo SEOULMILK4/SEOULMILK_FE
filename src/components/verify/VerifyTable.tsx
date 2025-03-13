@@ -60,7 +60,7 @@ const VerifyTable = ({
   };
 
   return (
-    <div className="relative w-[1240px] 3xl:w-[1560px] max-h-[597px] h-fit 3xl:max-h-[664px] 3xl:h-fit border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
+    <div className=" w-[1240px] 3xl:w-[1560px] max-h-[597px] h-fit 3xl:max-h-[664px] 3xl:h-fit border border-solid border-grayScale-200 rounded bg-white overflow-y-auto overflow-x-hidden mb-[49px]">
       <div className="sticky top-0 flex flex-wrap h-10 text-left bg-white border-b border-solid border-grayScale-200 b5 text-grayScale-500">
         <div className="w-[34px] ml-[15px] flex items-center">
           <CheckBox
@@ -139,7 +139,7 @@ const VerifyTable = ({
               <div className="flex gap-[2px]">
                 이 페이지에 있는 항목
                 <Tag
-                  text={`${((correctCount || 0) + (inCorrectCount || 0)) % 13}`}
+                  text={`${(correctCount || 0) + (inCorrectCount || 0) === 13 ? 13 : ((correctCount || 0) + (inCorrectCount || 0)) % 13}`}
                 />
                 건만 선택되었습니다.
               </div>
@@ -150,8 +150,7 @@ const VerifyTable = ({
                   handleSelectAllPage(true);
                 }}
               >
-                전체
-                {(correctCount || 0) + (inCorrectCount || 0)}건 모두 선택
+                전체 {(correctCount || 0) + (inCorrectCount || 0)} 건 모두 선택
               </p>
             </div>
           )}

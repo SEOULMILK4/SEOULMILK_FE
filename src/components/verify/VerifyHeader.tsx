@@ -17,9 +17,9 @@ const VerifyHeader = ({
   failedElements,
   successElements,
 }: VerifyHeaderProps) => {
-  const { openSearchCondition } = useModalStore();
+  const { openSearchCondition, openSuccessSubmit } = useModalStore();
   const { checkedItems, setCheckedItems, setSelectAll } = useSelectionStore();
-  const [isDeleting, setIsDeleting] = useState(false);
+
   const [isExporting, setIsExporting] = useState(false);
 
   const handleExportCSV = async () => {
@@ -38,6 +38,7 @@ const VerifyHeader = ({
       alert("CSV 추출 중 오류가 발생했습니다.");
     } finally {
       setIsExporting(false);
+      openSuccessSubmit("저장");
       setCheckedItems([]); // Clear checked items
       setSelectAll(false);
     }
@@ -51,13 +52,10 @@ const VerifyHeader = ({
 
     if (window.confirm("선택한 항목을 삭제하시겠습니까?")) {
       try {
-        setIsDeleting(true);
         await deleteEmployeeTax(checkedItems);
         setCheckedItems([]);
       } catch (error) {
         console.error("삭제 실패", error);
-      } finally {
-        setIsDeleting(false);
       }
     }
   };
@@ -88,12 +86,10 @@ const VerifyHeader = ({
             조회 조건
           </div>
           <div
-            className={`h-8 ml-3 cursor-pointer b3 ${checkedItems.length > 0 ? "text-red-500" : "text-grayScale-400"} center`}
+            className={`h-8 ml-3 cursor-pointer b3  text-grayScale-400 center`}
             onClick={handleDelete}
-            style={{ opacity: isDeleting ? 0.7 : 1 }}
           >
-            {isDeleting ? "삭제 중..." : "삭제"}{" "}
-            {checkedItems.length > 0 ? `(${checkedItems.length})` : ""}
+            삭제
           </div>
         </div>
         <div className="flex">

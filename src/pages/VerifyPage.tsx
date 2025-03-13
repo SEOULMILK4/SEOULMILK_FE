@@ -7,12 +7,16 @@ import useModalStore from "@/stores/useModalStore";
 import SearchConditionModal from "@/components/common/modal/SearchConditionModal";
 import VerifyTable from "@/components/verify/VerifyTable";
 import useConditionSearchStore from "@/stores/useConditionSearchStore";
+import SuccessModal from "@/components/common/modal/SuccessModal";
 
 const VerifyPage = () => {
   const { data, fetchData, currentStatus, currentPage, setCurrentPage } =
     useDataTaxStore();
-  const { isSuccessRevalidationModalOpen, isSearchConditionOpen } =
-    useModalStore();
+  const {
+    isSuccessSubmit,
+    isSuccessRevalidationModalOpen,
+    isSearchConditionOpen,
+  } = useModalStore();
   const { isSearchMode, fetchSearchData } = useConditionSearchStore();
 
   useEffect(() => {
@@ -62,6 +66,7 @@ const VerifyPage = () => {
           userType="employee"
         />
       )}
+      {isSuccessSubmit && <SuccessModal />}
     </div>
   );
 };

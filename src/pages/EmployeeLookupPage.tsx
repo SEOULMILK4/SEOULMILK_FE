@@ -7,12 +7,16 @@ import SearchConditionModal from "@/components/common/modal/SearchConditionModal
 import useConditionSearchStore from "@/stores/useConditionSearchStore";
 import EmployeeLookupHeader from "@/components/employeeLookup/EmployeeLookupHeader";
 import EmployeeLookupTable from "@/components/employeeLookup/EmployeeLookupTable";
+import SuccessModal from "@/components/common/modal/SuccessModal";
 
 const EmployeeLookupPage = () => {
   const { data, fetchAllData, currentStatus, currentPage, setCurrentPage } =
     useDataTaxStore();
-  const { isSuccessRevalidationModalOpen, isSearchConditionOpen } =
-    useModalStore();
+  const {
+    isSuccessSubmit,
+    isSuccessRevalidationModalOpen,
+    isSearchConditionOpen,
+  } = useModalStore();
   const { isSearchMode, fetchSearchData } = useConditionSearchStore();
 
   useEffect(() => {
@@ -63,6 +67,7 @@ const EmployeeLookupPage = () => {
           userType="employee"
         />
       )}
+      {isSuccessSubmit && <SuccessModal />}
     </div>
   );
 };

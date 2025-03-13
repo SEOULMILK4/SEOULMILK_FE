@@ -141,7 +141,7 @@ const EmployeeLookupTable = ({
               <div className="flex gap-[2px]">
                 이 페이지에 있는 항목
                 <Tag
-                  text={`${((correctCount || 0) + (inCorrectCount || 0)) % 13}`}
+                  text={`${(correctCount || 0) + (inCorrectCount || 0) === 13 ? 13 : ((correctCount || 0) + (inCorrectCount || 0)) % 13}`}
                 />
                 건만 선택되었습니다.
               </div>
