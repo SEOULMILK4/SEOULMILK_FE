@@ -27,7 +27,7 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    let isSuccess: boolean | null | undefined = false;
+    let isSuccess = false;
 
     if (role === "admin") {
       isSuccess = await postAdminLogin(data.employeeNumber);
@@ -46,13 +46,15 @@ const LoginForm = () => {
     }
 
     if (isSuccess) {
-      if (role === "admin") {
-        navigate("/addUser");
-      } else if (role === "dealership") {
-        navigate("/submit");
-      } else {
-        navigate("/verify");
-      }
+      setTimeout(() => {
+        if (role === "admin") {
+          navigate("/addUser");
+        } else if (role === "dealership") {
+          navigate("/submit");
+        } else {
+          navigate("/verify");
+        }
+      }, 500);
     }
   };
 
