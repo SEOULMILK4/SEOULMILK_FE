@@ -1,40 +1,35 @@
 import VerifyHeader from "@/components/verify/VerifyHeader";
 import Pagination from "@/components/common/control/Pagination";
-import { useEffect, useState } from "react";
-import { getEmployeeTax } from "@/api/employeeTax";
-import { employeeTax } from "@/types/employeeTax";
-import VerifyTable from "@/components/verify/VerifyTable";
-import { useTaxStore } from "@/stores/useVerifyStore";
+import { useEffect } from "react";
+import { HomeNtsTaxData, useDataTaxStore } from "@/stores/useVerifyStore";
 import SuccessRevalidationModal from "@/components/common/modal/SuccessRevalidationModal";
 import useModalStore from "@/stores/useModalStore";
-
-interface NtsTaxData {
-  listSize: number;
-  hometaxList: employeeTax[];
-  successElements: number;
-  totalElements: number;
-  failedElements: number;
-  totalPage: number;
-}
+import SearchConditionModal from "@/components/common/modal/SearchConditionModal";
+import VerifyTable from "@/components/verify/VerifyTable";
+import useConditionSearchStore from "@/stores/useConditionSearchStore";
 
 const VerifyPage = () => {
-  const [data, setData] = useState<NtsTaxData | null>(null);
-  const currentStatus = useTaxStore((state) => state.currentStatus);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { isSuccessRevalidationModalOpen } = useModalStore();
+  const { data, fetchData, currentStatus, currentPage, setCurrentPage } =
+    useDataTaxStore();
+  const { isSuccessRevalidationModalOpen, isSearchConditionOpen } =
+    useModalStore();
+  const { isSearchMode, fetchSearchData } = useConditionSearchStore();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await getEmployeeTax(currentPage - 1, currentStatus);
-      setData(response);
-
-      if (response) {
-        console.log(data);
+    const fetchAndSetData = async () => {
+      if (!isSearchMode) fetchData(currentPage, currentStatus);
+      else {
+        const data = await fetchSearchData(
+          currentPage,
+          "employee",
+          currentStatus
+        );
+        useDataTaxStore.getState().setData(data as HomeNtsTaxData);
       }
     };
-
-    fetchData();
-  }, [currentPage, currentStatus]);
+    fetchAndSetData();
+    console.log(data);
+  }, [currentPage, currentStatus, fetchData, isSearchMode, fetchSearchData]);
 
   return (
     <div className="relative flex flex-col items-center w-full h-full gap-4 bg-grayScale-25">
@@ -44,7 +39,7 @@ const VerifyPage = () => {
         failedElements={data?.failedElements}
       />
       {data ? (
-        <VerifyTable data={data?.hometaxList ?? []} />
+        <VerifyTable data={data.hometaxList ?? []} />
       ) : (
         <p>데이터 없음</p>
       )}
@@ -54,6 +49,13 @@ const VerifyPage = () => {
         setCurrentPage={setCurrentPage}
       />
       {isSuccessRevalidationModalOpen && <SuccessRevalidationModal />}
+      {isSearchConditionOpen && (
+        <SearchConditionModal
+          page={currentPage}
+          status={currentStatus}
+          userType="employee"
+        />
+      )}
     </div>
   );
 };

@@ -1,18 +1,29 @@
-import { useDataTaxStore } from "@/stores/useVerifyStore";
+import { useAdminPickerStore } from "@/stores/useAdminStore";
 import { useState } from "react";
 
 interface PickerProps {
+  totalCount?: number;
   correctCount?: number;
   inCorrectCount?: number;
 }
 
 enum PickType {
+  TOTAL = "전체",
   CORRECT = "일치",
   INCORRECT = "불일치",
 }
 
-const Picker = ({ correctCount, inCorrectCount }: PickerProps) => {
+const TotalPicker = ({
+  totalCount,
+  correctCount,
+  inCorrectCount,
+}: PickerProps) => {
   const allOptions = [
+    {
+      type: PickType.TOTAL,
+      count: totalCount,
+      activeColor: "text-grayScale-600",
+    },
     {
       type: PickType.CORRECT,
       count: correctCount,
@@ -25,8 +36,8 @@ const Picker = ({ correctCount, inCorrectCount }: PickerProps) => {
     },
   ];
 
-  const { setStatus } = useDataTaxStore();
-  const [currentPick, setCurrentPick] = useState<PickType>(PickType.CORRECT);
+  const { setStatus } = useAdminPickerStore();
+  const [currentPick, setCurrentPick] = useState<PickType>(PickType.TOTAL);
 
   const currentIndex = allOptions.findIndex(
     (option) => option.type === currentPick
@@ -34,7 +45,12 @@ const Picker = ({ correctCount, inCorrectCount }: PickerProps) => {
 
   const handlePick = (pickType: PickType) => {
     setCurrentPick(pickType);
-    const status = pickType === PickType.CORRECT ? "APPROVAL" : "REJECTION";
+    const status =
+      pickType === PickType.TOTAL
+        ? undefined
+        : pickType === PickType.CORRECT
+          ? "APPROVAL"
+          : "REJECTION";
     setStatus(status);
   };
 
@@ -60,4 +76,4 @@ const Picker = ({ correctCount, inCorrectCount }: PickerProps) => {
   );
 };
 
-export default Picker;
+export default TotalPicker;

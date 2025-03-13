@@ -13,16 +13,8 @@ import {
   postNtsTaxSubmit,
   postNtsTaxSubmitAll,
 } from "@/api/ntsTax";
-import { NtsTax } from "@/types/ntsTax";
+import { NtsTaxData } from "@/types/ntsTax";
 import { useEditDrawerStore } from "@/stores/useSubmitDrawerStore";
-
-interface NtsTaxData {
-  listSize: number;
-  ntsTaxList: NtsTax[];
-  successElements: number;
-  failedElements: number;
-  totalPage: number;
-}
 
 const SubmitPage = () => {
   const [data, setData] = useState<NtsTaxData | null>(null);

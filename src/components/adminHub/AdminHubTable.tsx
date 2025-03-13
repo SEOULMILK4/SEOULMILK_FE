@@ -1,45 +1,41 @@
-import { useEffect } from "react";
 import CheckBox from "../common/control/CheckBox";
-import SubmitTableItem from "./SubmitTableltem";
+import SubmitTableItem from "../submit/SubmitTableltem";
 import { NtsTax } from "@/types/ntsTax";
 import Tag from "../common/notification/Tag";
-import SubmitDrawer from "./drawer/SubmitDrawer";
-import {
-  useEditDrawerStore,
-  useSubmitInvoiceStore,
-} from "@/stores/useSubmitDrawerStore";
+import { useSubmitInvoiceStore } from "@/stores/useSubmitDrawerStore";
+import { useAdminPickerStore } from "@/stores/useAdminStore";
 
-interface SubmitTabelProps {
+interface AdminHubTablelProps {
   data: NtsTax[];
   checkedItem: number[];
   setCheckedItem: React.Dispatch<React.SetStateAction<number[]>>;
+  totalCount: number;
   correctCount: number;
   inCorrectCount: number;
-  isSuccess: string;
   isAllChecked: boolean;
   setIsAllChecked: React.Dispatch<React.SetStateAction<boolean>>;
   openInfo: boolean;
   setOpenInfo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SubmitTable = ({
+const AdminHubTable = ({
   data,
   checkedItem,
   setCheckedItem,
-  isSuccess,
+  totalCount,
   correctCount,
   inCorrectCount,
   isAllChecked,
   setIsAllChecked,
   openInfo,
   setOpenInfo,
-}: SubmitTabelProps) => {
-  const { isFailDrawerOpen, openFailDrawer } = useEditDrawerStore();
+}: AdminHubTablelProps) => {
+  const { currentStatus } = useAdminPickerStore();
   const { setSelectedItem } = useSubmitInvoiceStore();
 
   const handleItemClick = (item: NtsTax) => {
     setSelectedItem(item);
-    openFailDrawer();
+    setSelectedItem(item);
   };
 
   const handleCheckChange = (checked: boolean, ntsTaxId: number) => {
@@ -59,12 +55,6 @@ const SubmitTable = ({
       setOpenInfo(false);
     }
   };
-
-  useEffect(() => {
-    setCheckedItem([]);
-    setIsAllChecked(false);
-    setOpenInfo(false);
-  }, [isSuccess]);
 
   return (
     <>
@@ -141,9 +131,11 @@ const SubmitTable = ({
                 전체 페이지에 있는 항목
                 <Tag
                   text={
-                    isSuccess === "SUCCESS"
-                      ? `${correctCount}건`
-                      : `${inCorrectCount}건`
+                    currentStatus === undefined
+                      ? `${totalCount}건`
+                      : currentStatus === "APPROVAL"
+                        ? `${correctCount}건`
+                        : `${inCorrectCount}건`
                   }
                 />
                 이 모두 선택되었습니다.
@@ -166,18 +158,19 @@ const SubmitTable = ({
                 onClick={() => setIsAllChecked(true)}
               >
                 전체
-                {isSuccess === "SUCCESS"
-                  ? `${correctCount}건`
-                  : `${inCorrectCount}건`}{" "}
+                {currentStatus === undefined
+                  ? `${totalCount}건`
+                  : currentStatus === "APPROVAL"
+                    ? `${correctCount}건`
+                    : `${inCorrectCount}건`}
                 모두 선택
               </p>
             </div>
           )}
         </div>
       )}
-      {isFailDrawerOpen && isSuccess === "FAILED" && <SubmitDrawer />}
     </>
   );
 };
 
-export default SubmitTable;
+export default AdminHubTable;
