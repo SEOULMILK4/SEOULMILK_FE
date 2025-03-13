@@ -9,6 +9,7 @@ import AddUserPage from "@/pages/AddUserPage";
 import AdminHubPage from "@/pages/AdminHubPage";
 import EmployeePW from "@/pages/EmployeePW";
 import InvitePage from "@/pages/InvitePage";
+import UsersPage from "@/pages/UsersPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: "verify", element: <VerifyPage /> },
       { path: "submit", element: <SubmitPage /> },
       { path: "addUser", element: <AddUserPage /> },
+      { path: "users", element: <UsersPage /> },
       { path: "cert", element: <CertPage /> },
       { path: "my", element: <MyPage /> },
       { path: "adminHub", element: <AdminHubPage /> },

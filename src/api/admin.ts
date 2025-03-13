@@ -265,3 +265,33 @@ export const postInviteAgency = async (idList: number[]) => {
     return false;
   }
 };
+
+export const getEmployeeList = async (page: number) => {
+  const accessToken = localStorage.getItem("accessToken");
+  try {
+    const response = await api.get(`/admin/employee?page=${page}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (response) {
+      return response.data.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getShopList = async (page: number) => {
+  const accessToken = localStorage.getItem("accessToken");
+  try {
+    const response = await api.get(`/admin/agency?page=${page}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (response) {
+      return response.data.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
