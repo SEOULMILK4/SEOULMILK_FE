@@ -1,6 +1,10 @@
 import useModalStore from "@/stores/useModalStore";
 import Button from "../common/button/Button";
 import AllPicker from "../common/control/AllPicker";
+import { useSelectionStore } from "@/stores/useSelectionStore";
+import { deleteEmployeeTax, postEmployeeTaxCSV } from "@/api/employeeTax";
+import { useState } from "react";
+import { downloadCSV } from "../common/downloadCSV";
 
 interface VerifyHeaderProps {
   totalElements?: number;
@@ -8,12 +12,56 @@ interface VerifyHeaderProps {
   successElements?: number;
 }
 
-const VerifyHeader = ({
+const EmployeeLookupHeader = ({
   totalElements,
   failedElements,
   successElements,
 }: VerifyHeaderProps) => {
   const { openSearchCondition } = useModalStore();
+  const { checkedItems, setCheckedItems, setSelectAll } = useSelectionStore();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExportCSV = async () => {
+    if (checkedItems.length === 0) {
+      alert("CSV로 추출할 항목을 선택해주세요.");
+      return;
+    }
+
+    try {
+      setIsExporting(true);
+      const response = await postEmployeeTaxCSV(checkedItems);
+      console.log(response);
+      downloadCSV(response);
+    } catch (error) {
+      console.error("CSV 추출 실패", error);
+      alert("CSV 추출 중 오류가 발생했습니다.");
+    } finally {
+      setIsExporting(false);
+      setCheckedItems([]); // Clear checked items
+      setSelectAll(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (checkedItems.length === 0) {
+      alert("삭제할 항목을 선택해주세요.");
+      return;
+    }
+
+    if (window.confirm("선택한 항목을 삭제하시겠습니까?")) {
+      try {
+        setIsDeleting(true);
+        await deleteEmployeeTax(checkedItems);
+        setCheckedItems([]);
+      } catch (error) {
+        console.error("삭제 실패", error);
+      } finally {
+        setIsDeleting(false);
+      }
+    }
+  };
+
   return (
     <div className="w-[1240px] 3xl:w-[1560px] mt-[37px]">
       <div className="flex">
@@ -25,6 +73,7 @@ const VerifyHeader = ({
       <div className="mt-[6px] flex justify-between">
         <div className="flex items-end gap-2">
           <AllPicker
+            totalCount={totalElements}
             correctCount={successElements}
             inCorrectCount={failedElements}
           />
@@ -40,13 +89,23 @@ const VerifyHeader = ({
             />
             조회 조건
           </div>
-          <div className="h-8 ml-3 cursor-pointer b3 text-grayScale-400 center">
-            삭제
+          <div
+            className={`h-8 ml-3 cursor-pointer b3 ${checkedItems.length > 0 ? "text-red-500" : "text-grayScale-400"} center`}
+            onClick={handleDelete}
+            style={{ opacity: isDeleting ? 0.7 : 1 }}
+          >
+            {isDeleting ? "삭제 중..." : "삭제"}{" "}
+            {checkedItems.length > 0 ? `(${checkedItems.length})` : ""}
           </div>
         </div>
         <div className="flex">
           <div className="w-[137px] h-[50px] ">
-            <Button size="medium" color="green" disabled={true}>
+            <Button
+              size="medium"
+              color="green"
+              disabled={checkedItems.length === 0 || isExporting}
+              onClick={handleExportCSV}
+            >
               <div className="exist-icon">
                 <img src="/assets/icons/csvExport.svg" alt="csv추출" />
                 <div>CSV 추출</div>
@@ -59,4 +118,4 @@ const VerifyHeader = ({
   );
 };
 
-export default VerifyHeader;
+export default EmployeeLookupHeader;

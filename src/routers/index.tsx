@@ -9,6 +9,7 @@ import CertPage from "@/pages/CertPage";
 import AddUserPage from "@/pages/AddUserPage";
 import AdminHubPage from "@/pages/AdminHubPage";
 import EmployeePW from "@/pages/EmployeePW";
+import EmployeeLookupPage from "@/pages/EmployeeLookupPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: "cert", element: <CertPage /> },
       { path: "my", element: <MyPage /> },
       { path: "adminHub", element: <AdminHubPage /> },
+      { path: "employee-lookup", element: <EmployeeLookupPage /> },
     ],
   },
 ]);

@@ -41,7 +41,7 @@ const VerifyPage = () => {
       {data ? (
         <VerifyTable data={data.hometaxList ?? []} />
       ) : (
-        <p>데이터 없음</p>
+        <VerifyTable data={[]} />
       )}
       <Pagination
         totalPage={data?.totalPage || 1}

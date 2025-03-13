@@ -1,38 +1,35 @@
 import Pagination from "@/components/common/control/Pagination";
-import { useEffect, useState } from "react";
-import { getEmployeeTax } from "@/api/employeeTax";
-import { employeeTax } from "@/types/employeeTax";
-import VerifyTable from "@/components/verify/VerifyTable";
-import { useTaxStore } from "@/stores/useVerifyStore";
+import { useEffect } from "react";
+import { HomeNtsTaxData, useDataTaxStore } from "@/stores/useVerifyStore";
 import SuccessRevalidationModal from "@/components/common/modal/SuccessRevalidationModal";
 import useModalStore from "@/stores/useModalStore";
 import SearchConditionModal from "@/components/common/modal/SearchConditionModal";
-import EmployeeLookupHeader from "@/components/employeeLookup/employeeLookupHeader";
-
-interface NtsTaxData {
-  listSize: number;
-  hometaxList: employeeTax[];
-  successElements: number;
-  totalElements: number;
-  failedElements: number;
-  totalPage: number;
-}
+import useConditionSearchStore from "@/stores/useConditionSearchStore";
+import EmployeeLookupHeader from "@/components/employeeLookup/EmployeeLookupHeader";
+import EmployeeLookupTable from "@/components/employeeLookup/EmployeeLookupTable";
 
 const EmployeeLookupPage = () => {
-  const [data, setData] = useState<NtsTaxData | null>(null);
-  const currentStatus = useTaxStore((state) => state.currentStatus);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { data, fetchAllData, currentStatus, currentPage, setCurrentPage } =
+    useDataTaxStore();
   const { isSuccessRevalidationModalOpen, isSearchConditionOpen } =
     useModalStore();
+  const { isSearchMode, fetchSearchData } = useConditionSearchStore();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await getEmployeeTax(currentPage - 1, currentStatus);
-      setData(response);
+    const fetchAndSetData = async () => {
+      if (!isSearchMode) fetchAllData(currentPage, currentStatus);
+      else {
+        const data = await fetchSearchData(
+          currentPage,
+          "employee",
+          currentStatus
+        );
+        useDataTaxStore.getState().setData(data as HomeNtsTaxData);
+      }
     };
-
-    fetchData();
-  }, [currentPage, currentStatus]);
+    fetchAndSetData();
+    console.log("페지", data);
+  }, [currentPage, currentStatus, fetchAllData, isSearchMode, fetchSearchData]);
 
   return (
     <div className="relative flex flex-col items-center w-full h-full gap-4 bg-grayScale-25">
@@ -42,9 +39,13 @@ const EmployeeLookupPage = () => {
         failedElements={data?.failedElements}
       />
       {data ? (
-        <VerifyTable data={data?.hometaxList ?? []} />
+        <EmployeeLookupTable
+          data={data.hometaxList ?? []}
+          correctCount={data?.successElements}
+          inCorrectCount={data?.failedElements}
+        />
       ) : (
-        <p>데이터 없음</p>
+        <EmployeeLookupTable data={[]} />
       )}
       <Pagination
         totalPage={data?.totalPage || 1}
@@ -52,7 +53,13 @@ const EmployeeLookupPage = () => {
         setCurrentPage={setCurrentPage}
       />
       {isSuccessRevalidationModalOpen && <SuccessRevalidationModal />}
-      {isSearchConditionOpen && <SearchConditionModal />}
+      {isSearchConditionOpen && (
+        <SearchConditionModal
+          page={currentPage}
+          status={currentStatus}
+          userType="employee"
+        />
+      )}
     </div>
   );
 };

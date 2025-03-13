@@ -1,9 +1,10 @@
-import {  useState } from "react";
+import { useState } from "react";
 import CheckBox from "../common/control/CheckBox";
 import VerifyTableItem from "./VerifyTableItem";
 import { employeeTax } from "@/types/employeeTax";
 import VerifyDrawer from "../drawer/VerifyDrawer";
 import { useDrawerStore } from "@/stores/useDrawerStore";
+import EmptyData from "../common/EmptyData";
 
 interface SubmitTableProps {
   data: employeeTax[];
@@ -56,20 +57,24 @@ const VerifyTable = ({ data }: SubmitTableProps) => {
         <div className="w-[61px] flex items-center text-center">검증 결과</div>
       </div>
       <div>
-        {data.map((item, index) => (
-          <VerifyTableItem
-            key={index}
-            check={checkedItems[index]}
-            number={item.ntsTaxId}
-            supplier={item.suName}
-            retailer={item.ipName}
-            date={item.issueDate}
-            amount={item.grandTotal}
-            validationResult={item.status === "APPROVAL"}
-            onCheckChange={(checked) => handleItemCheck(index, checked)}
-            onClick={() => handleItemClick(item)}
-          />
-        ))}
+        {data.length > 0 ? (
+          data.map((item, index) => (
+            <VerifyTableItem
+              key={index}
+              check={checkedItems[index]}
+              number={item.ntsTaxId}
+              supplier={item.suName}
+              retailer={item.ipName}
+              date={item.issueDate}
+              amount={item.grandTotal}
+              validationResult={item.status === "APPROVAL"}
+              onCheckChange={(checked) => handleItemCheck(index, checked)}
+              onClick={() => handleItemClick(item)}
+            />
+          ))
+        ) : (
+          <EmptyData />
+        )}
       </div>
       {isVerifyDrawerOpen && selectedItem && (
         <VerifyDrawer

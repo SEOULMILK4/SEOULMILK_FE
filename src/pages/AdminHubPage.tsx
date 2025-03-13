@@ -71,6 +71,7 @@ const AdminHubPage = () => {
           recipientTags,
           currentStatus
         );
+        console.log("csv", response);
         downloadCSV(response);
       } else {
         const response = await postCheckedCSV(checkedItem);
