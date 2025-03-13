@@ -85,11 +85,11 @@ const EmployeeLookupItem = ({
       <div className="w-[53px] flex items-center">
         {validationResult ? (
           <div className="w-[47px] text-center text-secondary-500 bg-secondary-25 border-secondary-200 border border-solid h-6 rounded">
-            성공
+            일치
           </div>
         ) : (
           <div className="w-[47px] text-center text-primary-500 bg-primary-50 border-primary-200 border border-solid h-6 rounded">
-            실패
+            불일치
           </div>
         )}
       </div>

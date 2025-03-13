@@ -16,6 +16,10 @@ const EmployeeLookupPage = () => {
   const { isSearchMode, fetchSearchData } = useConditionSearchStore();
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [setCurrentPage]);
+
+  useEffect(() => {
     const fetchAndSetData = async () => {
       if (!isSearchMode) fetchAllData(currentPage, currentStatus);
       else {
@@ -28,7 +32,6 @@ const EmployeeLookupPage = () => {
       }
     };
     fetchAndSetData();
-    console.log("페지", data);
   }, [currentPage, currentStatus, fetchAllData, isSearchMode, fetchSearchData]);
 
   return (

@@ -1,37 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckBox from "../common/control/CheckBox";
 import VerifyTableItem from "./VerifyTableItem";
 import { employeeTax } from "@/types/employeeTax";
 import VerifyDrawer from "../drawer/VerifyDrawer";
 import { useDrawerStore } from "@/stores/useDrawerStore";
 import EmptyData from "../common/EmptyData";
+import { useSelectionStore } from "@/stores/useSelectionStore";
+import Tag from "../common/notification/Tag";
 
 interface SubmitTableProps {
   data: employeeTax[];
+  correctCount?: number;
+  inCorrectCount?: number;
 }
 
-const VerifyTable = ({ data }: SubmitTableProps) => {
-  const [selectAll, setSelectAll] = useState<boolean>(false);
-  const [checkedItems, setCheckedItems] = useState<boolean[]>(
-    new Array(data.length).fill(false)
-  );
+const VerifyTable = ({
+  data,
+  correctCount,
+  inCorrectCount,
+}: SubmitTableProps) => {
   const { openVerifyDrawer, isVerifyDrawerOpen } = useDrawerStore();
+  const { checkedItems, selectAll, setCheckedItems, setSelectAll } =
+    useSelectionStore();
   const [selectedItem, setSelectedItem] = useState<employeeTax | null>(null);
+
+  const [isAllChecked, setIsAllChecked] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCheckedItems([]); // 초기화
+  }, [data, setCheckedItems]);
 
   const handleItemClick = (item: employeeTax) => {
     setSelectedItem(item);
     openVerifyDrawer();
   };
 
-  const handleSelectAll = (checked: boolean) => {
+  // 전체 데이터 선택
+  const handleSelectAllPage = (checked: boolean) => {
     setSelectAll(checked);
-    setCheckedItems(new Array(data.length).fill(checked));
+    setCheckedItems(checked ? data.map((item) => item.ntsTaxId) : []);
   };
 
-  const handleItemCheck = (index: number, checked: boolean) => {
-    const updatedCheckedItems = [...checkedItems];
-    updatedCheckedItems[index] = checked;
-    setCheckedItems(updatedCheckedItems);
+  const handleSelectAll = (checked: boolean) => {
+    setSelectAll(checked);
+    const visibleIds = checked
+      ? data.slice(0, 13).map((item) => item.ntsTaxId)
+      : [];
+    setCheckedItems(visibleIds);
+  };
+
+  const handleItemCheck = (id: number, checked: boolean) => {
+    setCheckedItems((prevCheckedItems: number[]) => {
+      if (checked) {
+        return [...prevCheckedItems, id];
+      } else {
+        return prevCheckedItems.filter((item: number) => item !== id);
+      }
+    });
   };
 
   return (
@@ -61,14 +86,16 @@ const VerifyTable = ({ data }: SubmitTableProps) => {
           data.map((item, index) => (
             <VerifyTableItem
               key={index}
-              check={checkedItems[index]}
+              check={checkedItems.includes(item.ntsTaxId)}
               number={item.ntsTaxId}
               supplier={item.suName}
               retailer={item.ipName}
               date={item.issueDate}
               amount={item.grandTotal}
               validationResult={item.status === "APPROVAL"}
-              onCheckChange={(checked) => handleItemCheck(index, checked)}
+              onCheckChange={(checked) =>
+                handleItemCheck(item.ntsTaxId, checked)
+              }
               onClick={() => handleItemClick(item)}
             />
           ))
@@ -83,6 +110,52 @@ const VerifyTable = ({ data }: SubmitTableProps) => {
           ipName={selectedItem.ipName}
           ntsTaxId={selectedItem.ntsTaxId}
         />
+      )}
+      {checkedItems.length > 0 && (
+        <div className="left-1/2 translate-x-[-50%] translate-y-[-50%] absolute top-[55px] px-5 py-2 border border-secondary-300 bg-white flex rounded-xl shadow-lg w-[573px] gap-[6px] items-center">
+          <img src="/assets/icons/info.svg" alt="info" />
+          {isAllChecked ? (
+            <div className="flex justify-between w-full b3 text-grayScale-700">
+              <div className="flex gap-[2px]">
+                전체 페이지에 있는 항목
+                <Tag
+                  text={`${(correctCount || 0) + (inCorrectCount || 0)}건`}
+                />
+                이 모두 선택되었습니다.
+              </div>
+              <p
+                className="border-b text-secondary-500 b3 border-b-secondary-500 cursor-pointer"
+                onClick={() => {
+                  setIsAllChecked(false);
+                  setCheckedItems([]);
+                  setSelectAll(false);
+                }}
+              >
+                선택 취소
+              </p>
+            </div>
+          ) : (
+            <div className="flex justify-between w-full b3 text-grayScale-700">
+              <div className="flex gap-[2px]">
+                이 페이지에 있는 항목
+                <Tag
+                  text={`${((correctCount || 0) + (inCorrectCount || 0)) % 13}`}
+                />
+                건만 선택되었습니다.
+              </div>
+              <p
+                className="border-b text-secondary-500 b3 border-b-secondary-500 cursor-pointer"
+                onClick={() => {
+                  setIsAllChecked(true);
+                  handleSelectAllPage(true);
+                }}
+              >
+                전체
+                {(correctCount || 0) + (inCorrectCount || 0)}건 모두 선택
+              </p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

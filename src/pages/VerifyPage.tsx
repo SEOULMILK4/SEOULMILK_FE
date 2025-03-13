@@ -16,6 +16,9 @@ const VerifyPage = () => {
   const { isSearchMode, fetchSearchData } = useConditionSearchStore();
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [setCurrentPage]);
+  useEffect(() => {
     const fetchAndSetData = async () => {
       if (!isSearchMode) fetchData(currentPage, currentStatus);
       else {
@@ -28,7 +31,6 @@ const VerifyPage = () => {
       }
     };
     fetchAndSetData();
-    console.log(data);
   }, [currentPage, currentStatus, fetchData, isSearchMode, fetchSearchData]);
 
   return (
@@ -39,7 +41,11 @@ const VerifyPage = () => {
         failedElements={data?.failedElements}
       />
       {data ? (
-        <VerifyTable data={data.hometaxList ?? []} />
+        <VerifyTable
+          data={data.hometaxList ?? []}
+          correctCount={data?.successElements}
+          inCorrectCount={data?.failedElements}
+        />
       ) : (
         <VerifyTable data={[]} />
       )}
