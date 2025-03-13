@@ -8,6 +8,7 @@ interface UsersTableItemProps {
   email: string;
   agency: string;
   onCheckChange: (checked: boolean) => void;
+  onClick: () => void;
 }
 
 /**
@@ -30,6 +31,7 @@ const UsersTableItem = ({
   email,
   agency,
   onCheckChange,
+  onClick,
 }: UsersTableItemProps) => {
   const formattedNumber = number.toString().padStart(3, "0");
 
@@ -48,6 +50,7 @@ const UsersTableItem = ({
   return (
     <div
       className={`flex items-center h-10 mt-[6px] mx-[7px] text-grayScale-700 b4 rounded-lg ${rowClass} group hover:bg-grayScale-50 `}
+      onClick={onClick}
     >
       <div className="w-[34px] center mr-2" onClick={handleCheckboxClick}>
         <CheckBox checked={check} onChange={handleCheckboxChange} />
@@ -55,7 +58,7 @@ const UsersTableItem = ({
       <div className="w-[118px] 3xl:w-[200px]">{formattedNumber}</div>
       <div className="w-[336px] 3xl:w-[400px]">{name}</div>
       <div className="w-[300px] 3xl:w-[400px]">{id}</div>
-      <div className="w-[164px] 3xl:w-[400px]">{email}</div>
+      <div className="w-[310px] 3xl:w-[400px]">{email}</div>
       <div className="w-[53px] flex items-center">{agency}</div>
     </div>
   );

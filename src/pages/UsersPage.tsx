@@ -3,6 +3,7 @@ import Pagination from "@/components/common/control/Pagination";
 import UsersHeader from "@/components/users/UsersHeader";
 import UsersTable from "@/components/users/UsersTable";
 import { useUserPickerStore } from "@/stores/useAdminStore";
+import { useUserDrawerStore } from "@/stores/useSubmitDrawerStore";
 import { useEffect, useState } from "react";
 
 export interface Employee {
@@ -34,6 +35,7 @@ const UsersPage = () => {
   const [checkedItem, setCheckedItem] = useState<number[]>([]);
   const [isAllChecked, setIsAllChecked] = useState(false);
   const { currentPick } = useUserPickerStore();
+  const { isUserDrawerOpen } = useUserDrawerStore();
 
   const fetchData = async () => {
     if (currentPick === "EMPLOYEE") {
@@ -51,7 +53,7 @@ const UsersPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, currentPick]);
+  }, [currentPage, currentPick, isUserDrawerOpen]);
 
   return (
     <div className="relative flex flex-col items-center w-full h-full gap-4 bg-grayScale-25">

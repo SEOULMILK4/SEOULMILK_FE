@@ -15,7 +15,7 @@ const UsersHeader = ({ checkedItem }: UserHeaderProps) => {
         <RequestPicker />
         <div className="w-[120px]">
           <Button
-            size="large"
+            size="medium"
             color="green"
             disabled={checkedItem.length === 0}
           >

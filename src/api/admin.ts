@@ -295,3 +295,57 @@ export const getShopList = async (page: number) => {
     console.error(error);
   }
 };
+
+/**
+ * 담당 가능한 대리점 조회
+ *
+ * @param employeeId
+ * @returns
+ */
+export const getEmployeeAgency = async (employeeId: number) => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  try {
+    const response = await api.get(
+      `/admin/employee/${employeeId}/assign-agency`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+
+    if (response.data) {
+      return response.data.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * 담당 대리점 배정
+ *
+ * @param employeeId
+ * @param idList
+ */
+export const postAssignAgency = async (
+  employeeId: number,
+  idList: number[]
+) => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  try {
+    const response = await api.post(
+      `/admin/employee/${employeeId}/assign-agency`,
+      { idList: idList },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+
+    if (response.data) {
+      return true;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

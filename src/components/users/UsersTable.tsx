@@ -2,6 +2,11 @@ import { Agency, Employee } from "@/pages/UsersPage";
 import { useUserPickerStore } from "@/stores/useAdminStore";
 import CheckBox from "../common/control/CheckBox";
 import UsersTableItem from "./UsersTableItem";
+import {
+  useEmployeeStore,
+  useUserDrawerStore,
+} from "@/stores/useSubmitDrawerStore";
+import EmployeeDrawer from "./EmployeeDrawer";
 
 interface UsersTableProps {
   data: Employee[] | Agency[];
@@ -19,6 +24,13 @@ const UsersTable = ({
   setIsAllChecked,
 }: UsersTableProps) => {
   const { currentPick } = useUserPickerStore();
+  const { setSelectedItem } = useEmployeeStore();
+  const { isUserDrawerOpen, openUserDrawer } = useUserDrawerStore();
+
+  const handleItemClick = (item: Employee) => {
+    setSelectedItem(item);
+    openUserDrawer();
+  };
 
   const handleCheckChange = (checked: boolean, id: number) => {
     setCheckedItem((prev) =>
@@ -54,7 +66,7 @@ const UsersTable = ({
           <div className="w-[300px] 3xl:w-[400px] flex items-center">
             {currentPick === "EMPLOYEE" ? "사번(아이디)" : "아이디"}
           </div>
-          <div className="w-[164px] 3xl:w-[400px] flex items-center">
+          <div className="w-[310px] 3xl:w-[400px] flex items-center">
             이메일
           </div>
           <div className="w-[61px] flex items-center text-center">
@@ -94,6 +106,11 @@ const UsersTable = ({
                     onCheckChange={(checked) =>
                       handleCheckChange(checked, item.id)
                     }
+                    onClick={() => {
+                      if (currentPick === "EMPLOYEE") {
+                        handleItemClick(item as Employee);
+                      }
+                    }}
                   />
                 </div>
               );
@@ -111,6 +128,7 @@ const UsersTable = ({
           )}
         </div>
       </div>
+      {isUserDrawerOpen && <EmployeeDrawer />}
     </>
   );
 };
