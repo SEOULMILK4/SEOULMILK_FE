@@ -183,3 +183,48 @@ export const getAgencyList = async (page: number) => {
     console.error(error);
   }
 };
+
+export const getNtsTaxCSV = async (
+  startMonth: Date | null,
+  endMonth: Date | null,
+  supplierTags: string[],
+  recipientTags: string[],
+  status?: string
+) => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  const params = new URLSearchParams();
+
+  if (startMonth) {
+    params.append("startAt", startMonth.toISOString().split("T")[0]);
+  }
+  if (endMonth) {
+    params.append("endAt", endMonth.toISOString().split("T")[0]);
+  }
+
+  supplierTags.forEach((tag) => {
+    params.append("suNameList", tag);
+  });
+
+  recipientTags.forEach((tag) => {
+    params.append("ipNameList", tag);
+  });
+
+  try {
+    const url = status
+      ? `/admin/nts-tax/csv?status=${status}&${params.toString()}`
+      : `/admin/nts-tax/csv?${params.toString()}`;
+
+    const response = await api.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (response.data) {
+      return response.data.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
