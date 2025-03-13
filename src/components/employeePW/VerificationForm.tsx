@@ -25,7 +25,7 @@ const VerificationForm = ({
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onChange" });
-  const { agencyId } = useInviteAgencyStore();
+  const { email } = useInviteAgencyStore();
   const [timeLeft, setTimeLeft] = useState(5 * 60);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -65,8 +65,8 @@ const VerificationForm = ({
       if (success) {
         setStage(2);
       }
-    } else if (agencyId) {
-      const success = await postAgencyOTPVerify(agencyId, data.otpNumber);
+    } else if (email) {
+      const success = await postAgencyOTPVerify(email, data.otpNumber);
       if (success) {
         setStage(2);
       }

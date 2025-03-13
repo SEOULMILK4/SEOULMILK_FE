@@ -104,17 +104,14 @@ export const postRequestOTP = async (email: string) => {
 /**
  * 대리점 - 인증코드 입력
  *
- * @param agencyId - 사원번호
+ * @param email - 이메일
  * @param otpNumber - otp
  * @returns
  */
-export const postAgencyOTPVerify = async (
-  agencyId: string,
-  otpNumber: string
-) => {
+export const postAgencyOTPVerify = async (email: string, otpNumber: string) => {
   try {
     const response = await api.post("/agency/register/otp/verify", {
-      agencyId,
+      email,
       otpNumber,
     });
 
