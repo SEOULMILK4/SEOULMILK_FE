@@ -13,14 +13,19 @@ const UsersHeader = ({ checkedItem }: UserHeaderProps) => {
       </h1>
       <div className="flex items-end justify-between w-full mt-[6px]">
         <RequestPicker />
-        <div className="w-[120px]">
-          <Button
-            color="green"
-            size="medium"
-            disabled={checkedItem.length === 0}
-          >
-            삭제
-          </Button>
+        <div className="flex items-end gap-2">
+          <p className="b4 text-secondary-300">
+            * 담당 배리점 배정 및 확인은 상세페이지에서 가능합니다.
+          </p>
+          <div className="w-[120px]">
+            <Button
+              color="green"
+              size="medium"
+              disabled={checkedItem.length === 0}
+            >
+              삭제
+            </Button>
+          </div>
         </div>
       </div>
     </div>
